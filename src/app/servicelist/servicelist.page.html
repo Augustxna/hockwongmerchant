@@ -1,0 +1,57 @@
+<ion-content>
+
+  <div
+    style="position:fixed;top:0;left:0;height:50px;display:flex;align-items:center;z-index: 1002;width: 100vw;background:transparent;justify-content: space-between;">
+    <div
+      style='margin-left:15px;height:25px;width:25px;display:flex;justify-content: center;align-items: center;border-radius:100%;background-color: rgba(0,0,0,0.3);'>
+      <ion-icon (click)='back()' style='color:white;font-size:20px;margin-right:3px;' name="chevron-back-outline">
+      </ion-icon>
+    </div>
+  </div>
+
+  <div style='padding:15px;padding-top:60px;width:100%;'>
+    <div style='font-size:16px;color:#333333;font-weight: bold;margin-bottom: 0px;'>{{language['Services Type'][lang]}}
+    </div>
+
+    <div style="display: flex; align-items: center; flex-wrap: wrap;">
+      <div *ngFor="let x of services" (click)='edit(x)' style='justify-content: flex-start;padding: 10px; 
+        border-radius:5px;border:1px solid #eeeeee;margin-right:7px;margin-bottom:7px;width:max-content'>
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div style='font-size:13px;color:#333333;letter-spacing: 1px;'>{{x.name}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf='add==false' (click)='add=true' style="padding: 10px; margin-right: 10px; margin-bottom: 10px; font-size: 15px;  
+      letter-spacing: .7px; border-radius: 10px; color: #0052c8; border-radius: 10px; font-weight: bold;">
+      + {{language['Add Service'][lang]}}
+    </div>
+
+    <div *ngIf='add==true' style='width:100%;'>
+      <div style='width:100%;display:flex;justify-content: space-between;margin-bottom:10px;'>
+        <div style='width:100%;height:36px;'>
+          <div style='border-bottom:1px solid #eeeeee;padding:0px 15px;width:100%;'>
+            <ion-input [(ngModel)]="servicename"
+              style='--padding-start:0px;--padding-end:0px;--background:transparent;font-size:14px;color:#333333;'
+              placeholder="Service Name"></ion-input>
+          </div>
+        </div>
+      </div>
+
+
+      <div style='display:flex;align-items: center;justify-content: flex-end;width:100%;padding-top:10px;'>
+        <div (click)='adder()'
+          style='padding:7px 15px;font-size:14px;background-color: #50bb50;color:white;border-radius:5px;margin-right:10px;'>
+          {{language['Create'][lang]}}</div>
+        <div (click)='add=false'
+          style='padding:7px 15px;font-size:14px;background-color: #ff4b4b;color:white;border-radius:5px;'>
+          {{language['Cancel'][lang]}}</div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+</ion-content>

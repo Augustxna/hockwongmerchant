@@ -1,0 +1,200 @@
+<ion-content>
+
+  <div
+    style='width:100vw;top:0;left:0;position: sticky;z-index: 1000;background: white;border-bottom: 1px solid #eeeeee;'>
+    <div style='width:100vw;height:50px;display:flex;justify-content: flex-start;align-items: center;z-index:1000;'>
+      <div (click)='close()'
+        style='margin-left:15px;height:25px;width:25px;display:flex;justify-content: center;align-items: center;border-radius:100%;z-index: 1000; background: rgba(255,255,255,0.1);'>
+        <ion-icon style='color:#ef4748;font-size:20px;margin-right:3px;' name="close"></ion-icon>
+      </div>
+      <div
+        style='color: #333333;font-size:16px;font-weight: bold;letter-spacing: 1px;width: calc( 100vw - 40px - 40px );white-space: nowrap;overflow: hidden;text-overflow: ellipsis;margin-top:2px;text-align: center;'>
+        {{ language["New Entry"][lang]}}</div>
+    </div>
+  </div>
+
+
+  <div style="width: 100%; height: 100%; padding: 30px 15px;">
+
+    <div style="font-size: 13px; font-weight: 600; color: #37516f; margin-bottom: 10px;">{{
+      language["Module Name"][lang]}}</div>
+    <div
+      style="width: calc(100% ); display: flex; align-items: center; justify-content: space-between; background-color: #f7f8fc; border-radius: 5px; padding-right: 10px; position: relative;margin-bottom: 30px;">
+      <ion-input style="font-size: 14px; font-weight: 500; color: #666666;" [(ngModel)]="data['name']"
+        placeholder="eg. West Malaysia"></ion-input>
+    </div>
+
+
+    <div style="width: 100%; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed #e3e5e8;">
+      <div style="font-size: 13px; font-weight: 600; color: #37516f; margin-bottom: 10px;">{{
+        language["Select States"][lang]}}</div>
+
+      <div style="display: flex; flex-wrap: wrap; ">
+        <div *ngFor="let x of filterRegion2()" [ngClass]="findExist(x) ? 'selected' : 'selectedx'" (click)="selects(x)" style="width: calc( (100% / 3) - 10px );
+         margin: 5px; padding: 5px 10px; text-align: center; border-radius: 10px;  border: 1px solid #37516f; font-size: 12px;">{{x}}
+        </div>
+      </div>
+
+      <!-- <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+        <div
+          style="width: calc(100% ); display: flex; align-items: center; justify-content: space-between; background-color: #f7f8fc; border-radius: 5px; padding-right: 10px; position: relative;">
+          <ion-input style="font-size: 14px; font-weight: 500; color: #666666;" [(ngModel)]="keyword"
+            placeholder="Search"></ion-input>
+          <ion-icon *ngIf="keyword" id="button" (click)="offSearch()" style="font-size: 20px; color: #666666;"
+            name="close"></ion-icon>
+
+          <div
+            style="width: calc(100% - 8px); max-height: 200px;overflow-y: auto; padding: 0px 10px; background-color: #ffffff; box-shadow: 1px 3px 5px rgba(153, 153, 153, .5); border-radius: 0px 0px 2px 2px; position: absolute; top: 36px; left: 4px; z-index: 1000;"
+            [hidden]="!keyword">
+            <div id="button" *ngFor="let x of filterRegion(); let i = index; let l = last;" (click)="setState(x)">
+              <div
+                [ngStyle]="{'border-bottom': l ? ' 1px solid transparent' : '1px solid #e3e5e8', 'color': findExist(x) ? '#ef4748' : '#777777'}"
+                style="width: 100%; font-size: 14px; font-weight: 500;white-space: nowrap; overflow: hidden; text-overflow: clip; padding: 5px 0px;">
+                {{x}}</div>
+            </div>
+          </div>
+        </div>
+
+      </div> -->
+
+      <!-- <div style="width: 100%;">
+        <div style="width: 100%; display: flex; flex-wrap: wrap;">
+          <div *ngFor="let x of data['state']; let i = index;"
+            style="display: flex; align-items: center; justify-content: space-between; height: 30px; border: 1px solid #638ecb; border-radius: 5px; margin-bottom: 10px; margin-right: 10px;padding: 0 10px;">
+            <div style="font-size: 12px; font-weight: 600; color: #002b80; 
+              width: max-content; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;margin-right: 5px;">
+              {{x}}</div>
+            <ion-icon id="button" (click)="data['state'].splice(i,1)" color="danger" style="font-size: 20px;"
+              name="close-circle-outline"></ion-icon>
+          </div>
+        </div>
+      </div> -->
+
+    </div>
+
+    <div style="width: 100%; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed #e3e5e8;">
+
+      <div style="font-size: 13px; font-weight: 600; color: #37516f; margin-bottom: 15px;">{{ language["Price
+        Range"][lang]}}</div>
+
+      <div style="display: flex;align-items: center;justify-content: space-between;margin-bottom: 6px;">
+        <div
+          style="width: calc(20px + 50px + 50px + 35px);text-align: center;font-size: 12px;color:#ef4748;padding-left: 20px;">
+          {{ language["Weight (kg)"][lang]}}</div>
+        <div style="width: 100px;text-align: center;font-size: 12px;color:#ef4748;">{{ language["Total (RM)"][lang]}}
+        </div>
+      </div>
+
+      <div *ngFor="let x of data['ranges']; let i = index ; let l = last"
+        style="display: flex;align-items: center;margin-bottom: 6px;">
+        <div style="font-size: 13px;width: 20px;">{{i + 1}}.</div>
+        <div style="display: flex;align-items: center;">
+          <ion-input
+            style="max-width: 50px; font-size: 13px; font-weight: 400; color: #666666; text-align: center; border-radius: 5px; background-color: #f7f8fc;height: 32px;border:1px solid transparent"
+            [(ngModel)]="data['ranges'][i].limit_lower" readonly type='number'></ion-input>
+          <span style="font-size: 20px;width: 35px;text-align: center;color:#cccccc">~</span>
+          <ion-input [readonly]="i != (lengthof(data['ranges']) - 1)"
+            style="max-width: 50px; font-size: 13px; font-weight: 400; color: #666666; text-align: center; border-radius: 5px; background-color: #f7f8fc;height: 32px;"
+            [(ngModel)]="data['ranges'][i].limit_upper" type='number'></ion-input>
+        </div>
+
+        <div
+          style="border-top:2px dashed #cccccc; width: calc(100% - 20px - 50px - 35px - 50px  - 80px - 20px);margin:0 10px;">
+        </div>
+
+
+        <ion-input
+          style="max-width: 80px; font-size: 13px; font-weight: 400; color: #666666; text-align: center; border-radius: 5px; background-color: #f7f8fc;height: 32px;"
+          [(ngModel)]="data['ranges'][i].total" type='number'></ion-input>
+
+        <div style="width: 20px;display: flex;justify-content: flex-end;">
+          <ion-icon *ngIf="l" (click)="remove()" slot="start" name="close" style="color:#666666"></ion-icon>
+        </div>
+      </div>
+
+
+      <div
+        style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;position: relative;margin-top: 20px;">
+
+        <div class="stepdiv"
+          style="font-size: 12px; font-weight: 400; color: #666666; display: flex;align-items: center;">{{
+          language["Exceed Weight Price (KG)"][lang]}}
+
+          <ion-icon slot="start" name="help-circle-outline"
+            style="color:#999999;margin-left: 5px;font-size: 16px!important;"></ion-icon>
+        </div>
+
+        <div class="hide" style="z-index: 30000;">{{ language["The amount that is charged for each increment in weight
+          outside of the range"][lang]}}</div>
+        <ion-input
+          style="max-width: 60px; margin-right: 20px; font-size: 13px; font-weight: 400; color: #666666; text-align: center; border-radius: 5px; background-color: #f7f8fc;height: 32px;"
+          [(ngModel)]="data.increment_price" placeholder="eg. 100" type='number'></ion-input>
+
+      </div>
+
+      <div (click)="addRow()"
+        style="border:1px dashed #bbbbbb; border-radius: 5px;display: flex;align-items: center; justify-content: center;background: white;height: 32px;margin:20px 0 30px 0;">
+        <div style="color:#555555; font-size: 13px;margin-right: 10px;">{{ language["Add New Row"][lang]}}
+        </div>
+        <ion-icon slot="start" name="add-circle-outline" style="color:#ef4748;font-size: 20px;"></ion-icon>
+      </div>
+
+    </div>
+
+    <div style="width: 100%; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed #e3e5e8;">
+      <div
+        style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;position: relative;">
+        <div style="font-size: 13px; font-weight: 600; color: #37516f; ">{{
+          language["Additional Settings"][lang]}}</div>
+        <ion-toggle [(ngModel)]="data['additional']"></ion-toggle>
+      </div>
+
+      <div *ngIf="data['additional']"
+        style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;position: relative;">
+        <!-- Minimum for
+        custom delivery
+        (RM) -->
+        <div class="stepdiv"
+          style="font-size: 12px; font-weight: 400; color: #666666; display: flex;align-items: center;">
+          {{ language["If order total exceed this price (RM)"][lang]}}
+          <ion-icon slot="start" name="help-circle-outline"
+            style="color:#999999;margin-left: 5px;font-size: 16px!important;"></ion-icon>
+        </div>
+
+        <div class="hide" style="z-index: 30000;">{{
+          language["Trigger custom delivery above this price"][lang]}}</div>
+        <ion-input
+          style="max-width: 90px; font-size: 13px; font-weight: 400; color: #666666; text-align: center; border-radius: 5px; background-color: #f7f8fc;height: 32px;"
+          [(ngModel)]="data.free_delivery" placeholder="eg. 100" type='number'></ion-input>
+
+      </div>
+
+      <div *ngIf="data['additional']"
+        style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;position: relative;">
+        <!-- Custom Delivery
+          Fee
+          (RM) -->
+        <div class="stepdiv"
+          style="font-size: 12px; font-weight: 400; color: #666666; display: flex;align-items: center;">{{
+          language["Delivery fee will be"][lang]}}
+          <ion-icon slot="start" name="help-circle-outline"
+            style="color:#999999;margin-left: 5px;font-size: 16px!important;"></ion-icon>
+        </div>
+
+        <div class="hide" style="z-index: 30000;">{{ language["Custom delivery fee charges"][lang]}}</div>
+        <ion-input
+          style="max-width: 90px; font-size: 13px; font-weight: 400; color: #666666; text-align: center; border-radius: 5px; background-color: #f7f8fc;height: 32px;"
+          [(ngModel)]="data.free_price" placeholder="eg. 20" type='number'></ion-input>
+      </div>
+
+
+    </div>
+
+    <div style="width: 100%;">
+      <ion-button (click)="confirm()"
+        style="width: 100%; height: 30px; font-size: 13px; --background: #ff0000; --background-activated: #cc0000; --border-radius: 5px; text-transform: none; margin: 15px 0; --box-shadow: 0px 0px 0px #fff;">
+        {{ language["Save"][lang]}}
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

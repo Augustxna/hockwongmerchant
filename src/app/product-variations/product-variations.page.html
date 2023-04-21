@@ -1,0 +1,388 @@
+<ion-content style='--background:#f7f9fd;'>
+
+  <div style='background-color:white;position: sticky;top:0;left:0;z-index: 9999;border-bottom:1px solid #eeeeee;'>
+    <div style='width:100vw;padding:15px 15px;display:flex;justify-content: space-between;align-items: center;'>
+      <div style='display:flex;justify-content: space-between;align-items: center;width:100%;'>
+        <ion-icon (click)='back()' style='color:#ef4748;font-size:20px;' name="chevron-back-outline"></ion-icon>
+        <div style='font-size:16px;color:#333333;'>{{ language['Product Variations'][lang]}}</div>
+        <ion-icon style='color:#ef4748;font-size:20px;opacity: 0;' name="chevron-back-outline"></ion-icon>
+      </div>
+    </div>
+  </div>
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+
+  <div *ngFor='let type of selected; let i = index' style='width:100vw;background-color: white;'>
+    <div
+      style='width:100%;display:flex;justify-content: space-between;align-items: center;padding:15px;border-bottom:1px solid #eeeeee;'>
+      <div (click)='edittype(i)' style='display:flex;align-items: center;'>
+        <div style='font-size:14px;color:#333333;'>{{type.name}}</div>
+        <ion-icon style='font-size:14px;color:#ef4748;margin-left:10px;' name="create-outline"></ion-icon>
+      </div>
+      <div (click)='deltype(i)' style='font-size:12px;color:#ef4748;'>
+        {{ language['Delete'][lang]}}</div>
+    </div>
+
+    <div style="padding:15px;">
+      <div style="display:flex;align-items: center; overflow-x: scroll;">
+        <div *ngFor='let vari of type.selections; let j = index' style='border-radius:5px; margin-bottom: 10px;  border:1px solid #999999; 
+          padding:5px ;margin-right:10px; color:#666666; display: flex; align-items: center; flex-direction: column;'>
+
+          <div *ngIf="vari.photo">
+            <label for="{{'filessquare_edit'+i + j}}" class="btn">
+              <img src="{{vari.photo}}"
+                style="width: 60px; height: 60px; margin-bottom: 5px; background-color: black; object-fit: cover;">
+            </label>
+            <input style="display: none" id="{{'filessquare_edit'+i+ j}}" class="inputclass" accept="image/*"
+              type="file" (change)="fileChange2($event,600,'this.selected[' + i +'].selections[' + j + '].photo')">
+          </div>
+
+          <div *ngIf="!vari.photo"
+            style="width: 60px; height: 60px; margin-bottom: 5px; display: flex; align-items: center; justify-content: center">
+            <label for="{{'filessquare_edit'+i+ j}}" class="btn">
+              <ion-icon style="font-size: 15px;" name="add-outline"></ion-icon>
+            </label>
+            <input style="display: none" id="{{'filessquare_edit'+i+ j}}" class="inputclass" accept="image/*"
+              type="file" (change)="fileChange2($event,600,'this.selected[' + i +'].selections[' + j + '].photo')">
+          </div>
+
+          <div (click)='editvar(i,j)' style="font-size:12px; display: flex; align-items: center;  ">
+            <div style="max-width: 50px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+              {{vari.name}}
+            </div>
+            <ion-icon style="margin-left: 5px;" name="settings-outline">
+            </ion-icon>
+          </div>
+        </div>
+      </div>
+
+      <div (click)='addvar(i)'
+        style='font-size:12px;color:#ef4748;border:1px dashed #ef4748; width: max-content; padding:5px 10px; '>
+        + {{ language['Add'][lang]}}
+      </div>
+    </div>
+
+  </div>
+
+
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+
+  <div (click)='addtype()'
+    style='margin:15px;margin-top:0px;;width:calc( 100% - 30px );padding:15px;border:1px dashed #ef4748;font-size:14px;color:#ef4748;text-align: center;background-color:white;border-radius:5px;'>
+    + {{ language['Add New Variation'][lang]}}
+  </div>
+
+
+  <div *ngIf="lengthof(selected)" style=" border-radius: 5px; background-color: white; margin-bottom: 10px;">
+
+    <div style="padding: 10px; font-size: 14px; border-bottom: 1px solid #f1f1f1;">{{
+      language['Product Information'][lang]}}</div>
+
+    <div *ngFor="let x of selected[0].selections; let i = index" style="display: flex; align-content: center;">
+
+      <div style="border-bottom: 1px solid #f1f1f1; display: flex; align-items: center;">
+        <div style="padding: 5px; font-size: 12px; color: #333333; width: 50px; display: -webkit-box;
+        -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; text-align: center;">{{x.name}}</div>
+      </div>
+
+      <div *ngIf="lengthof(selected[1])" style="border-left: 1px solid #f1f1f1;">
+        <div *ngFor="let y of selected[1].selections; let j = index" style=" font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+      border-bottom: 1px solid #f1f1f1; min-width: 50px;">
+          <div style="padding: 5px; width: 50px; text-align: center; display: -webkit-box;
+          -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; "> {{y.name}}
+          </div>
+
+          <div *ngIf="lengthof(selected[2])" style="border-left: 1px solid #f1f1f1;">
+            <div *ngFor="let z of selected[2].selections; let k = index" style=" font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+            border-bottom: 1px solid #f1f1f1; min-width: 50px;">
+              <div style="padding: 5px; width: 50px; text-align: center; display: -webkit-box;
+              -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
+                {{z.name}}
+              </div>
+
+              <div style="border-left: 1px solid #f1f1f1;">
+                <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+              border-bottom: 1px solid #f1f1f1; padding: 5px; ">
+                  <div style="width: 80px;">{{ language['SKU'][lang]}} :</div>
+                  <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+                    <ion-input [(ngModel)]="vardetail[i.toString()+j+k].sku" class="ion-no-padding"
+                      placeholder="{{ language['Enter'][lang]}} {{ language['SKU'][lang]}}">
+                    </ion-input>
+                  </div>
+                </div>
+
+                <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+              border-bottom: 1px solid #f1f1f1;padding: 5px; ">
+                  <div style="width: 80px;">{{ language['Retail Price'][lang]}} :</div>
+                  <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+                    <ion-input [(ngModel)]="vardetail[i.toString()+j+k].price_now" type='number' class="ion-no-padding"
+                      placeholder="{{ language['Enter'][lang]}} {{ language['Retail Price'][lang]}}">
+                    </ion-input>
+                  </div>
+                </div>
+
+                <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+              border-bottom: 1px solid #f1f1f1; padding: 5px; ">
+                  <div style="width: 80px;">{{ language['Whole Price'][lang]}} :</div>
+                  <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+                    <ion-input [(ngModel)]="vardetail[i.toString()+j+k].price_retail" type='number'
+                      class="ion-no-padding"
+                      placeholder="{{ language['Enter'][lang]}} {{ language[' Whole Price'][lang]}}">
+                    </ion-input>
+                  </div>
+                </div>
+
+                <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+              border-bottom: 1px solid #f1f1f1; padding: 5px; ">
+                  <div style="width: 80px;">{{ language['Quantity'][lang]}} :</div>
+                  <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+                    <ion-input [(ngModel)]="vardetail[i.toString()+j+k].qty" type='number' class="ion-no-padding"
+                      placeholder="{{ language['Enter'][lang]}} {{ language['Quantity'][lang]}}">
+                    </ion-input>
+                  </div>
+                </div>
+
+                <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+              border-bottom: 1px solid #f1f1f1; padding: 5px; ">
+                  <div style="width: 80px;">{{ language['Weight(g)'][lang]}} :</div>
+                  <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+                    <ion-input [(ngModel)]="vardetail[i.toString()+j+k].weight" type='number' class="ion-no-padding"
+                      placeholder="{{ language['Enter'][lang]}} {{ language[' Weight(g)'][lang]}}">
+                    </ion-input>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div *ngIf="!lengthof(selected[2].selections)" style="border-left: 1px solid #f1f1f1;">
+              <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+            border-bottom: 1px solid #f1f1f1; padding: 5px; ">
+                <div style="width: 80px;">{{ language['SKU'][lang]}}:</div>
+                <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+                  <ion-input [(ngModel)]="vardetail[i.toString()+j].sku" class="ion-no-padding"
+                    placeholder="{{ language['Enter'][lang]}} {{ language['SKU'][lang]}}">
+                  </ion-input>
+                </div>
+              </div>
+
+              <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+            border-bottom: 1px solid #f1f1f1;padding: 5px; ">
+                <div style="width: 80px;">{{ language['Retail Price'][lang]}}:</div>
+                <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+                  <ion-input [(ngModel)]="vardetail[i.toString()+j].price_now" type='number' class="ion-no-padding"
+                    placeholder="{{ language['Enter'][lang]}} {{ language[' Retail Price'][lang]}}">
+                  </ion-input>
+                </div>
+              </div>
+
+              <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+            border-bottom: 1px solid #f1f1f1; padding: 5px; ">
+                <div style="width: 80px;"> {{ language['Whole Price'][lang]}}:</div>
+                <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+                  <ion-input [(ngModel)]="vardetail[i.toString()+j].price_retail" type='number' class="ion-no-padding"
+                    placeholder="{{ language['Enter'][lang]}} {{ language['Whole Price'][lang]}}">
+                  </ion-input>
+                </div>
+              </div>
+
+              <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+            border-bottom: 1px solid #f1f1f1; padding: 5px; ">
+                <div style="width: 80px;"> {{ language['Quantity'][lang]}}:</div>
+                <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+                  <ion-input [(ngModel)]="vardetail[i.toString()+j].qty" type='number' class="ion-no-padding"
+                    placeholder="{{ language['Enter'][lang]}} {{ language['Quantity'][lang]}}">
+                  </ion-input>
+                </div>
+              </div>
+
+              <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+            border-bottom: 1px solid #f1f1f1; padding: 5px; ">
+                <div style="width: 80px;"> {{ language['Weight(g)'][lang]}}:</div>
+                <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+                  <ion-input [(ngModel)]="vardetail[i.toString()+j].weight" type='number' class="ion-no-padding"
+                    placeholder="{{ language['Enter'][lang]}} {{ language['Weight(g)'][lang]}}">
+                  </ion-input>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div *ngIf="!lengthof(selected[2])" style="border-left: 1px solid #f1f1f1;">
+            <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+          border-bottom: 1px solid #f1f1f1; padding: 5px; ">
+              <div style="width: 80px;"> {{ language['SKU'][lang]}}:</div>
+              <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+                <ion-input [(ngModel)]="vardetail[i.toString()+j].sku" class="ion-no-padding"
+                  placeholder="{{ language['Enter'][lang]}} {{ language['SKU'][lang]}}">
+                </ion-input>
+              </div>
+            </div>
+
+            <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+          border-bottom: 1px solid #f1f1f1;padding: 5px; ">
+              <div style="width: 80px;"> {{ language['Retail Price'][lang]}}:</div>
+              <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+                <ion-input [(ngModel)]="vardetail[i.toString()+j].price_now" type='number' class="ion-no-padding"
+                  placeholder="{{ language['Enter'][lang]}} {{ language['Retail Price'][lang]}}">
+                </ion-input>
+              </div>
+            </div>
+
+            <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+          border-bottom: 1px solid #f1f1f1; padding: 5px; ">
+              <div style="width: 80px;">{{ language['Whole Price'][lang]}}:</div>
+              <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+                <ion-input [(ngModel)]="vardetail[i.toString()+j].price_retail" type='number' class="ion-no-padding"
+                  placeholder="{{ language['Enter'][lang]}} {{ language['Whole Price'][lang]}}">
+                </ion-input>
+              </div>
+            </div>
+
+            <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+          border-bottom: 1px solid #f1f1f1; padding: 5px; ">
+              <div style="width: 80px;">{{ language['Quantity'][lang]}}:</div>
+              <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+                <ion-input [(ngModel)]="vardetail[i.toString()+j].qty" type='number' class="ion-no-padding"
+                  placeholder="{{ language['Enter'][lang]}} {{ language['Quantity'][lang]}}">
+                </ion-input>
+              </div>
+            </div>
+
+            <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+          border-bottom: 1px solid #f1f1f1; padding: 5px; ">
+              <div style="width: 80px;">{{ language['Weight(g)'][lang]}}:</div>
+              <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+                <ion-input [(ngModel)]="vardetail[i.toString()+j].weight" type='number' class="ion-no-padding"
+                  placeholder="{{ language['Enter'][lang]}} {{ language['Weight(g)'][lang]}}">
+                </ion-input>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div *ngIf="!lengthof(selected[1].selections)" style="border-left: 1px solid #f1f1f1;">
+          <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+        border-bottom: 1px solid #f1f1f1; padding: 5px; ">
+            <div style="width: 80px;"> {{ language['SKU'][lang]}}:</div>
+            <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+              <ion-input [(ngModel)]="vardetail[i].sku" class="ion-no-padding" placeholder="{{ language['Enter'][lang]}} 
+              {{ language['SKU'][lang]}}">
+              </ion-input>
+            </div>
+          </div>
+
+          <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+        border-bottom: 1px solid #f1f1f1;padding: 5px; ">
+            <div style="width: 80px;">{{ language['Retail Price'][lang]}}:</div>
+            <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+              <ion-input [(ngModel)]="vardetail[i].price_now" type='number' class="ion-no-padding"
+                placeholder="{{ language['Enter'][lang]}} {{ language['Retail Price'][lang]}}">
+              </ion-input>
+            </div>
+          </div>
+
+          <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+        border-bottom: 1px solid #f1f1f1; padding: 5px; ">
+            <div style="width: 80px;">{{ language['Whole Price'][lang]}}:</div>
+            <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+              <ion-input [(ngModel)]="vardetail[i].price_retail" type='number' class="ion-no-padding"
+                placeholder="{{ language['Enter'][lang]}} {{ language['Whole Price'][lang]}}">
+              </ion-input>
+            </div>
+          </div>
+
+          <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+        border-bottom: 1px solid #f1f1f1; padding: 5px; ">
+            <div style="width: 80px;"> {{ language['Quantity'][lang]}}:</div>
+            <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+              <ion-input [(ngModel)]="vardetail[i].qty" type='number' class="ion-no-padding"
+                placeholder="{{ language['Enter'][lang]}} {{ language['Quantity'][lang]}}">
+              </ion-input>
+            </div>
+          </div>
+
+          <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+        border-bottom: 1px solid #f1f1f1; padding: 5px; ">
+            <div style="width: 80px;"> {{ language['Weight(g)'][lang]}}:</div>
+            <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+              <ion-input [(ngModel)]="vardetail[i].weight" type='number' class="ion-no-padding"
+                placeholder="{{ language['Enter'][lang]}} {{ language['Weight(g)'][lang]}}">
+              </ion-input>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div *ngIf="!lengthof(selected[1])" style="border-left: 1px solid #f1f1f1;">
+        <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+      border-bottom: 1px solid #f1f1f1; padding: 5px; ">
+          <div style="width: 80px;"> {{ language['SKU'][lang]}}:</div>
+          <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+            <ion-input [(ngModel)]="vardetail[i].sku" class="ion-no-padding"
+              placeholder="{{ language['Enter'][lang]}} {{ language['SKU'][lang]}}">
+            </ion-input>
+          </div>
+        </div>
+
+        <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+      border-bottom: 1px solid #f1f1f1;padding: 5px; ">
+          <div style="width: 80px;"> {{ language['Retail Price'][lang]}}:</div>
+          <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+            <ion-input [(ngModel)]="vardetail[i].price_now" type='number' class="ion-no-padding"
+              placeholder="{{ language['Enter'][lang]}} {{ language['Retail Price'][lang]}}">
+            </ion-input>
+          </div>
+        </div>
+
+        <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+      border-bottom: 1px solid #f1f1f1; padding: 5px; ">
+          <div style="width: 80px;">{{ language['Whole Price'][lang]}}:</div>
+          <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+            <ion-input [(ngModel)]="vardetail[i].price_retail" type='number' class="ion-no-padding"
+              placeholder="{{ language['Enter'][lang]}} {{ language['Whole Price'][lang]}}">
+            </ion-input>
+          </div>
+        </div>
+
+        <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+      border-bottom: 1px solid #f1f1f1; padding: 5px; ">
+          <div style="width: 80px;"> {{ language['Quantity'][lang]}}:</div>
+          <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+            <ion-input [(ngModel)]="vardetail[i].qty" type='number' class="ion-no-padding"
+              placeholder="{{ language['Enter'][lang]}} {{ language['Quantity'][lang]}}">
+            </ion-input>
+          </div>
+        </div>
+
+        <div style=" border-right: 1px solid #f1f1f1; font-size: 12px; color: #333333; display: flex; align-items: center; justify-content: center; 
+      border-bottom: 1px solid #f1f1f1; padding: 5px; ">
+          <div style="width: 80px;"> {{ language['Weight(g)'][lang]}}:</div>
+          <div style="padding: 5px; background-color: #f7f9fd; color: #333333; font-size: 12px;">
+            <ion-input [(ngModel)]="vardetail[i].weight" type='number' class="ion-no-padding"
+              placeholder="{{ language['Enter'][lang]}} {{ language['Weight(g)'][lang]}}">
+            </ion-input>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-footer>
+
+  <div style="width: 100%;  border-top: 1px solid #e0ebf3; background-color: #ffffff; padding: 10px;">
+
+    <div (click)='done()'
+      style="background-color: #ef4748; color: white; text-align: center; padding: 10px; border-radius: 10px; font-weight: 500; font-size: 14px;">
+      {{ language['UPDATE CHANGES'][lang]}}
+    </div>
+
+  </div>
+</ion-footer>

@@ -1,0 +1,296 @@
+<ion-header class="ion-no-border" style="--background: #ffffff">
+  <div style=" padding: 15px; position: sticky; top: 0;  z-index: 100;
+  background-color: white; border-bottom: 1px solid #f4f4f4;">
+    <div style=" display: flex; align-items: center; justify-content: space-between;">
+      <ion-icon (click)="back()" style="font-size: 18px; color:#ef4748;" name="chevron-back-outline"></ion-icon>
+      <div style="font-size: 16px; font-weight: 450;">{{ language["PRODUCT CREATION"][lang]}}</div>
+      <ion-icon style="font-size: 18px; opacity: 0;" name="ellipsis-horizontal"></ion-icon>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content>
+  <div style='width:100vw;'>
+    <div style='padding-left:15px;font-size:12px;color:#333333;padding-top:15px;'>{{language["Product
+      Photo"][lang]}}<span style='color:#ef4748;font-size:14px;'>&nbsp;*</span> </div>
+    <div style='overflow-x: scroll;min-width:100%;display:flex;align-items: center;padding:15px 0px;padding-left:15px;'>
+      <div *ngFor='let photos of (voucher.photo || []);let i = index'
+        style='min-height:100px;min-width:100px;position: relative;margin-right:15px;height:100px;width:100px;'>
+        <div (click)='delphoto(i);'
+          style='position: absolute;top:0px;right:0px;z-index:10;height:20px;width:20px;display:flex;justify-content: center;align-items: center;background-color: rgba(0,0,0,0.7);'>
+          <ion-icon style='color:white;font-size:14px;' name="close-outline"></ion-icon>
+        </div>
+        <img style='width:100%;height:100%;object-fit: cover;' src="{{photos.url}}" alt="">
+        <div *ngIf='i == 0'
+          style='position: absolute;bottom:0;left:0;z-index:10;width:100%;background-color: rgba(0,0,0,0.7);display:flex;justify-content: center;align-items: center;padding:5px 0px;text-align: center;color:white;font-size:10px;'>
+          {{ language["Cover Photo"][lang]}}</div>
+      </div>
+
+      <!-- <label for="{{'filessquare_edit'+i}}" class="btn">
+        <div
+          style='width:100px;height:100px;min-width: 100px;min-height: 100px;border:1px dashed #ef4748;display:flex;justify-content: center;align-items: center;margin-right:15px;'>
+          <div style='font-size:10px;color:#ef4748;text-align: center;'>+ {{ language["Add Photo"][lang]}}</div>
+        </div>
+      </label>
+      <input style="display: none" id="{{'filessquare_edit'+i}}" class="inputclass" accept="image/*" type="file"
+        (change)="fileChange2($event,600)"> -->
+        <label for="{{'filessquare_edit'}}" class="btn">
+          <div
+            style='width:100px;height:100px;min-width: 100px;min-height: 100px;border:1px dashed #ef4748;display:flex;justify-content: center;align-items: center;margin-right:15px;'>
+            <div style='font-size:10px;color:#ef4748;text-align: center;'>+ {{ language["Add Photo"][lang]}}</div>
+          </div>
+        </label>
+        <input style="display: none" id="{{'filessquare_edit'}}" class="inputclass" accept="image/*" type="file"
+          (change)="fileChange2($event,600)">
+      <div style='padding:1px;'></div>
+    </div>
+  </div>
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+
+  <div style='padding:15px;width:100vw;padding-bottom:5px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{ language["Product Name (ZH)"][lang]}} <span
+          style='color:#ef4748;font-size:14px;'>&nbsp;*</span>
+      </div>
+      <!--   <ion-icon style='font-size:14px;color:#ef4748' name="help-circle-outline"></ion-icon> -->
+    </div>
+
+    <ion-input style='font-size:12px;color:#333333;--padding-start:10px; border:  1px solid #8b8b8b;' [(ngModel)]="voucher.name_zh"
+      placeholder="{{ language['Enter Product Name'][lang]}}"></ion-input>
+
+  </div>
+
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+
+  <div style='padding:15px;width:100vw;padding-bottom:5px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{ language["Product Name (EN)"][lang]}} <span
+          style='color:#ef4748;font-size:14px;'>&nbsp;*</span>
+      </div>
+    </div>
+
+    <ion-input style='font-size:12px;color:#333333;--padding-start:10px; border:  1px solid #8b8b8b;' [(ngModel)]="voucher.name_en"
+      placeholder="{{ language['Enter Product Name'][lang]}}"></ion-input>
+
+  </div>
+
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+
+  <div style='padding:15px;width:100vw;padding-bottom:5px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{ language["Product Description (ZH)"][lang]}}</div>
+      <!--  <ion-icon style='font-size:14px;color:#ef4748' name="help-circle-outline"></ion-icon> -->
+      <ion-icon style='font-size:14px;color:#ef4748' name="add-circle-outline"></ion-icon>
+
+    </div>
+
+    <ion-textarea style='font-size:12px;color:#333333;--padding-start:10px; border:  1px solid #8b8b8b;' rows="12" [(ngModel)]="voucher.description_zh"
+      placeholder="{{ language['Enter Product Description (ZH)'][lang]}}"></ion-textarea>
+
+  </div>
+
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+
+  <div style='padding:15px;width:100vw;padding-bottom:5px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{ language["Product Description (EN)"][lang]}}</div>
+      <!-- <ion-icon style='font-size:14px;color:#ef4748' name="help-circle-outline"></ion-icon> -->
+    </div>
+
+    <ion-textarea style='font-size:12px;color:#333333;--padding-start:10px; border:  1px solid #8b8b8b;' rows="12" [(ngModel)]="voucher.description_en"
+      placeholder="{{ language['Enter Product Description (EN)'][lang]}}"></ion-textarea>
+
+  </div>
+
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+
+  <div style='padding:15px;width:100vw;padding-bottom:5px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>SKU <span style="color: tomato; font-size: 14px">*</span></div>
+      <!-- <ion-icon style='font-size:14px;color:#ef4748' name="help-circle-outline"></ion-icon> -->
+    </div>
+    <ion-input style='font-size:12px;color:#333333;--padding-start:10px; border:  1px solid #8b8b8b;' [(ngModel)]="voucher.vardetail[0].sku"
+      placeholder="Enter Product SKU"></ion-input>
+  </div>
+
+  <div style='padding:15px;width:100vw;padding-bottom:5px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{ language["Retail Price"][lang]}} <span style="color: tomato; font-size: 14px">*</span></div>
+      <!-- <ion-icon style='font-size:14px;color:#ef4748' name="help-circle-outline"></ion-icon> -->
+    </div>
+    <ion-input style='font-size:12px;color:#333333;--padding-start:10px; border:  1px solid #8b8b8b;' type ='number' [(ngModel)]="voucher.vardetail[0].price_now"
+      placeholder="{{ language['Retail Price'][lang]}}"></ion-input>
+  </div>
+
+  <div style='padding:15px;width:100vw;padding-bottom:5px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{ language["Selling Price"][lang]}} <span style="color: tomato; font-size: 14px">*</span></div>
+      <!-- <ion-icon style='font-size:14px;color:#ef4748' name="help-circle-outline"></ion-icon> -->
+    </div>
+
+    <ion-input style='font-size:12px;color:#333333;--padding-start:10px; border:  1px solid #8b8b8b;' type ='number' [(ngModel)]="voucher.vardetail[0].price_retail"
+      placeholder="{{ language['Selling Price'][lang]}}"></ion-input>
+  </div>
+
+  <div style='padding:15px;width:100vw;padding-bottom:5px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{ language["Stock"][lang]}} <span style="color: tomato; font-size: 14px">*</span></div>
+      <!-- <ion-icon style='font-size:14px;color:#ef4748' name="help-circle-outline"></ion-icon> -->
+    </div>
+    <ion-input style='font-size:12px;color:#333333;--padding-start:10px; border:  1px solid #8b8b8b;' type ='number' [(ngModel)]="voucher.vardetail[0].qty"
+      placeholder="{{ language['Stock'][lang]}}"></ion-input>
+  </div>
+
+  <div style='padding:15px;width:100vw;padding-bottom:5px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{ language["Weight"][lang]}} (g) <span style="color: tomato; font-size: 14px">*</span></div>
+      <!-- <ion-icon style='font-size:14px;color:#ef4748' name="help-circle-outline"></ion-icon> -->
+    </div>
+    <ion-input style='font-size:12px;color:#333333;--padding-start:10px; border:  1px solid #8b8b8b;' type ='number' [(ngModel)]="voucher.vardetail[0].weight"
+      placeholder="{{ language['Weight'][lang]}}"></ion-input>
+  </div>
+
+  <div (click)='variations(voucher.variations, voucher.vardetail )' style="color: #814CD0; width: 100%; text-align: center; margin: 10px 0 5px 0; font-size: 14px;">{{ language["Open Multi Variations Mode"][lang]}}</div>
+  <div *ngIf="lengthof(voucher.vardetail) > 1 || lengthof(voucher.variations) > 1 " style="color: #814CD0; width: 100%; text-align: center; margin-bottom: 10px; font-size: 14px;">{{lengthof(voucher.variations) > 0 ? ( lengthof(voucher.variations)+
+    language["types,"][lang])+ lengthof(voucher.vardetail) + language["combinations"][lang] : language["Not
+    Set"][lang] }}</div>
+
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+
+  <div style='padding:15px;width:100vw;padding-bottom:5px;'>
+
+    <div style=" display: flex ; align-items: center; justify-content: space-between">
+    
+      <div style='font-size:12px;color:#333333;'>{{ language["Fastest delivery/self-pickup time (days)"][lang]}} </div>
+
+      <div style="width: 50px;">
+        <ion-input style='width: 100%; font-size:12px;color:#333333;--padding-start:10px; border:  1px solid #8b8b8b; text-align: center;' type ='number' [(ngModel)]="voucher.delivery_duration.latest"
+        placeholder="Days"></ion-input>
+      </div>
+
+
+    </div>
+
+    <!-- <div style="display: flex; align-items: center;">
+
+      <div>
+        <div style="font-size: 12px; color: #333333;">{{ language["Earliest Delivery (Day)"][lang]}}<span
+            style='color:#ef4748;font-size:12px;'>&nbsp;*</span></div>
+        <ion-input style='font-size:12px;color:#333333;--padding-end:0px;' type='number'
+          [(ngModel)]="voucher.delivery_duration.early"
+          placeholder="{{ language['Enter Earliest Delivery (Day)'][lang]}}"></ion-input>
+      </div>
+
+      <div style="margin: 5px 20px 15px 20px; font-size: 12px; color: #333333; ">~</div>
+
+      <div>
+        <div style="font-size: 12px; color: #333333;">{{ language["Latest Delivery (Day)"][lang]}}<span
+            style='color:#ef4748;font-size:12px;'>&nbsp;*</span></div>
+        <ion-input style='font-size:12px;color:#333333;--padding-end:0px;' type='number'
+          [(ngModel)]="voucher.delivery_duration.latest"
+          placeholder="{{ language['Enter Latest Delivery (Day)'][lang]}}"></ion-input>
+      </div>
+    </div> -->
+
+  </div>
+
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+
+  <!-- <div (click)='variations(voucher.variations, voucher.vardetail )'
+    style=" padding: 15px 15px; display: flex; align-items: center; justify-content: space-between;border-bottom:1px solid #eeeeee;">
+    <div style="display: flex; align-items: center;">
+      <ion-icon style='font-size:14px;color:#333333;' name="cube-outline"></ion-icon>
+      <div style="font-size: 12px; margin-left: 10px;color:#333333;">{{ language["Variations"][lang]}}<span
+          style='color:#ef4748;font-size:12px;'>&nbsp;*</span></div>
+    </div>
+    <div style='display:flex;justify-content: flex-end;align-items: center;'>
+      <div style='font-size:12px;color:#333333;'>{{lengthof(voucher.variations) > 0 ? ( lengthof(voucher.variations)+
+        language["types,"][lang])+ lengthof(voucher.vardetail) + language["combinations"][lang] : language["Not
+        Set"][lang] }}</div>
+      <ion-icon style="margin-left: 10px;color:#666666;font-size:14px;" name="chevron-forward-outline"></ion-icon>
+    </div>
+  </div> -->
+  <div (click)='selector(categories, "this.voucher.category")'
+    style=" padding: 15px 15px; display: flex; align-items: center; justify-content: space-between;border-bottom:1px solid #eeeeee;">
+    <div style="display: flex; align-items: center;">
+      <ion-icon style='font-size:14px;color:#333333;' name="list-outline"></ion-icon>
+      <div style="font-size: 12px; margin-left: 10px;color:#333333;">{{ language["Category"][lang]}}<span
+          style='color:#ef4748;font-size:12px;'>&nbsp;*</span></div>
+    </div>
+    <div style='display:flex;justify-content: flex-end;align-items: center;'>
+      <div style='font-size:12px;color:#333333;'>{{voucher.category || language["Not
+        Set"][lang]}}</div>
+      <ion-icon style="margin-left: 10px;color:#666666;font-size:14px;" name="chevron-forward-outline"></ion-icon>
+    </div>
+  </div>
+
+  <!-- <div (click)='selectormany(locations, "this.voucher.locations", this.voucher.locations)'
+    style=" padding: 15px 15px; display: flex; align-items: center; justify-content: space-between;border-bottom:1px solid #eeeeee;">
+    <div style="display: flex; align-items: center;">
+      <ion-icon style='font-size:14px;color:#333333;' name="location-outline"></ion-icon>
+      <div style="font-size: 12px; margin-left: 10px;color:#333333;">Serviceable Location<span
+          style='color:#ef4748;font-size:12px;'>&nbsp;*</span></div>
+    </div>
+    <div style='display:flex;justify-content: flex-end;align-items: center;'>
+      <div style='font-size:12px;color:#333333;'>{{lengthof(voucher.locations)>0 ? (lengthof(voucher.locations)==1 ?
+        voucher.locations[0] : lengthof(voucher.locations)+" Locations" ) : "Not Set"}}</div>
+      <ion-icon style="margin-left: 10px;color:#666666;font-size:14px;" name="chevron-forward-outline"></ion-icon>
+    </div>
+  </div> -->
+
+  <div (click)='selectormany(delivery_method, "this.selected_method", selected_method)'
+    style=" padding: 15px 15px; display: flex; align-items: center; justify-content: space-between;border-bottom:1px solid #eeeeee;">
+    <div style="display: flex; align-items: center;">
+      <ion-icon style='font-size:14px;color:#333333;' name="cube-outline"></ion-icon>
+      <div style="font-size: 12px; margin-left: 10px;color:#333333;">{{ language["Delivery"][lang]}}<span
+          style='color:#ef4748;font-size:12px;'>&nbsp;*</span></div>
+    </div>
+
+    <div style='display:flex;justify-content: flex-end;align-items: center;'>
+      <div style='font-size:12px;color:#333333;'>{{ lengthof(selected_method) == lengthof(delivery_method) ?
+        language["Both"][lang] :
+        selected_method[0]}}</div>
+      <ion-icon style="margin-left: 10px;color:#666666;font-size:14px;" name="chevron-forward-outline"></ion-icon>
+    </div>
+  </div>
+
+  <div (click)='linkers(voucher.link)'
+    style=" padding: 15px 15px; display: flex; align-items: center; justify-content: space-between;border-bottom:1px solid #eeeeee;">
+    <div style="display: flex; align-items: center;">
+      <ion-icon style='font-size:14px;color:#333333;' name="link-outline"></ion-icon>
+      <div style="font-size: 12px; margin-left: 10px;color:#333333;">{{ language["Featured URL"][lang]}}
+      </div>
+    </div>
+    <div style='display:flex;justify-content: flex-end;align-items: center;'>
+      <div style='font-size:12px;color:#333333;'>{{lengthof(voucher.link)>0 ? (lengthof(voucher.link)+" URLs") :
+        language["Not Set"][lang] }}</div>
+      <ion-icon style="margin-left: 10px;color:#666666;font-size:14px;" name="chevron-forward-outline"></ion-icon>
+    </div>
+  </div>
+  <!-- <div
+    style=" padding: 15px 15px; display: flex; align-items: center; justify-content: space-between;border-bottom:1px solid #eeeeee;">
+    <div style="display: flex; align-items: center;">
+      <ion-icon style='font-size:14px;color:#333333;' name="bag-handle-outline"></ion-icon>
+      <div style="font-size: 12px; margin-left: 10px;color:#333333;">Product Status<span
+          style='color:#ef4748;font-size:12px;'>&nbsp;*</span></div>
+    </div>
+    <div style='display:flex;justify-content: flex-end;align-items: center;'>
+      <div [ngStyle]='{"color" : voucher.status == true ? "#00b871" : "#ef4748"}' style='font-size:12px;'>
+        {{voucher.status==true ? "Active" : "Inactive"}}</div>
+      <ion-icon style="margin-left: 10px;color:#666666;font-size:14px;" name="chevron-forward-outline"></ion-icon>
+    </div>
+  </div> -->
+
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+</ion-content>
+
+<ion-footer>
+  <div style="width: 100%;  border-top: 1px solid #e0ebf3; background-color: #ffffff; padding: 10px;">
+
+    <div (click)="create()"
+      style="background-color: #ef4748; color: white; text-align: center; padding: 10px; border-radius: 10px; font-weight: 500; font-size: 14px;">
+      {{ language["PROCEED TO REVIEW"][lang]}}
+    </div>
+
+  </div>
+</ion-footer>

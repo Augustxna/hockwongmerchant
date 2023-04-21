@@ -1,0 +1,269 @@
+<ion-content>
+
+  <div
+    style="display: flex; align-items: center; padding: 15px; padding-bottom: 10px; position: sticky; top: 0px; background: white; z-index: 1000;">
+    <ion-icon (click)="back()" style="font-size: 20px;" name="chevron-back-outline"></ion-icon>
+    <div style="margin-left: 10px; font-weight: 600; font-size: 14px;">{{language['Merchant Setting'][lang]}}</div>
+  </div>
+
+  <div style="padding: 10px;">
+
+    <div>
+
+      <div style="font-size: 14px; font-weight: 600;">{{language['Merchant Photo'][lang]}}</div>
+
+      <div style="font-size: 13px; font-weight: 400; color: #999999;">{{language['Maximum 10 images to
+        upload'][lang]}}</div>
+
+    </div>
+
+    <div style="display: flex; align-items: center; display: flex; flex-wrap: wrap; margin-top: 10px;">
+
+      <div *ngFor='let eve of vendor.photo;let i = index' style="border-radius: 5px; margin-bottom: 10px; width: calc( (100vw / 5) - 15px ); 
+  height: calc( (100vw / 5) - 15px); background-color: white; margin-right: 10px;">
+        <div style='width:100%;cursor: pointer;'>
+          <div style='width:100%;padding-bottom:100%;position: relative;'>
+            <div (click)="deleteimage('this.vendor.photo',i)"
+              style='position: absolute; top:5px;right:5px ;z-index:50;height:15px;width:15px;
+          display:flex;justify-content: center;align-items: center;background-color: rgb(58, 58, 58);border-radius:100%;'>
+              <ion-icon style='font-size:14px;color:white;' name="close-outline"></ion-icon>
+            </div>
+            <img
+              style='width:100%;height:100%;top:0;left:0;right:0;bottom:0;position: absolute;z-index:10;object-fit: cover;border-radius:5px;'
+              src="{{eve.name}}" alt="">
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="lengthof(vendor.photo) < 10" style="border-radius: 5px; margin-bottom: 10px; width: calc( (100vw / 5) - 15px ); 
+    height: calc( (100vw / 5) - 15px); background-color: white; margin-right: 10px;">
+        <div style='width:100%;cursor: pointer;'>
+          <div style='width:100%;padding-bottom:100%;position: relative;'>
+            <label for="{{'filessquare_edit'+i}}" class="btn">
+              <div
+                style='border-radius:5px;width:100%;height:100%;border: 1px dotted #999999;display:flex;align-items: center;justify-content: center;position: absolute;top:0;top:0;left:0;right:0;bottom:0;z-index:10;'>
+                <img src="assets/camera.png" alt="">
+              </div>
+            </label>
+            <input style="display: none" id="{{'filessquare_edit'+i}}" class="inputclass" accept="image/*" type="file"
+              (change)="fileChange($event,500)">
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div *ngIf="user['position'] == 'Admin'">
+
+      <div *ngIf="lengthof(vendor) > 0 && lengthof(category) > 0"
+        style="margin-top: 20px;  position: relative; border-radius: 5px; padding: 5px; border: 2px solid #eeeeee">
+        <div
+          style="font-size: 12px; position: absolute; top: -8px; left: 10px; z-index: 100; background-color: white; padding: 0px 5px;">
+          {{language['Category'][lang]}}</div>
+        <ion-select class="ion-no-padding" [(ngModel)]="vendor.category" style="font-size: 13px;  padding: 10px;"
+          placeholder='Select your category'>
+          <ion-select-option value="{{x.name}}" *ngFor="let x of category">{{x.name}}</ion-select-option>
+        </ion-select>
+        <!-- <ion-input [(ngModel)]="vendor.category" style="font-size: 13px; --padding-start: 10px; "
+          placeholder='Enter your category'>
+        </ion-input> -->
+      </div>
+
+
+      <div [ngStyle]="{'border': focus =='address' ? '2px solid #015ac8' : '2px solid #eeeeee'}"
+        (click)="focus = 'address'" style="margin-top: 20px;  position: relative; border-radius: 5px; padding: 5px;">
+        <div
+          style="font-size: 12px; position: absolute; top: -8px; left: 10px; z-index: 100; background-color: white; padding: 0px 5px;">
+          {{language['Address'][lang]}} </div>
+        <ion-input [(ngModel)]="vendor.address" style="font-size: 13px; --padding-start: 10px; "
+          placeholder='Enter your address'>
+        </ion-input>
+      </div>
+
+      <div [ngStyle]="{'border': focus =='postcode' ? '2px solid #015ac8' : '2px solid #eeeeee'}"
+        (click)="focus = 'postcode'" style="margin-top: 20px;  position: relative; border-radius: 5px; padding: 5px;">
+        <div
+          style="font-size: 12px; position: absolute; top: -8px; left: 10px; z-index: 100; background-color: white; padding: 0px 5px;">
+          {{language['Postcode'][lang]}}</div>
+        <ion-input [(ngModel)]="vendor.postcode" style="font-size: 13px; --padding-start: 10px; "
+          placeholder='Enter your postcode'>
+        </ion-input>
+      </div>
+
+      <div [ngStyle]="{'border': focus =='state' ? '2px solid #015ac8' : '2px solid #eeeeee'}" (click)="focus = 'state'"
+        style="margin-top: 20px;  position: relative; border-radius: 5px; padding: 5px;">
+        <div
+          style="font-size: 12px; position: absolute; top: -8px; left: 10px; z-index: 100; background-color: white; padding: 0px 5px;">
+          {{language['State'][lang]}}</div>
+        <ion-input [(ngModel)]="vendor.state" style="font-size: 13px; --padding-start: 10px; "
+          placeholder='Enter your state'>
+        </ion-input>
+      </div>
+
+      <div *ngIf="lengthof(vendor) > 0" style="display: flex; align-items: center;">
+
+        <div [ngStyle]="{'border': focus =='operation_hour2' ? '2px solid #015ac8' : '2px solid #eeeeee'}"
+          (click)="focus = 'operation_hour2'"
+          style="margin-top: 20px;  position: relative; border-radius: 5px; padding: 5px; width: calc( (100% / 2 ) - 5px ); margin-right: 10px;">
+          <div
+            style="font-size: 12px; position: absolute; top: -8px; left: 10px; z-index: 100; background-color: white; padding: 0px 5px;">
+            {{language['Open At'][lang]}}</div>
+          <ion-input [(ngModel)]="vendor.operation_hour['upper']" type='text'
+            style="font-size: 13px; --padding-start: 10px; " placeholder='e.g 10am'>
+          </ion-input>
+        </div>
+
+        <div [ngStyle]="{'border': focus =='operation_hour1' ? '2px solid #015ac8' : '2px solid #eeeeee'}"
+          (click)="focus = 'operation_hour1'"
+          style="margin-top: 20px;  position: relative; border-radius: 5px; padding: 5px;  width: calc( (100% / 2 ) - 5px );">
+          <div
+            style="font-size: 12px; position: absolute; top: -8px; left: 10px; z-index: 100; background-color: white; padding: 0px 5px;">
+            {{language['Close At'][lang]}}</div>
+          <ion-input [(ngModel)]="vendor.operation_hour['lower']" type='text'
+            style="font-size: 13px; --padding-start: 10px; " placeholder='e.g 7pm'>
+          </ion-input>
+        </div>
+
+      </div>
+
+      <div [ngStyle]="{'border': focus =='openday' ? '2px solid #015ac8' : '2px solid #eeeeee'}"
+        style="margin-top: 20px;  padding: 10px 15px; position: relative;  border-radius: 5px; ">
+
+        <div
+          style="font-size: 12px; position: absolute; top: -8px; left: 10px; z-index: 100; background-color: white; padding: 0px 5px;">
+          {{language['Operating Day'][lang]}}</div>
+
+        <div style='display:flex;width:100%;flex-wrap: wrap;padding-top:15px;'>
+          <div [ngClass]="checkselect(x) ? 'now' : 'nowx' " (click)="pushorpull(x, i)"
+            *ngFor="let x of openday; let i = index"
+            style='display:flex;align-items: center;
+              justify-content: flex-start;padding:4px 10px;border-radius:5px;border:1px solid #eeeeee;margin-right:7px;margin-bottom:7px;'>
+            <div style='margin-right:5px;font-size:13px;'>{{x}}</div>
+            <ion-icon style='font-size:15px;' name="checkmark-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+
+      <div [ngStyle]="{'border': focus =='gps' ? '2px solid #015ac8' : '2px solid #eeeeee'}" (click)="focus = 'gps'"
+        style="margin-top: 20px;  position: relative; border-radius: 5px; padding: 5px;">
+        <div
+          style="font-size: 12px; position: absolute; top: -8px; left: 10px; z-index: 100; background-color: white; padding: 0px 5px;">
+          {{language['Google Map GPS'][lang]}}</div>
+        <ion-input [(ngModel)]="vendor.gps" style="font-size: 13px; --padding-start: 10px; "
+          placeholder='Enter your gps'>
+        </ion-input>
+      </div>
+
+      <div style="display: flex; align-items: center;">
+
+        <div [ngStyle]="{'border': focus =='latitude' ? '2px solid #015ac8' : '2px solid #eeeeee'}"
+          (click)="focus = 'latitude'"
+          style="margin-top: 20px;  position: relative; border-radius: 5px; padding: 5px; width: calc( (100% / 2 ) - 5px ); margin-right: 10px;">
+          <div
+            style="font-size: 12px; position: absolute; top: -8px; left: 10px; z-index: 100; background-color: white; padding: 0px 5px;">
+            {{language['Latitude'][lang]}}</div>
+          <ion-input [(ngModel)]="vendor.latitude" type='number' style="font-size: 13px; --padding-start: 10px; "
+            placeholder='Enter your latitude'>
+          </ion-input>
+        </div>
+
+        <div [ngStyle]="{'border': focus =='longitude' ? '2px solid #015ac8' : '2px solid #eeeeee'}"
+          (click)="focus = 'longitude'"
+          style="margin-top: 20px;  position: relative; border-radius: 5px; padding: 5px;  width: calc( (100% / 2 ) - 5px );">
+          <div
+            style="font-size: 12px; position: absolute; top: -8px; left: 10px; z-index: 100; background-color: white; padding: 0px 5px;">
+            {{language['Longitude'][lang]}} </div>
+          <ion-input [(ngModel)]="vendor.longitude" type='number' style="font-size: 13px; --padding-start: 10px; "
+            placeholder='Enter your longitude'>
+          </ion-input>
+        </div>
+
+        <div (click)="getlocate()" style="padding: 5px 10px; background: #015ac8; color: white; margin-bottom: -15px;
+           font-size: 13px; font-weight: bold; margin-left: 10px; border-radius: 5px;">
+          {{language['Get'][lang]}}</div>
+
+      </div>
+
+      <div style="display: flex; align-items: center;">
+
+        <div [ngStyle]="{'border': focus =='invhead' ? '2px solid #015ac8' : '2px solid #eeeeee'}"
+          (click)="focus = 'invhead'"
+          style="margin-top: 20px;  position: relative; border-radius: 5px; padding: 5px; width: calc( (100% / 2 ) - 5px ); margin-right: 10px;">
+          <div
+            style="font-size: 12px; position: absolute; top: -8px; left: 10px; z-index: 100; background-color: white; padding: 0px 5px;">
+            {{language['Invoice Head'][lang]}}</div>
+          <ion-input [(ngModel)]="vendor.invoice_head" type='text' style="font-size: 13px; --padding-start: 10px; "
+            placeholder='e.g IV'>
+          </ion-input>
+        </div>
+
+        <div [ngStyle]="{'border': focus =='invtail' ? '2px solid #015ac8' : '2px solid #eeeeee'}"
+          (click)="focus = 'invtail'"
+          style="margin-top: 20px;  position: relative; border-radius: 5px; padding: 5px;  width: calc( (100% / 2 ) - 5px );">
+          <div
+            style="font-size: 12px; position: absolute; top: -8px; left: 10px; z-index: 100; background-color: white; padding: 0px 5px;">
+            {{language['Invoice Tail'][lang]}} </div>
+          <ion-input [(ngModel)]="vendor.invoice_tail" type='number' style="font-size: 13px; --padding-start: 10px; "
+            placeholder='e.g 100'>
+          </ion-input>
+        </div>
+
+      </div>
+
+      <div style="display: flex; align-items: center;">
+
+        <div [ngStyle]="{'border': focus =='quohead' ? '2px solid #015ac8' : '2px solid #eeeeee'}"
+          (click)="focus = 'quohead'"
+          style="margin-top: 20px;  position: relative; border-radius: 5px; padding: 5px; width: calc( (100% / 2 ) - 5px ); margin-right: 10px;">
+          <div
+            style="font-size: 12px; position: absolute; top: -8px; left: 10px; z-index: 100; background-color: white; padding: 0px 5px;">
+            {{language['Optional'][lang]}} Quotation Head</div>
+          <ion-input [(ngModel)]="vendor.quo_head" type='text' style="font-size: 13px; --padding-start: 10px; "
+            placeholder='e.g FR'>
+          </ion-input>
+        </div>
+
+        <div [ngStyle]="{'border': focus =='quotail' ? '2px solid #015ac8' : '2px solid #eeeeee'}"
+          (click)="focus = 'quotail'"
+          style="margin-top: 20px;  position: relative; border-radius: 5px; padding: 5px;  width: calc( (100% / 2 ) - 5px );">
+          <div
+            style="font-size: 12px; position: absolute; top: -8px; left: 10px; z-index: 100; background-color: white; padding: 0px 5px;">
+            {{language['Optional'][lang]}} Quotation Tail</div>
+          <ion-input [(ngModel)]="vendor.quo_tail" type='number' style="font-size: 13px; --padding-start: 10px; "
+            placeholder='e.g 100'>
+          </ion-input>
+        </div>
+
+      </div>
+
+      <div [ngStyle]="{'border': focus =='description' ? '2px solid #015ac8' : '2px solid #eeeeee'}"
+        (click)="focus = 'description'"
+        style="margin-top: 20px;  position: relative; border-radius: 5px; padding: 5px;">
+        <div
+          style="font-size: 12px; position: absolute; top: -8px; left: 10px; z-index: 100; background-color: white; padding: 0px 5px;">
+          {{language['Description'][lang]}}</div>
+        <ion-textarea rows='6' [(ngModel)]="vendor.description" style="font-size: 13px; --padding-start: 10px; "
+          placeholder='Enter your description'>
+        </ion-textarea>
+      </div>
+
+    </div>
+
+
+
+
+  </div>
+
+  <div style="height: 67px; width: 100%;"></div>
+
+  <div (click)="complete()"
+    style="padding: 10px; position: fixed; width: 100%; bottom: 0px; z-index: 1000; background-color: white;">
+    <div style="padding: 15px; border-radius: 100px; text-align: center; font-size: 14px; font-weight: 400;
+    background-image: linear-gradient(to right top, #015ac8, rgb(1,173,200)); color: white">
+      {{language['Update'][lang]}}
+    </div>
+  </div>
+
+</ion-content>

@@ -1,0 +1,131 @@
+<ion-content style='--background:#f7f9fd;'>
+
+  <div style='background-color:white;position: sticky;top:0;left:0;z-index: 9999;border-bottom:1px solid #eeeeee;'>
+    <div style='width:100vw;padding:15px 15px;display:flex;justify-content: space-between;align-items: center;'>
+      <div style='display:flex;justify-content: space-between;align-items: center;width:100%;'>
+        <ion-icon (click)='back()' style='color:#f53c3c;font-size:20px;' name="arrow-back"></ion-icon>
+        <div style='font-size:16px;color:#333333;'>{{ language["Create Branch"][lang]}}</div>
+        <ion-icon style='color:#f53c3c;font-size:20px;opacity: 0;' name="arrow-back"></ion-icon>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding: 10px; background-color: #f7f9fd;"></div>
+
+  <div style="display: flex; align-items: center; justify-content: center;">
+    <div style=" width: 80px; height: 80px; position: relative;">
+      <img style="border-radius: 100px; width: 100%; height: 100%; object-fit: cover; background-color: white;
+       box-shadow: 0px 3px 6px rgb(0,0,0,0.1); border: 1px solid rgba(255, 255, 255, 0.1);"
+        src="{{voucher.photo || 'assets/logo.png'}}">
+      <div style="position: absolute;  bottom: 2px; right: 2px; z-index: 100; border-radius: 100px;
+       background-color: white; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center;
+        box-shadow: 0px 3px 6px rgb(0,0,0,0.1);">
+
+        <label for="files" class="btn" style="position: relative;">
+          <ion-icon name="camera-outline"></ion-icon>
+        </label>
+
+        <input #uploadEl style="display: none" id="files" class="inputclass" accept="image/*" type="file"
+          (change)="fileChange($event,'this.voucher.photo', 1024)">
+      </div>
+    </div>
+  </div>
+
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+
+  <div style='padding:15px;width:100vw;padding-bottom:5px;background-color:white;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{ language["Branch Name"][lang]}}<span
+          style='color:#f53c3c;font-size:14px;'>&nbsp;*</span>
+      </div>
+      <ion-icon style='font-size:14px;color:#f53c3c' name="help-circle-outline"></ion-icon>
+    </div>
+
+    <ion-input style='font-size:12px;color:#333333;--padding-end:0px;' [(ngModel)]="voucher.name"
+      placeholder='{{ language["Enter Branch name"][lang]}}'>
+    </ion-input>
+
+  </div>
+
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+  <div style=' padding:15px;width:100vw;padding-bottom:5px;background-color:white;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{ language["Branch Email"][lang]}}<span
+          style='color:#f53c3c;font-size:14px;'>&nbsp;*</span>
+      </div>
+      <ion-icon style='font-size:14px;color:#f53c3c' name="help-circle-outline"></ion-icon>
+    </div>
+
+    <ion-input type='email' style='font-size:12px;color:#333333;--padding-end:0px;' [(ngModel)]="voucher.email"
+      placeholder='{{ language["Enter Email"][lang]}}'></ion-input>
+
+  </div>
+
+  <!-- <div style="padding: 5px; background-color: #f7f9fd;"></div>
+  <div style='padding:15px;width:100vw;padding-bottom:5px;background-color:white;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>分店密码 <span style='color:#f53c3c;font-size:14px;'>&nbsp;*</span>
+      </div>
+      <ion-icon style='font-size:14px;color:#f53c3c' name="help-circle-outline"></ion-icon>
+    </div>
+
+    <ion-input type='password'  style='font-size:12px;color:#333333;--padding-end:0px;' [(ngModel)]="voucher.password"
+      placeholder="填写分店密码"></ion-input>
+
+  </div> -->
+
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+  <div style='padding:15px;width:100vw;padding-bottom:5px;background-color:white;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{ language['Branch Contact'][lang]}}<span
+          style='color:#f53c3c;font-size:14px;'>&nbsp;*</span>
+      </div>
+      <ion-icon style='font-size:14px;color:#f53c3c' name="help-circle-outline"></ion-icon>
+    </div>
+
+    <ion-input style='font-size:12px;color:#333333;--padding-end:0px;' [(ngModel)]="voucher.contact"
+      placeholder="{{ language['Enter Branch Contact'][lang]}}">
+    </ion-input>
+
+  </div>
+
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+  <div style='padding:15px;width:100vw;padding-bottom:5px;background-color:white;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{ language['Branch Address'][lang]}}
+      </div>
+      <ion-icon style='font-size:14px;color:#f53c3c' name="help-circle-outline"></ion-icon>
+    </div>
+
+    <ion-input style='font-size:12px;color:#333333;--padding-end:0px;' [(ngModel)]="voucher.address"
+      placeholder="{{ language['Enter Branch Address'][lang]}}"></ion-input>
+  </div>
+
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+
+  <div (click)='openstatus()'
+    style=" background-color:white;padding: 15px 15px; display: flex; align-items: center; justify-content: space-between;border-bottom:1px solid #eeeeee;">
+    <div style="display: flex; align-items: center;">
+      <ion-icon style='font-size:14px;color:#333333;' name="bag-handle-outline"></ion-icon>
+      <div style="font-size: 12px; margin-left: 10px;color:#333333;">{{ language["Branch Status"][lang]}}<span
+          style='color:#f53c3c;font-size:12px;'>&nbsp;*</span></div>
+    </div>
+    <div style='display:flex;justify-content: flex-end;align-items: center;'>
+      <div [ngStyle]='{"color" : voucher.status == true ? "#00b871" : "#f53c3c"}' style='font-size:12px;'>
+        {{voucher.status==true ? language["Open"][lang] : language["Close"][lang]}}</div>
+      <ion-icon style="margin-left: 10px;color:#666666;font-size:14px;" name="chevron-forward-outline"></ion-icon>
+    </div>
+  </div>
+
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+
+
+  <div
+    style='background-color:white;position: sticky;bottom:0;left:0;z-index: 9999;display:flex;justify-content: center;align-items: center;top:calc( 100vh - 66px )'>
+    <div (click)='submit()'
+      style='margin:15px 25px;width:calc( 100% - 50px );padding:10px 20px;background-color: #f53c3c;font-size:14px;color:white;text-align: center;border-radius:5px;'>
+      {{ language["Create Outlet"][lang]}}</div>
+  </div>
+
+
+</ion-content>

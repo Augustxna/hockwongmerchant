@@ -1,0 +1,196 @@
+<ion-content style="--background: #F9FAFE">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div style="background-color: #f7f9fd;">
+    <!-- 
+    <div [ngStyle]="{'background-image': 'linear-gradient(to top, white, white, #' + theme + '33)'}"
+    style="position: absolute; top:0 px; z-index: -1; background-image: linear-gradient(to top, white, white, #ffd7d733); min-height: 100%; width: 100%;">
+  </div> -->
+
+    <div
+      style=" padding: 7.5px 20px;display: flex; align-items: center; justify-content: space-between;  margin-top: 10px; background: #FFFFFF;">
+
+      <!-- <img style="height: 40px; " src="{{'assets/logo.png'}}"> -->
+
+      <div (click)="pather('profile')" style='display:flex;align-items: center;cursor: pointer;'>
+
+        <div style="position: relative;">
+          <img style='height:40px;width:40px;object-fit: cover; border-radius: 100%; margin-right:10px;'
+            src="{{vendor.photo || 'assets/logo.png'}}" alt="">
+
+        </div>
+
+        <div style="text-align: start;">
+          <div style='font-size:11px;letter-spacing: .5px; font-weight: 500;
+          opacity: 0.9;max-width:100px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;'>
+            {{vendor.brand_name || 'N/A'}}</div>
+          <div style='font-size:11px;letter-spacing: .5px; font-weight: 500; margin-top: 5px;
+          opacity: 0.9;max-width:100px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;'>
+            {{vendor.name}}</div>
+        </div>
+
+      </div>
+
+
+      <div *ngIf="!vendor.physical" style="color:#F63B2F; display: flex; justify-content: flex-end; text-align: right;">
+        {{language["Pending Review"][lang]}}
+      </div>
+      <div *ngIf="vendor.physical" style="color:#343434; display: flex; justify-content: flex-end; text-align: right;">
+        {{language["Verified"][lang]}}
+      </div>
+
+      <!-- <img *ngIf="vendor.verified" src="assets/verify.png" style="height: 35px;"> -->
+
+
+    </div>
+
+    <div>
+
+      <div style="box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px; margin-bottom: 15px; background-color: #FFFFFF;">
+        <div
+          style="background-color: #3d3d3d; color: #FFFFFF; display:flex; font-size: 14px; justify-content: center; align-items: center; padding: 10px; text-align: center;">
+          {{language["First Step: Set Merchant Information & Share Profit"][lang]}}</div>
+
+        <div
+          style="display: flex; justify-content:space-between; align-items:center; padding: 15px;  background-color: #FFFFFF;">
+
+          <div (click)="pather('profile')"
+            style="display: flex; justify-content: center; align-items: center; min-width: 30%; max-width: 30%; ">
+            <div
+              style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px; border-radius: 10px; padding:15px 5px;
+          text-align: center;width: 100%; font-size: 14px;min-height: 63.6px; display: flex; justify-content: center; align-items: center;">
+              {{language["Merchant Information"][lang]}}
+            </div>
+          </div>
+
+          <div (click)="pather('branch-list')"
+            style="display: flex; justify-content: center; align-items: center; min-width: 30%; max-width: 30%;">
+            <div
+              style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px; border-radius: 10px; padding:15px 5px;
+          text-align: center;width: 100%; font-size: 14px; min-height: 63.6px; display: flex; justify-content: center; align-items: center;">
+              {{language["Merchant Address"][lang]}}
+            </div>
+          </div>
+
+
+          <div (click)="merchantrebate(vendor.physical_rate)"
+            style="display: flex; justify-content: center; align-items: center; min-width: 30%;max-width: 30%;">
+            <div
+              style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px; border-radius: 10px; padding:15px 5px;
+          text-align: center; width: 100%; font-size: 13px; min-height: 63.6px; display: flex; justify-content: center; align-items: center;">
+              {{language["Merchant Share Profit"][lang]}} {{vendor.physical_rate}}%</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div style="box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px; margin-bottom: 15px; background-color: #FFFFFF;">
+        <div
+          style="background-color: #3d3d3d; color: #FFFFFF; display:flex; justify-content: center; align-items: center; padding: 10px;  font-size: 14px; text-align: center;">
+          {{language["Second Step: Add Restaurant Feature & Service"][lang]}}</div>
+        <div
+          style="display: flex; justify-content:space-between; align-items:center; padding: 10px 20px; background-color: #FFFFFF;">
+
+          <div (click)="addmenu()"
+            style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100px;">
+            <div
+              style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px; border-radius: 10px; padding:15px 0px;
+          text-align: center; width: 100%; font-size: 14px; min-height: 63.6px; display: flex; justify-content: center; align-items: center; min-width: 100%;max-width: 100%;">
+              {{language["Start to Add"][lang]}}</div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div style="box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px; background-color: #FFFFFF;">
+
+        <div
+          style="background-color: #3d3d3d; color: #FFFFFF; display:flex; justify-content: center; font-size: 14px; align-items: center; padding: 10px; text-align: center;">
+          {{language["Third Step: Contact Customer Service After Top Up"][lang]}}</div>
+
+        <div
+          style="display: flex; justify-content:space-between; align-items:center; padding: 10px 20px; background-color: #FFFFFF; height: 150px;">
+
+          <div style="display: flex; flex-direction:column; justify-content:center; align-items:center;
+         min-width: 30%; max-width: 30%; background-color: #FFFFFF; height: 100%;">
+
+            <div (click)="creditpage()"
+              style="display: flex; justify-content: center; align-items: center; width: 100%; height: 45%;">
+              <div
+                style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px; border-radius: 10px; padding: 15px 5px;
+          text-align: center;width: 100%; font-size: 14px;display: flex; justify-content: center; align-items: center; height: 100%; ">
+                {{language["Top Up"][lang]}}
+              </div>
+            </div>
+
+            <div style="height:10%; background-color: transparent;">
+            </div>
+
+            <div (click)="creditpage()"
+              style="display: flex; justify-content: center; align-items: center; width: 100%; height: 45%;">
+              <div
+                style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px; border-radius: 10px; padding:15px 5px;
+          text-align: center;width: 100%; font-size: 14px;  display: flex; justify-content: center; align-items: center; height: 100%;">
+                {{language["Scan History"][lang]}}
+              </div>
+            </div>
+
+          </div>
+
+          <div (click)="scan()"
+            style="display: flex; justify-content: center; align-items: center; min-width: 65%;max-width: 65%; height: 100%;">
+
+            <div
+              style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px; border-radius: 10px; padding:15px 0px;
+          text-align: center; width: 100%; font-size: 14px; display: flex; justify-content: center; align-items: center; height: 100%;">
+              <img src="assets/Gif/animation_200_l7eirvrt.gif" style="width: 25%;" />
+              <div>{{language["Scan QR Code"][lang]}}</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div
+          style="display: flex; justify-content:center; align-items:center; text-align:center; padding:10px 10px 20px 10px; color: #A3A3A3; font-size: 14px;">
+          {{language["Please contact customer service for verification and account activation after top up"][lang]}}
+        </div>
+
+      </div>
+      <div
+        style="background-color: #3d3d3d; color: #FFFFFF; display:flex; justify-content: space-between; align-items: center; padding: 10px 25px;  font-size: 16px; text-align: center;">
+        <div> {{language["Balance"][lang]}}</div>
+        <div>{{vendor.credit | currency : 'RM '}}</div>
+      </div>
+
+
+    </div>
+
+
+    <div style="padding: 5px; background-color: #f7f9fd;"></div>
+
+    <div style="padding: 0px 20px;  background-color: white;">
+      <div (click)='what()'
+        style="border-bottom: 1px solid #eeeeee; padding: 15px 0px; display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center;">
+          <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_ic9mua9m.json" background="transparent"
+            speed="1" style="height:30px; width: 30px; object-fit: cover;" loop autoplay>
+          </lottie-player>
+          <div style="font-size: 14px; margin-left: 10px;color:#333333; white-space: nowrap;">
+            {{language["Customer Service"][lang]}}</div>
+        </div>
+        <div style='display:flex;justify-content: flex-end;align-items: center;'>
+          <ion-icon style="margin-left: 10px;color:#666666;" name="chevron-forward-outline"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+
+
+</ion-content>

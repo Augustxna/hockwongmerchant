@@ -1,0 +1,58 @@
+<ion-content style='--background:#f7f9fd;'>
+
+  <div style='background-color:white;position: sticky;top:0;left:0;z-index: 9999;border-bottom:1px solid #eeeeee;'>
+    <div style='width:100vw;padding:15px 15px;display:flex;justify-content: space-between;align-items: center;'>
+      <div style='display:flex;justify-content: space-between;align-items: center;width:100%;'>
+        <ion-icon (click)='back()' style='color:#f53c3c;font-size:20px;' name="arrow-back"></ion-icon>
+        <div style='font-size:16px;color:#333333;'>{{ language["Product Featured URLs"][lang]}}</div>
+        <ion-icon style='color:#f53c3c;font-size:20px;opacity: 0;' name="arrow-back"></ion-icon>
+      </div>
+    </div>
+  </div>
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+
+  <div *ngFor='let type of selected; let i = index' style='width:100vw;background-color: white;'>
+    <div
+      style='width:100%;display:flex;justify-content: space-between;align-items: center;padding:15px;border-bottom:1px solid #eeeeee;'>
+      <div style='display:flex;align-items: center;'>
+        <div
+          style='width:85px;;font-size:14px;color:#333333;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;'>
+          {{type.name}}</div>
+      </div>
+      <div
+        style='font-size:12px;color:#f53c3c;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;width:calc( 100% - 100px );text-align: right;'>
+        {{type.link}}</div>
+    </div>
+    <div *ngIf='vendor_acc["vendor_id"]==vendor_acc["id"]'
+      style='width:100%;display:flex;align-items: center;justify-content: space-between;padding:15px;padding-bottom:0px;'>
+      <div (click)='previewtype(type.link)'
+        style='border-radius:5px;;border:1px solid #999999;padding:5px 10px;margin-bottom:15px;display:flex;justify-content: center;align-items: center;position: relative;width:calc( ( 100% - 30px ) / 3 );'>
+        <div style='font-size:12px;color:#666666;'>{{ language["Preview"][lang]}}</div>
+      </div>
+      <div (click)='editvar(i)'
+        style='border-radius:5px;;border:1px solid #999999;padding:5px 10px;margin-bottom:15px;display:flex;justify-content: center;align-items: center;position: relative;width:calc( ( 100% - 30px ) / 3 );'>
+        <div style='font-size:12px;color:#666666;'>{{ language["Edit"][lang]}}</div>
+      </div>
+      <div (click)='deltype(i)'
+        style='border-radius:5px;;border:1px solid #999999;padding:5px 10px;margin-bottom:15px;display:flex;justify-content: center;align-items: center;position: relative;width:calc( ( 100% - 30px ) / 3 );'>
+        <div style='font-size:12px;color:#666666;'>{{ language["Delete"][lang]}}</div>
+      </div>
+    </div>
+    <div style="padding: 5px; background-color: #f7f9fd;"></div>
+  </div>
+
+  <div *ngIf='vendor_acc["vendor_id"]==vendor_acc["id"]' (click)='addvar()'
+    style='margin:15px;margin-top:0px;;width:calc( 100% - 30px );padding:15px;border:1px dashed #f53c3c;font-size:14px;color:#f53c3c;text-align: center;background-color:white;border-radius:5px;'>
+    + {{ language["Add New Featured URL"][lang]}}
+  </div>
+
+  <div *ngIf='vendor_acc["vendor_id"]==vendor_acc["id"]'
+    style='background-color:white;position: sticky;bottom:0;left:0;z-index: 9999;display:flex;justify-content: center;align-items: center;top:calc( 100vh - 66px )'>
+
+    <div (click)='done()'
+      style='margin:15px 25px;width:calc( 100% - 50px );padding:10px 20px;background-color: #f53c3c;font-size:14px;color:white;text-align: center;border-radius:5px;'>
+      {{ language["UPDATE CHANGES"][lang]}}</div>
+
+  </div>
+
+</ion-content>

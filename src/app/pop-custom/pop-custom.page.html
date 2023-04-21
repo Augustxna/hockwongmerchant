@@ -1,0 +1,40 @@
+<ion-content>
+
+  <div style="padding: 20px 25px; display: flex; flex-direction: column;
+      justify-content: center; height: 100%;">
+    <div style="display: flex; flex-direction: column; align-items: center; height: max-content;">
+      <!-- <div style="font-size: 24px; font-weight: bolder">{{language == 'zh' ? '确定使用' : 'Confirm'}}?</div> -->
+      <div style="color: #333333; font-size: 16px; font-weight: bolder; display: -webkit-box;
+-webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden;">{{title}}</div>
+
+      <!-- <div style="color: #999; font-size: 13px;">{{date | date: 'dd MMM yyyy h:mm a'}}</div> -->
+
+      <!-- <div style="margin-top: 20px; color: #666; text-align: center; padding: 0 5px;">{{ language == 'zh' ?
+        '每款会员福利的使用方法会有少许不同。请确保了解使用方法后，再选择使用。': 'Every member benefit may have a different redemption method. Please make
+        sure you understand the redeem method before using it.'}}
+      </div> -->
+
+      <!-- <div style="margin-top: 5px;color: red; text-align: center; padding: 0 5px; font-size: 13px;">{{lang["message"][language]}} <br/> {{lang["message2"][language]}}
+      </div> -->
+
+      <div *ngIf="input"
+        style="padding: 10px;  background-color: #f7f9fd; width: 100%; border-radius: 100px; margin-top: 10px;">
+        <ion-input style="font-size: 14px;" [(ngModel)]="enteredcode" class="ion-no-padding"
+          placeholder='Enter Something'>
+        </ion-input>
+      </div>
+
+    </div>
+
+    <div
+      style="display: flex; align-items: center; justify-content: space-between; margin-top: 20px; width: 100%; height: max-content;">
+      <div (click)="done(false)"
+        style="width: 45%; padding: 5px; text-align: center; color: white; border-radius: 5px; background-color: rgb(130,79,210);">
+        {{language == 'zh' ? '取消' : 'Cancel'}}</div>
+
+      <div (click)="done(true)"
+        style="width: 45%; padding: 5px; text-align: center; color: white; border-radius: 5px; background-color: rgb(130,79,210);">
+        {{language == 'zh' ? '确定' : 'Confirm'}}</div>
+    </div>
+  </div>
+</ion-content>

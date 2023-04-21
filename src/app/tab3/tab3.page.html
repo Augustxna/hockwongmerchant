@@ -1,0 +1,144 @@
+<ion-header class="ion-no-border" style="--background: white">
+
+  <div style="padding: 15px; position: sticky; top: 0;border-bottom:1px solid #eeeeee; background-color: white">
+
+    <div style="font-size: 15px;  text-align: center; padding-bottom: 15px; letter-spacing: .6px; ">{{language['MY
+      PRODUCTS'][lang]}}</div>
+
+    <div style='display:flex;justify-content: space-evenly;align-items: center;'>
+      <div (click)='tab=0 ;pager=1' [ngStyle]='{"color": tab==0 ? "#f53c3c" : "#333333"  }'
+        style='width:calc( 100vw / 2 );padding:10px 0px;font-size:13px;text-align: center;'>{{language['Online'][lang]}}
+      </div>
+      <div style='height:20px;border-left:1px solid #eeeeee;'></div>
+      <div (click)='tab=1;pager=1' [ngStyle]='{"color": tab==1 ? "#f53c3c" : "#333333"  }'
+        style='width:calc( 100vw / 2 );padding:10px 0px;font-size:13px;text-align: center;'>
+        {{language['Pending'][lang]}}</div>
+    </div>
+
+    <div style="display: flex; align-items: center; margin-top: 10px;">
+
+      <div
+        style='display:flex;align-items: center;padding-left:10px; background-color: #f7f9fd; border-radius:10px; width: 100%;'>
+        <ion-icon style='font-size:14px;color:#aaaaaa;margin-right:10px;' name="search-outline"></ion-icon>
+        <ion-input [(ngModel)]='keyword' placeholder='{{ language["Search your product"][lang]}}' style='font-size:14px;letter-spacing: 1px;
+        color:#444444;' type="text"></ion-input>
+      </div>
+
+      <div (click)="create()"
+        style="width: 35px; height: 35px; padding: 5px; border-radius: 100px; background-color: #f53c3c; margin-left: 10px; ">
+        <ion-icon style="color: white; font-size: 25px;" name="add-outline">
+        </ion-icon>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; margin-top: 15px; overflow-x: scroll;">
+      <div *ngFor="let x of categoriesname; let i = index" [ngClass]="selcate == i ? 'high' : 'highx'" (click)="selcate = i"
+        style="height: 28px; font-size: 12px ;padding: 10px; margin-right: 10px; border-radius: 5px; min-width: max-content; display: flex; align-items: center;">
+        {{x}}
+      </div>
+    </div>
+  </div>
+
+
+</ion-header>
+
+<ion-content style="--background: #f7f9fd">
+
+  <div style="padding: 17.5px 10px;">
+    <div style='width:100%;display:flex;flex-wrap: wrap; '>
+      <div (click)="edit(eve.product_id)" *ngFor='let eve of filterer(products || []);let i = index'
+        style=' width: 50%;  display: flex; align-items: center; justify-content: center; padding: 0px 0px 20px 0px;'>
+        <div style='background-color: white; box-shadow: 0px 3px 6px rgb(0,0,0,0.05); border-radius: 10px; width: calc( 100% - 20px);
+        display: flex; align-items: center; justify-content: center; flex-direction: column;'>
+          <div style='width:100%;padding-bottom:100%;position: relative;'>
+            <img
+              style='width:100%;height:100%;top:0;left:0;right:0;bottom:0;position: absolute;z-index:10;object-fit: cover;border-top-right-radius: 5px;border-top-left-radius: 5px;'
+              src="{{eve.thumbnail}}" alt="">
+          </div>
+
+          <div style='padding:7px;width:100%;'>
+            <div style='font-size:12px;color:#444444;display: -webkit-box;-webkit-box-orient: vertical;
+              -webkit-line-clamp: 2;overflow: hidden;font-weight: 700;letter-spacing: .5px; '>
+              {{lang == 'en' ? eve.name_en : eve.name_zh}}</div>
+
+            <div style='display:flex;margin-top:7px;flex-wrap: wrap;'>
+              <div style='font-size:13px;font-weight: bold;color:#ff1717;letter-spacing: .5px;'>{{eve.price_now |
+                currency:"RM"}}</div>
+              <div *ngIf='eve.price > eve.price_now'
+                style='font-size:11px;color:#aaaaaa;text-decoration: line-through;margin-left:5px;margin-top:1px;letter-spacing: .5px;'>
+                {{eve.price | currency:"RM"}}</div>
+              <div *ngIf='eve.price > eve.price_now'
+                style='font-size:11px;color:#ff1717;margin-left:5px;margin-top:1px;letter-spacing: .5px;'>-{{( (
+                eve.price - eve.price_now) / eve.price * 100).toFixed(0)}}%</div>
+            </div>
+
+            <div style='width:100%'>
+              <div *ngIf='eve.price_agent>eve.price_now'
+                style='font-size:10px;letter-spacing: .5px;color:#aaaaaa;margin-top:3px;font-weight: lighter;'>
+                {{"agent"}}:&nbsp;{{ eve.price_agent | currency:"RM"}}</div>
+              <div *ngIf='eve.price_normal>eve.price_now'
+                style='font-size:10px;letter-spacing: .5px;color:#aaaaaa;margin-top:3px;font-weight: lighter;'>
+                {{"normal"}}:&nbsp;{{ eve.price_normal | currency:"RM"}}</div>
+            </div>
+
+            <div style='display:flex;align-items: center;margin-top:7px;'>
+              <div style='font-size:11px;color:#666666;letter-spacing: .5px;'>
+                {{eve.sold || 0}}&nbsp;{{ language["Sold"][lang]}}</div>
+              <div *ngIf='eve.rating_score>0' style='display:flex;align-items: center;margin-left:5px;'>
+                <div style='font-size:11px;margin-right:5px;color:#aaaaaa;'>|</div>
+                <ion-icon *ngIf='eve.rating_score>=0' style='font-size:11px;margin-right:3px;color:#ffd000;'
+                  name="star">
+                </ion-icon>
+                <ion-icon *ngIf='eve.rating_score>=1' style='font-size:11px;margin-right:3px;color:#ffd000;'
+                  name="star">
+                </ion-icon>
+                <ion-icon *ngIf='eve.rating_score>=2' style='font-size:11px;margin-right:3px;color:#ffd000;'
+                  name="star">
+                </ion-icon>
+                <ion-icon *ngIf='eve.rating_score>=3' style='font-size:11px;margin-right:3px;color:#ffd000;'
+                  name="star">
+                </ion-icon>
+                <ion-icon *ngIf='eve.rating_score>=4' style='font-size:11px;margin-right:3px;color:#ffd000;'
+                  name="star">
+                </ion-icon>
+                <div style='font-size:10px;color:#aaaaaa;'>({{eve.rating_count || 0}})</div>
+              </div>
+              <div *ngIf='eve.rating_score < 1' style='display:flex;align-items: center;margin-left:5px;'>
+                <div style='font-size:11px;margin-right:5px;color:#aaaaaa;'>|</div>
+                <div style='font-size:11px;color:#aaaaaa;'>{{language['No rating yet'][lang]}}</div>
+              </div>
+            </div>
+
+            <div style='margin-top:5px;;font-size:10px;color:#ff6262;letter-spacing: .5px;'>{{
+              (eve.delivery_courier==true && eve.delivery_collect==true ) ? 'Both' :
+              ( eve.delivery_collect!=true ) ? language['delivery'][lang] : language['collect'][lang] }}</div>
+
+            <div [ngStyle]="{'color': eve.status ? '#2fdf17' : '#ff6262'}"
+              style='margin-top:5px;;font-size:10px;letter-spacing: .5px; text-align: end;'>{{eve.status ?
+              'Active' : 'Inactive'}}</div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div *ngIf='!lengthof(filterer(products || []))' style='width:calc( 100% - 20px );
+    padding:20px;display:flex;justify-content: center; margin: 0px 10px; border-radius: 10px;
+      align-items: center;background-color: white;flex-direction: column;'>
+      <img style='width:200px;' src="https://i.pinimg.com/originals/5d/35/e3/5d35e39988e3a183bdc3a9d2570d20a9.gif"
+        alt="">
+      <div style='font-size:16px;font-weight: bold;color:#666666;text-align: center;'>{{
+        language["No Content"][lang]}}</div>
+      <div style='padding-top:5px;font-size:14px;font-weight: normal;color:#666666;text-align: center;'>{{
+        language["Nothing in the list"][lang]}}</div>
+    </div>
+  </div>
+
+</ion-content>
+
+<div (click)='back()'
+  style='height:30px;width:30px;display:flex;justify-content: center;align-items: center;background-color: rgba(255,255,255,0.5);position: fixed;top:15px;left:15px;border-radius:100%;z-index:9999;'>
+  <ion-icon style='font-size:20px;color:black;' name="arrow-back-outline"></ion-icon>
+</div>

@@ -1,0 +1,21 @@
+.bgin{
+    animation: fadein .1s ease;
+    opacity: 1;
+    z-index:100;
+  }
+  
+  .bginx{
+    animation: fadeinx .1s ease;
+    opacity: 0;
+    z-index:-1000;
+  }
+
+  .open3{
+    max-height:700px;
+    transition: all .2s ease;
+}
+
+.open3x{
+    max-height:0px;
+    transition: all .2s ease;
+}

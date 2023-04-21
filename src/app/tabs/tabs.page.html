@@ -1,0 +1,96 @@
+<ion-tabs>
+
+  <ion-tab-bar slot="bottom" style="--background:white; height: 60px;">
+    <!-- <ion-tab-button tab="tab1">
+      <ion-icon name="home-outline"></ion-icon>
+      <ion-label> {{language['Home'][lang]}}</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab2">
+      <ion-icon name="document-text-outline"></ion-icon>
+      <ion-label> {{language['Sales'][lang]}}</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab3">
+      <ion-icon name="cube-outline"></ion-icon>
+      <ion-label> {{language['Products'][lang]}}</ion-label>
+    </ion-tab-button> -->
+
+    <ion-tab-button tab="tab5">
+      <ion-icon name="home-outline"></ion-icon>
+      <ion-label> {{language['Home'][lang]}}</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab6">
+      <ion-icon name="globe-outline"></ion-icon>
+      <ion-label> {{language['Online Sales'][lang]}}</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab7">
+      <ion-icon name="cube-outline"></ion-icon>
+      <ion-label> {{language['Offline Merchant'][lang]}}</ion-label>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+
+</ion-tabs>
+
+<div [ngClass]="languager ? 'show' : 'showx'"
+  style="background-color: rgba(0, 0, 0, 0.9); height: 100vh;  transition: .2s;
+width: 100vw; display: flex; align-items: center; justify-content: center; text-align: center; position: fixed; left: 0px;">
+
+  <div style="padding: 20px; border-radius: 15px; width: 90%; max-width: 400px;">
+
+    <div style="color: white;">Please Choose your language</div>
+    <div style="color: white; margin-top: 5px;">请选择使用语言</div>
+
+    <div style="display: flex; align-items: center; margin-top: 20px;">
+      <div (click)="selection(false)" style="display: flex; align-items: center; justify-content: center; color: white;  margin-right: 10px;
+         background-color: rgb(129,76,208); border-radius: 15px;  width: 40vw; height: 40vw;">
+        中文
+      </div>
+
+      <div (click)="selection(true)" style="display: flex; align-items: center; justify-content: center; color: white;
+       background-color: rgb(129,76,208); border-radius: 15px; width: 40vw; height: 40vw;">
+        English
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div [ngClass]="firsttime ? 'show1' : 'showx'"
+  style="background-color: rgba(0, 0, 0, 0.9); height: 100vh; transition: .2s;
+width: 100vw; display: flex; align-items: center; justify-content: center; text-align: center; position: fixed; left: 0px;">
+
+  <div style=" width: 95%; max-width: 400px; flex-direction: column; display: flex; align-items: center;">
+
+    <div style="color: white; font-weight: bold; font-size: 18px;">欢迎注册成为HW Online商家</div>
+    <div style="color: white; margin-top: 5px; font-size: 14px;">选择一个后按 "下一步"</div>
+
+    <div style="display: flex; align-items: center; margin-top: 20px;">
+      <div [ngClass]="select == 0 ? 'selected' : 'selectedx'" (click)="select = 0" style="display: flex; align-items: center;
+       justify-content: center; color: white;  margin-right: 10px; padding: 10px;
+         border-radius: 15px;  width: 50%; min-height: 220px; height: max-content; flex-direction: column; ">
+        <div style="font-weight: bold; font-size: 20px;">我想成为</div>
+        <div style="font-weight: bold; font-size: 20px;">线上商家</div>
+        <div style="margin-top: 20px; font-size: 11px; height: 102px;">在平台上架产品，设置产品出售给平台价格，让我们的代理为您销售！</div>
+      </div>
+
+      <div [ngClass]="select == 1 ? 'selected' : 'selectedx'" (click)="select = 1" style="display: flex; align-items: center; justify-content: center; flex-direction: column; color: white;
+        border-radius: 15px; width: 50%; min-height: 220px; height: max-content; padding: 10px;">
+        <div style="font-weight: bold; font-size: 20px;">我想成为</div>
+        <div style="font-weight: bold; font-size: 20px;">线下商家</div>
+        <div style="margin-top: 20px; font-size: 11px; height: 102px;">
+          商家让利给代理，促使代理主动介绍朋友家人去消费。达到人传人效应，有效增加品牌曝光效果，从而达到增加业绩。</div>
+      </div>
+    </div>
+
+    <div (click)="navto()"
+      style="color: white; background-color: rgb(129, 76, 208); padding: 5px 50px; border-radius: 100px; margin-top: 60px; font-style: 12px;">
+      下一步</div>
+
+  </div>
+
+</div>

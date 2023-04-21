@@ -1,0 +1,188 @@
+
+
+  <!-- <ion-content style="--background: #f7f9fd"> -->
+    <ion-content style="--background: #F9FAFE">
+    <!-- <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher> -->
+
+    <div style="background-color: #F9FAFE;">
+
+    <!-- <div [ngStyle]="{'background-image': 'linear-gradient(to top, white, white, #' + theme + '33)'}"
+    style="position: absolute; top:0 px; z-index: -1; background-image: linear-gradient(to top, white, white, #ffd7d733); min-height: 100%; width: 100%;">
+  </div> -->
+  <div [ngStyle]="{'background-image': 'linear-gradient(to top, white, white, red)'}"
+  style="position: absolute; top:0 px; z-index: -1; background-image: linear-gradient(to top, white, white, #ffd7d733); min-height: 100%; width: 100%;">
+</div>
+
+  <div
+  style=" padding: 7.5px 20px;display: flex; align-items: center;  margin-top: 10px;">
+
+  <!-- <img style="height: 40px; " src="{{'assets/logo.png'}}"> -->
+
+  <div (click)="pather('profile')" style='display:flex;align-items: center;cursor: pointer;'>
+
+    <div style="position: relative;">
+      <img style='height:40px;width:40px;object-fit: cover; border-radius: 100%; margin-right:10px;'
+        src="{{vendor.photo || 'assets/logo.png'}}" alt="">
+        <!-- <img *ngIf="vendor.verified" src="assets/verify.png" style="position: absolute; height: 20px; top: -5px; right: -5px; z-index: 100"> -->
+    </div>
+
+    <div style="text-align: start;">
+      <div style='font-size:11px;letter-spacing: .5px; font-weight: 500;
+          opacity: 0.9;max-width:100px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;'>
+        {{vendor.brand_name || 'N/A'}}</div>
+      <div style='font-size:11px;letter-spacing: .5px; font-weight: 500; margin-top: 5px;
+          opacity: 0.9;max-width:100px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;'>
+        {{vendor.name}}</div>
+    </div>
+
+  </div>
+
+</div>
+
+<ion-slides style='width:100%;align-items: flex-start;display:flex; margin-top: 8px;' pager="true" [options]="slideOpts">
+  <ion-slide *ngFor='let eve of (news2 || []);let i = index' style="height:250px;">
+    <!-- [ngClass]="[activeslide==i ? 'opens' : 'opensx']" -->
+
+    <img style='object-fit: cover; height: 100%; width: 100%;' src="{{eve.photo}}"
+      alt="">
+
+  </ion-slide>
+</ion-slides>
+
+
+  <div style="display: flex; width: 100% ; justify-content: space-around; padding:10px 15px;">
+  
+    <div (click)="pather('/tab2?tab=processing')"
+    style='min-width:45%; width:50%; display:flex;align-items: center; justify-content: center; flex-direction: column; margin-bottom:10px;
+    border-radius: 10px; margin-right: 5px; box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+    background-color: #FFFFFF; padding-bottom: 15px;'>
+    <!-- <div [ngStyle]="{'box-shadow': '0px 1px 2px #' + theme + '4d'}"
+    style="background-color: rgba(255, 255, 255, 0.9); border-radius: 10px; padding:5px;width: 100px; height: 100px;"> -->
+    <div
+    style="background-color: rgba(255, 255, 255, 0.9); border-radius: 10px; padding:5px;width: 100px; height: 100px;">
+      <lottie-player src="https://assets1.lottiefiles.com/private_files/lf30_rnizksef.json" background="transparent"
+      speed="1" style="height: 100px;" loop autoplay>
+    </lottie-player>
+    </div>
+    <div style='font-size:14px; font-weight: 500; color:black;text-align: center;margin-top:5px;
+        display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;'>
+      {{language["Check Order"][lang]}}</div>
+  </div>
+
+  <div (click)="scan()"
+  style='min-width:45%; width:50%; display:flex;align-items: center; justify-content: center; flex-direction: column; margin-bottom:10px; 
+  border-radius: 10px; margin-left: 5px; box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+  background-color: #FFFFFF; padding-bottom: 15px;'>
+  <!-- <div [ngStyle]="{'box-shadow': '0px 1px 2px #' + theme + '4d'}"
+    style="background-color: rgba(255, 255, 255, 0.9); border-radius: 10px; padding:5px;"> -->
+    <div
+    style="background-color: rgba(255, 255, 255, 0.9); border-radius: 10px; padding:5px;">
+    <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_jzdso7m2.json" background="transparent"
+      speed="1" style="height: 100px;" loop autoplay>
+    </lottie-player>
+  </div>
+  <div style='font-size:14px; font-weight: 500; color:black;text-align: center;margin-top:5px;
+      display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;'>
+    {{language["Scan QR"][lang]}}</div>
+</div>
+
+  </div>
+
+
+  <!-- <div style="background-color: #FFFFFF; width: 100%;">
+
+
+    <div style="display: flex; justify-content: space-between; align-items: center;padding:15px 0px; margin:0px 15px;
+     background-color: #FFFFFF; border-bottom: 2px solid #F9FAFE;">
+      <div style="display: flex; justify-content: flex-start; align-items: center;">
+      <img src="assets/logo.png" style="width: 25px; height: 25px; margin-right: 10px;"/>
+      <div>{{language["customer service"][lang]}}</div>
+      </div>
+      <ion-icon style="font-size: 16px;" name="chevron-forward-outline"></ion-icon>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; padding:15px 0px; margin:0px 15px;
+    background-color: #FFFFFF;">
+      <div style="display: flex; justify-content: flex-start; align-items: center;">
+      <img src="assets/logo.png" style="width: 25px; height: 25px; margin-right: 10px;"/>
+      <div>{{language["Language"][lang]}}</div>
+      </div>
+      <ion-icon style="font-size: 16px;" name="chevron-forward-outline"></ion-icon>
+    </div>
+
+
+  </div> -->
+
+
+  <div style="padding: 0px 20px;  background-color: white;">
+    <div (click)='what()'
+      style="border-bottom: 1px solid #eeeeee; padding: 15px 0px; display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center;">
+        <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_ic9mua9m.json" background="transparent"
+          speed="1" style="height:30px; width: 30px; object-fit: cover;" loop autoplay>
+        </lottie-player>
+        <div style="font-size: 14px; margin-left: 10px;color:#333333; white-space: nowrap;">
+          {{language["customer service"][lang]}}</div>
+      </div>
+      <div style='display:flex;justify-content: flex-end;align-items: center;'>
+        <ion-icon style="margin-left: 10px;color:#666666;" name="chevron-forward-outline"></ion-icon>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding: 0px 20px;  background-color: white;">
+    <div (click)="pather('setting')"
+      style="border-bottom: 1px solid #eeeeee; padding: 15px 0px; display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center;">
+        <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_fhy1wvb1.json" background="transparent"
+          speed="1" style="height:30px; width: 30px; object-fit: cover;" loop autoplay>
+        </lottie-player>
+        <div style="font-size: 14px; margin-left: 10px;color:#333333; white-space: nowrap;">
+          {{language["Language"][lang]}}</div>
+      </div>
+      <div style='display:flex;justify-content: flex-end;align-items: center;'>
+        <ion-icon style="margin-left: 10px;color:#666666;" name="chevron-forward-outline"></ion-icon>
+      </div>
+    </div>
+  </div>
+
+
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+
+  <div style="padding: 0px 20px;  background-color: white;">
+    <div (click)='signout()'
+      style="border-bottom: 1px solid #eeeeee; padding: 15px 0px; display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center;">
+        <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_vmlm0zew.json" background="transparent"
+          speed="1" style="height:30px; width: 30px; object-fit: cover;" loop autoplay>
+        </lottie-player>
+        <div style="font-size: 14px; margin-left: 10px;color:#333333; white-space: nowrap;">
+          {{language["Log Out"][lang]}}</div>
+      </div>
+      <div style='display:flex;justify-content: flex-end;align-items: center;'>
+        <ion-icon style="margin-left: 10px;color:#666666;" name="chevron-forward-outline"></ion-icon>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding: 0px 20px;  background-color: white;">
+    <div (click)='signout()'
+      style="border-bottom: 1px solid #eeeeee; padding: 15px 0px; display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center;">
+        <div style="font-size: 14px; margin-left: 10px;color:#333333; white-space: nowrap;">
+          Version : 6.9.10</div>
+      </div>
+      <div style='display:flex;justify-content: flex-end;align-items: center; visibility: hidden;'>
+        <ion-icon style="margin-left: 10px;color:#666666;" name="chevron-forward-outline"></ion-icon>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+</ion-content>

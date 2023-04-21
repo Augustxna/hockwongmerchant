@@ -1,0 +1,75 @@
+<ion-content style="--background: #f7f9fd;">
+
+  <div
+    style="position:fixed;top:0;left:0;height:50px;display:flex;align-items:center;z-index: 1002;width: 100vw;background:transparent;justify-content: space-between;">
+    <div
+      style='margin-left:15px;height:25px;width:25px;display:flex;justify-content: center;align-items: center;border-radius:100%;background-color: rgba(255,255,255,0.5);'>
+      <ion-icon (click)='back()' style='color:black;font-size:20px;margin-right:3px;' name="chevron-back-outline">
+      </ion-icon>
+    </div>
+  </div>
+
+  <img style='width:100vw;height:calc( 100vw / 2 );object-fit: cover;vertical-align: bottom;'
+    src="https://www.helpscout.com/images/blog/2018/oct/contextual-support.jpg" alt="">
+
+  <div style="padding:20px 15px;">
+
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <div style="font-size: 16px;font-weight: 600;color:#262626;letter-spacing: 1px;"> {{language['My Ticket'][lang]}}
+      </div>
+      <div (click)="create()"
+        style=" padding:3px 6px;font-size: 12px;font-weight: 600;color:#16b659;letter-spacing: 1px;display: flex;align-items: center;border:1px solid;border-radius: 3px;">
+        <span> {{language['Create'][lang]}}</span>
+        <ion-icon slot="start" name="add-outline" style="margin-left: 6px;font-size: 20px;">
+        </ion-icon>
+      </div>
+    </div>
+
+    <div style='width:100%;' *ngIf="!lengthof(tickets)">
+      <div style='width:calc( 100% - 40px );margin:20px;padding:20px;display:flex;justify-content: center;
+        align-items: center;background-color: white;flex-direction: column;'>
+        <img style='width:200px;' src="assets/nothing.gif" alt="">
+        <div style='font-size:16px;font-weight: bold;color:#666666;text-align: center;'> {{language['Nothing
+          Here'][lang]}}</div>
+        <div style='padding-top:5px;font-size:14px;font-weight: normal;color:#666666;text-align: center;'>
+          {{language['There are no items in this list.'][lang]}}</div>
+        <div (click)="create()"
+          style="margin-top: 10px; padding: 7px 10px;font-size: 12px;font-weight: 600;color:#16b659;letter-spacing: 1px;display: flex;align-items: center;border:1px solid;border-radius: 3px;">
+          <span> {{language['Create one support ticket now'][lang]}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div style='width:100%; '>
+
+      <div *ngFor="let x of tickets" (click)="next(x)"
+        style="padding: 10px; margin-top: 10px; background-color: white;">
+
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div
+            style="width: calc(100% - 25px); font-size: 14px; overflow: hidden; text-overflow:ellipsis; white-space: nowrap; color: #333333; letter-spacing: 1px;">
+            {{x.title || 'No Title'}}</div>
+
+          <ion-icon [ngStyle]="{'color': x.status ? 'green' : 'red'}" style="font-size: 14px; margin-right: 5px;"
+            name="ellipse">
+          </ion-icon>
+        </div>
+
+        <div style="margin: 15px 0px; font-size: 12px; font-weight: 400; letter-spacing: 1px; color: #666666;">
+          {{x.status ? 'Support replied' : 'Waiting for reply'}}</div>
+
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+
+          <div style="font-size: 12px; color: #999999; letter-spacing: 1px;"> {{language['Create on'][lang]}} {{x.date |
+            date:'dd MMM yyyy:
+            hh:mma'}}</div>
+
+          <ion-icon style="color: #666666; font-size: 20px;" name="chevron-forward-outline"></ion-icon>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</ion-content>

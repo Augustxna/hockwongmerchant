@@ -1,0 +1,124 @@
+<ion-header>
+
+  <div
+    style="padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; background-color: white;">
+    <ion-icon (click)='back()' style='color:#f53c3c;font-size:20px; margin-right: 24px;' name="chevron-back">
+    </ion-icon>
+    <div style="font-size: 16px; color: #333333">{{ language["E-Menu"][lang]}}</div>
+
+    <div (click)="addcat()"
+      style="padding:  8px; background-color: #814CD0; color: #eeeeee; font-size: 13px; font-weight: 400; border-radius: 5px; font-size: 15px;">
+      {{ language["New Category"][lang]}}
+    </div>
+  </div>
+
+</ion-header>
+
+<ion-content class="fondologin">
+
+  <div style="height: 3px; width: 100%; background-color : #eeeeee"></div>
+
+
+  <div *ngFor="let x of categories ; let i = index"
+    style="width: 100%; background-color: #eeeeee; border-bottom: 8px solid #eeeeee;">
+
+    <div style="background-color: white; padding: 15px;">
+
+      <div style="margin-bottom: 8px;">
+        <div *ngIf="!edit" style="display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; align-items: center;">
+            <div style="color: black ; font-size: 14px;">{{x.name}}</div>
+
+            <!-- (click)="edit = true"  -->
+            <div (click)="poper(( lang == 'en' ? 'Please enter correct name' : '请输入正确名字'), true, 'edit', i, x)"
+              style="color: #814CD0 ; font-size: 12px; margin-left: 10px;">
+              {{language["Edit Name"][lang]}}</div>
+          </div>
+          <!-- (click)="splicer(i, x.emenu)"  -->
+          <div (click)="poper(( lang == 'en' ? 'Confirm Delete? ' : '确定删除? ') + x.name, false, 'delete', i, x)"
+            style="color: tomato; font-size: 12px; margin-left: 10px;">
+            {{language["Delete"][lang]}}</div>
+        </div>
+        <div *ngIf="edit" style="display: flex; align-items: center; justify-content: space-between;">
+          <ion-input style='width: 100%; font-size:12px;color:#333333;--padding-start:10px; border: 1px solid #8b8b8b;'
+            type='text' [(ngModel)]="x.name" placeholder="Enter Category Name"></ion-input>
+
+          <div (click)="justsavev() ; edit = false" style="color: #814CD0 ; font-size: 12px; margin-left: 10px;">{{
+            language["Save"][lang]}}</div>
+          <div (click)=" edit = false" style="color: tomato   ; font-size: 12px; margin-left: 10px;">
+            {{ language["Cancel"][lang]}}</div>
+        </div>
+      </div>
+
+      <!-- <div *ngFor="let y of x.products ; let k = index"
+        style="display: flex; align-items: center ; justify-content: space-between; margin-top: 10px; ">
+
+        <div style="display: flex; align-items: center;">
+          <img style="width : 60px; height: 60px; border-radius: 5px;" src="{{y.photo}}">
+          <div style="margin-left: 15px;">
+            <div style="font-size: 14px;">
+              {{y.name}}
+            </div>
+            <div style="font-size: 14px; font-weight: bold; margin-top: 3px;">
+              {{y.price | currency : 'RM '}}
+            </div>
+          </div>
+        </div>
+        <ion-icon (click)='goprod(x.name,i,y,k)' style='height:20px;width:20px;color:#999999;' name="create-outline">
+        </ion-icon>
+      </div> -->
+
+      <!-- <ion-reorder-group (ionItemReorder)="doReorder($event)" disabled="false"> -->
+        <ion-reorder-group  disabled="false">
+        <div *ngFor='let y of x.products;let i = index' style="display: flex; align-items: center; justify-content: space-between; border-radius: 10px;
+        padding: 10px; border-bottom: 1px solid #eeeeee;">
+          <ion-reorder lines="none">
+            <ion-icon style="font-size: 20px; margin-right: 10px;" name="menu-outline"></ion-icon>
+          </ion-reorder>
+
+          <div style="display: flex; align-items: center; width: 100%;">
+            <img style="width : 60px; height: 60px; border-radius: 5px;" src="{{y.photo}}">
+            <div style="margin-left: 15px;">
+              <div style="font-size: 14px;">
+                {{y.name}}
+              </div>
+              <div style="font-size: 14px; font-weight: bold; margin-top: 3px;">
+                {{y.price | currency : 'RM '}}
+              </div>
+            </div>
+          </div>
+
+          <ion-icon (click)='goprod(x.name,i,y)' style='height:20px;width:20px;color:#999999;' name="create-outline">
+          </ion-icon>
+        </div>
+
+        <!-- <ion-item lines="none" class="ion-no-padding">
+            <ion-label no-lines lines="none" style="font-size: 13px; padding: 0px 10px;">
+              {{eve.name}}
+            </ion-label>
+          </ion-item> -->
+
+      </ion-reorder-group>
+
+
+      <div (click)='goprod(x ,i,{name:"",category:x.name,price:0,photo:""})' style="margin-top: 10px; background-color: #814CD0; padding: 5px; border-radius: 5px;
+         width: 100%; text-align: center;color : #eeeeee">
+        {{ language["Add Product"][lang]}}
+      </div>
+
+    </div>
+
+  </div>
+
+</ion-content>
+
+<!-- <ion-footer>
+  <div style="width: 100%;  border-top: 1px solid #e0ebf3; background-color: #ffffff; padding: 10px;">
+
+    <div (click)="saveaall()"
+      style="background-color: #814CD0; color: white; text-align: center; padding: 10px; border-radius: 10px; font-weight: 500; font-size: 14px;">
+      {{ language["Save Change"][lang]}}
+    </div>
+
+  </div>
+</ion-footer> -->

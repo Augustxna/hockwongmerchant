@@ -1,0 +1,136 @@
+
+.tri-left:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+    left: -10px;
+	right: auto;
+    top: 0px;
+	bottom: auto;
+	border: 10px solid;
+	border-color: #F68D44 transparent transparent transparent;
+}
+
+
+  .bubble-left {
+    display: inline-block;
+    height: auto;
+    background-color: #F68D44;
+  }
+
+  .bubble-right {
+    display: inline-block;
+    height: auto;
+    background-color: white;
+  }
+
+  .border{
+    border: 8px solid #666;
+  }
+  .round{
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+  
+  }
+  .tri-left:after{
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+      left: -10px;
+    right: auto;
+      top: 0px;
+    bottom: auto;
+    border: 10px solid;
+    border-color: white transparent transparent transparent;
+  }
+  // #ffe7e2
+  
+  .tri-right:after{
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+      right: -10px;
+    left: auto;
+      top: 0px;
+    bottom: auto;
+    border: 10px solid;
+    border-color: #ffe7e2  transparent transparent transparent;
+  }
+  
+  
+    .bubble-left {
+      display: inline-block;
+      height: auto;
+      background-color: white;
+      border-radius: 5px 5px 5px 5px;
+    }
+  
+    .bubble-right {
+      display: inline-block;
+      height: auto;
+      background-color: #ffe7e2 ;
+      border-radius: 5px 5px  5px 5px;
+    }
+  
+    .border{
+      border: 8px solid #666;
+    }
+    .round{
+      border-radius: 30px;
+      -webkit-border-radius: 30px;
+      -moz-border-radius: 30px;
+    
+    }
+  
+  
+    .inner2x{
+      top:0;
+      opacity: 1;
+      transition: all .2s ease;
+  }
+  
+  .innerx2x{
+      top:100%;
+      opacity: 0;
+      transition: all .2s ease;
+  }
+
+  .innerpop2{
+    top:0;
+    opacity: 1;
+    transition: all .2s ease;
+}
+
+.innerxpop2{
+    top:100%;
+    opacity: 0;
+    transition: all .2s ease;
+}
+
+.up{
+  transition: all 0.2s ease;
+  bottom:0;
+  // background-color: white;
+}
+
+.upx{
+
+  transition: all 0.2s ease;
+  bottom:-60px;
+}
+
+.up2{
+  transition: all 0.2s ease;
+  right:0;
+  // background-color: white;
+}
+
+.upx2{
+
+  transition: all 0.2s ease;
+  right:-100vw;
+}

@@ -1,0 +1,190 @@
+
+
+<ion-content>
+
+  <div style='width:100%;display:flex;align-items: center;justify-content: space-between;height:50px;border-bottom:1px solid #eeeeee;position: sticky;top:0;z-index:99;background-color: white;'>
+    <div (click)='back()' style='height:50px;width:50px;display:flex;align-items: center;justify-content: center;'>
+      <ion-icon style='color:black;font-size:20px;' name="chevron-back-outline"></ion-icon>
+    </div>
+
+    <div style='font-size:16px;letter-spacing: .5px;color:#444444;font-weight: bold;'>{{lang["Order Detail"][system.lang]}}</div>
+
+    <div style='height:50px;width:50px;display:flex;align-items: center;justify-content: center;opacity:0;'>
+      <ion-icon style='color:#ff5252;font-size:20px;' name="trash-outline"></ion-icon>
+    </div>
+  </div>
+
+  <div style='padding:15px;width:100%;padding-bottom:0px;'>
+
+    <div *ngIf="lengthof(orders) > 0 && orders[0].collect_type == 'delivery'" style='width:100%;border:1px solid #eeeeee;border-radius:10px;padding:15px;margin-bottom:10px;'>
+      <div style='display:flex;width:100%;'>
+        <img style='width:30px;margin-right:10px;object-fit: contain;height:30px;' src="https://static.vecteezy.com/system/resources/previews/000/349/634/non_2x/vector-truck-icon.jpg" alt="">
+        <div style='width:calc( 100% - 30px - 10px );'>
+          <div style='width:100%;display:flex;align-items: center;justify-content: space-between;margin-bottom:5px;'>
+            <div style='font-size:13px;letter-spacing: 1px;color:#444444;font-weight: bold;'>{{lang["Delivery"][system.lang]}}</div>
+            <!-- <div style='font-size:12px;letter-spacing: .5px;color:#ff5252'>{{lang["Completed"][system.lang]}}</div> -->
+          </div>
+          <div *ngIf="orders[0].tracking_company" style='font-size:12px;color:#aaaaaa;letter-spacing: .5px;margin-bottom:10px;'>{{orders[0].tracking_company}} - {{orders[0].tracking_number}}</div>
+        </div>
+      </div>
+      <div style='width:calc( 100% - 40px );border-top:1px solid #eeeeee;padding-top:15px;margin-top:5px;margin-left:40px;'></div>
+      <div style='width:100%;padding-left:40px;display:flex;align-items: center;'>
+        <div style='width:calc( 100% - 20px );'>
+          <div style='font-size:15px;font-weight: bold;letter-spacing: .5px;color:#444444;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;margin-bottom:5px;;'>{{orders[0].buyer_name}}<span style='font-size:12px;letter-spacing: .5px;color:#aaaaaa;margin-left:10px;'>{{orders[0].buyer_contact}}</span></div>
+          <div style='font-size:11px;letter-spacing: .5px;color:#666666;width:100%;white-space: pre-line;line-height: 14px;;'>{{orders[0].buyer_address}}</div>
+        </div>
+        <!-- <ion-icon style='font-size:20px;color:#aaaaaa;' name="chevron-forward-outline"></ion-icon> -->
+      </div>
+    </div>
+
+    <div *ngFor="let x of orders ; let i = index" style='width:100%;border-bottom:1px solid #eeeeee;padding-top:15px;'>
+
+      <div *ngIf="i == 0 ? true : orders[ i - 1].by != x.by" style='display:flex;align-items: center;padding-bottom:15px;justify-content: space-between;'>
+        <div style='display:flex;align-items: center;'>
+          <ion-icon style='font-size:16px;color:#aaaaaa;margin-right:10px;' name="business-outline"></ion-icon>
+          <div style='font-size:16px;letter-spacing: .5px;color:#444444;font-weight: bold;'>{{x.vendor_name}}</div>
+        </div>
+
+      </div>
+
+
+
+        <div  style='display:flex;align-items: center;padding-bottom:20px;'>
+
+          <div style='width:calc( 100% - 0px );display:flex;position: relative;'>
+            <img style='width:60px;height:60px;object-fit: cover;border-radius:3px;;' src="{{x.thumbnail}}" alt="">
+            <div style='width:calc( 100% - 60px );padding-left:10px;'>
+              <div style='width:100%;font-size:14px;letter-spacing: .5px;color:#444444;font-weight: bold;'>{{x.name}}</div>
+              <div style='white-space: nowrap;overflow: hidden;text-overflow: ellipsis;width:100%;margin-top:4px;font-size:12px;letter-spacing: .5px;color:#aaaaaa;'>Quantity : {{x.qty}}</div>
+              <div style='width:100%;display:flex;align-items: center;justify-content: space-between;margin-bottom:7px;margin-top:7px;'>
+                <div style='font-size:14px;font-weight: bold;letter-spacing: .5px;'>{{ ( ((x.price_now - x.price_comm_ori - x.price_vsnap) * x.qty) ) | currency:"RM"}}</div>
+              
+                <!-- <div style='display:flex;align-items: center;'>
+                  <ion-icon  style='font-size:13px;margin-right:5px;color:#ffd000;' name="star"></ion-icon>
+                  <ion-icon  style='font-size:13px;margin-right:5px;color:#ffd000;' name="star"></ion-icon>
+                  <ion-icon  style='font-size:13px;margin-right:5px;color:#ffd000;' name="star"></ion-icon>
+                  <ion-icon  style='font-size:13px;margin-right:5px;color:#ffd000;' name="star"></ion-icon>
+                  <ion-icon  style='font-size:13px;margin-right:5px;color:#ffd000;' name="star"></ion-icon>
+                  <ion-icon  style='font-size:13px;margin-right:5px;color:#444444;margin-left:10px;' name="chatbox-ellipses-outline"></ion-icon>
+                  <ion-icon  style='font-size:13px;color:#444444;' name="chevron-forward-outline"></ion-icon>
+                </div> -->
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
+      <div *ngIf="lengthof(orders) > 0 && orders[0].collect_type != 'delivery' && orders[0].type != 'food'"  style='width:100%;border:1px solid #eeeeee;border-radius:10px;padding:15px;margin-bottom:10px; background-color: #f7f9fd;'>
+        <div style='display:flex;width:100%;'>
+          <img *ngIf="orders[0].type != 'food'" style='width:30px;margin-right:10px;object-fit: contain;height:30px;' src="assets/icon/selfcollect.png" alt="">
+          <div style='width:calc( 100% - 30px - 10px );'>
+            <div style='width:100%;display:flex;align-items: center;justify-content: space-between;margin-bottom:5px;'>
+              <div *ngIf="orders[0].type != 'food'" style='font-size:13px;letter-spacing: 1px;color:#444444;font-weight: bold;'>自取模式</div>
+            </div>
+          </div>
+        </div>
+        <div style='width:calc( 100% - 40px );border-top:1px solid #eeeeee;padding-top:15px;margin-top:5px;margin-left:40px;'></div>
+        <div style='width:100%;padding-left:40px;display:flex;align-items: center;'>
+          <div style='width:calc( 100% - 20px );'>
+            <div style='font-size:15px;font-weight: bold;letter-spacing: .5px;color:#444444;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;margin-bottom:5px;;'>{{x.buyer_name}}<span style='font-size:12px;letter-spacing: .5px;color:#aaaaaa;margin-left:10px;'>{{x.buyer_contact}}</span></div>
+            <div style='font-size:11px;letter-spacing: .5px;color:#666666;width:100%;white-space: pre-line;line-height: 14px;;'>{{x.buyer_address}}</div>
+          </div>
+        </div>
+      </div>
+  
+      <div *ngIf="lengthof(orders) > 0 && orders[0].type =='food'"  style='width:100%;border:1px solid #eeeeee;border-radius:10px;padding:15px;margin-bottom:10px; background-color: #f7f9fd;'>
+        <div style='display:flex;width:100%; align-items: center;'>
+          <!-- <img *ngIf="orders[0].type != 'food'" style='width:30px;margin-right:10px;object-fit: contain;height:30px;' src="assets/icon/selfcollect.png" alt=""> -->
+          <lottie-player  src="https://assets9.lottiefiles.com/packages/lf20_swnrn2oy.json"  background="transparent"  speed="1"  style="width: 50px; height: 50px;"  loop autoplay></lottie-player>
+          <div style='width:calc( 100% - 30px - 10px );'>
+            <div style='width:100%;display:flex;align-items: center;justify-content: space-between;margin-bottom:5px;'>
+              <div style='font-size:13px;letter-spacing: 1px;color:#444444;font-weight: bold;'>吃喝玩乐</div>
+              <!-- <div style='font-size:12px;letter-spacing: .5px;color:#ff5252'>{{lang["Completed"][system.lang]}}</div> -->
+            </div>
+          </div>
+        </div>
+   
+      </div>
+
+      <!-- <div  *ngIf="lengthof(orders) > 0" >
+        <div *ngIf="orders[i + 1] ? orders[i + 1].by != x.by : true" style='width:100%;display:flex;align-items: center;justify-content: flex-end;margin-bottom:15px; padding-top: 5px; border-top: 1px solid #eeeeee;'>
+          
+          <div style='font-size:12px;color:#aaaaaa;letter-spacing: .5px;margin-right:10px;'>{{lang["Subtotal"][system.lang]}} ({{returnqty(x.by)}} {{lang["items"][system.lang]}}, 包括邮费{{reutrnvendordelivery(x.by) | currency : ' '}} ) :</div>
+          <div style='font-size:15px;color:#444444;letter-spacing: .5px;font-weight: bold;'>{{reutrnvendortotal(x.by) | currency : 'RM '}}</div>
+        </div>
+      </div> -->
+
+    </div>
+
+  </div>
+
+  <div style='height:6px;width:100%;background-color: #f7f9fd;;'></div>
+
+  <div *ngIf="lengthof(orders) > 0 && orders[0].remark" style='width:100%;padding:15px;'>
+    <div style='font-size:16px;font-weight: bold;color:#444444;letter-spacing: .5px;margin-bottom:25px;;'>特别备注</div>
+    <div style='font-size:14px;color:#aaaaaa;letter-spacing: .5px;'>{{orders[0].remark}}</div>
+
+  </div>
+
+  
+  <div style='height:6px;width:100%;background-color: #f7f9fd;;'></div>
+
+  <div *ngIf="lengthof(orders) > 0" style='width:100%;padding:15px;'>
+    <div style='font-size:16px;font-weight: bold;color:#444444;letter-spacing: .5px;margin-bottom:25px;;'>{{lang["Order Information"][system.lang]}}</div>
+    <div style='display:flex;align-items: center;justify-content: space-between;width:100%;margin-bottom:15px;'>
+      <div style='font-size:14px;color:#aaaaaa;letter-spacing: .5px;'>{{lang["Reference ID"][system.lang]}}</div>
+      <div style='font-size:14px;color:#444444;letter-spacing: .5px;'>{{returnnumber(orders[0].inv)}}</div>
+    </div>
+    <div style='display:flex;align-items: center;justify-content: space-between;width:100%;margin-bottom:15px;'>
+      <div style='font-size:14px;color:#aaaaaa;letter-spacing: .5px;'>{{lang["Date & Time"][system.lang]}}</div>
+      <div style='font-size:14px;color:#444444;letter-spacing: .5px;'>{{orders[0].date | date:"hh:mma, dd MMM yyyy"}}</div>
+    </div>
+    <!-- <div style='display:flex;align-items: center;justify-content: space-between;width:100%;margin-bottom:15px;'>
+      <div style='font-size:14px;color:#aaaaaa;letter-spacing: .5px;'>{{lang["Payment Method"][system.lang]}}</div>
+      <div style='font-size:14px;color:#444444;letter-spacing: .5px;'>Touch n Go</div>
+    </div> -->
+    <div style='width:100%;border-top:1px solid #eeeeee;margin-top:15px;margin-bottom:15px;'></div>
+    <div style='display:flex;align-items: center;justify-content: space-between;width:100%;margin-bottom:15px;'>
+      <div style='font-size:14px;color:#aaaaaa;letter-spacing: .5px;'>{{lang["Subtotal"][system.lang]}}</div>
+      <div style='font-size:14px;color:#444444;letter-spacing: .5px;'>{{ total - delivery + discount | currency:"RM"}}</div>
+    </div>
+    <div style='display:flex;align-items: center;justify-content: space-between;width:100%;margin-bottom:15px;'>
+      <div style='font-size:14px;color:#aaaaaa;letter-spacing: .5px;'>{{lang["Shipping Fee"][system.lang]}}</div>
+      <div style='font-size:14px;color:#444444;letter-spacing: .5px;'>{{ delivery | currency:"RM"}}</div>
+    </div>
+    <!-- <div style='display:flex;align-items: center;justify-content: space-between;width:100%;margin-bottom:15px;'>
+      <div style='font-size:14px;color:#aaaaaa;letter-spacing: .5px;'>{{lang["Discounted"][system.lang]}}</div>
+      <div style='font-size:14px;color:#444444;letter-spacing: .5px;'>{{ discount | currency:"RM"}}</div>
+    </div> -->
+    <div style='display:flex;align-items: center;justify-content: space-between;width:100%;margin-bottom:15px;'>
+      <div style='font-size:16px;color:#aaaaaa;letter-spacing: .5px;'>{{lang["Total"][system.lang]}}</div>
+      <div style='font-size:16px;color:#444444;letter-spacing: .5px;font-weight: bold;'>{{ total | currency:"RM"}}</div>
+    </div>
+  </div>
+
+  <div *ngIf="lengthof(orders) > 0 && orders[0].collect_type == 'delivery'"
+    style='width:100vw;padding:15px;display:flex;'>
+    <!-- <ion-icon style='font-size:18px;color:#00b871;margin-right:15px;' name="cube-outline"></ion-icon> -->
+    <div style='width:calc( 100% - 15px - 18px );'>
+      <div style='display:flex;justify-content: space-between;align-items: center; margin-bottom:15px;'>
+        <div style='font-size:14px;font-weight: bold;color:#333333;'>物流详情</div>
+        <div (click)='openalert(orders[0])'
+          style='font-size:12px;color:#00b871;text-align: right;'>编辑</div>
+      </div>
+      <div *ngIf='orders[0].tracking_company && orders[0].tracking_number' style='font-size:12px;color:#666666;'>
+        {{orders[0].tracking_company || ""}} {{orders[0].tracking_company && orders[0].tracking_number ? " - "
+        :""}} {{orders[0].tracking_number || ""}}</div>
+      <div *ngIf='!(orders[0].tracking_company && orders[0].tracking_number)' style='font-size:12px;color:#666666;'>
+        暂无提供物流单号</div>
+
+    </div>
+  </div>
+
+  <div (click)='scan_com()' *ngIf="lengthof(orders) > 0 && !lengthof(orders[0].used)"
+    style='margin:15px 25px;width:calc( 100% - 50px );padding:10px 20px;background-color: #f53c3c;font-size:14px;color:white;text-align: center;border-radius:5px;'>
+    完成订单
+  </div>
+
+</ion-content>
+
+

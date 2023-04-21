@@ -1,0 +1,276 @@
+<ion-content style="--background: #f7f9fd">
+  <div
+    style="padding: 10px; display: flex; align-items: center; top: 0px; position: sticky; background: #f7f9fd; z-index: 100;">
+    <!-- <div
+      style="height: 40px; width: 40px; padding: 10px; color: #333333; background-color: white; border-radius: 100px; "> -->
+    <ion-icon (click)="back()" style="font-size: 20px;" name="chevron-back-outline"></ion-icon>
+    <!-- </div> -->
+  </div>
+
+  <div
+    style="display: flex; align-items: center; padding: 20px; background-color: white; justify-content: space-between;">
+
+    <!-- <div style="min-height: 25vw; min-width: 25vw; border-radius: 1000px; background-color: rgba(0, 0, 0, 0.2); color: white; 
+      font-size: 30px; font-weight: bold; display: flex; align-items: center; justify-content: center;">
+      {{word()}}</div> -->
+
+    <img style="max-height: 20vw; max-width: 20vw; height: 20vw; width: 20vw; border-radius: 1000px; background-color: rgba(0, 0, 0, 0.2); color: white; 
+    font-size: 30px;display: flex; align-items: center; justify-content: center;"
+      src="{{user.photo || 'https://www.hpsystems.com.tr/tema/genel/uploads/ekibimiz/vote_1.png'}}" alt="">
+
+    <div style="padding-left: 10px; width: 100%; ">
+
+      <div style="display: flex; align-items: center; justify-content: space-between; width: calc(100%  );">
+
+        <ion-input [(ngModel)]="user.name" [ngStyle]="{'background': edit ? 'rgba(0,0,0,0.1)' : 'rgba(0,0,0,0)'}"
+          [readonly]='!edit' style="color: black; font-size: 18px; color: #3d2f2f;  width: calc( 100% ); white-space: nowrap;
+        overflow: hidden; text-overflow: ellipsis; --padding-start: 10px; border-radius: 10px; ">
+        </ion-input>
+
+        <ion-icon (click)="editor()" style="font-size: 20px; color: #333333; margin-left: 10px;"
+          [name]="!edit ? 'create-outline' : 'checkmark-outline'">
+        </ion-icon>
+
+      </div>
+
+      <div style="font-size: 14px; color: #333333; margin-top: 5px; margin-left: 10px;">+{{user.phone}}</div>
+    </div>
+
+  </div>
+
+  <div style="background-color: #f7f9fd; padding: 10px 0px;">
+
+    <div style="padding: 0px 10px; margin-bottom: 10px; font-size: 16px; font-weight: bold;">{{language['Cars'][lang]}}
+      </div>
+
+    <div style="padding: 0px 10px; display: flex; align-items: center; flex-wrap: wrap;">
+
+      <div (click)="checkerer(x).check_id ? cardetail(checkerer(x).check_id) : checkcreate(x.car_id) " *ngFor='let x of cars' style='display:flex;align-items: center;padding:5px 10px;border-radius:5px;margin-right:7px;margin-bottom:7px;background-color: white;box-shadow: 1px 3px 5px rgba(0,0,0,0.05);'>
+        <div style='font-size:14px;color:#333333;font-weight: bold;'>{{x.carplate}}</div>
+        <div style='margin-left:5px;font-size:12px;' [ngStyle]='{"color" :  checkerer(x).color}' >{{stats[checkerer(x).status]}}</div>
+      </div>
+
+      <!-- <div *ngFor="let x of chekin" (click)="cardetail(x.check_id)"
+        style='justify-content: flex-start;padding: 10px;
+      border-radius:5px;margin-right:7px;margin-bottom:7px; background-color: white; box-shadow: 0px 3px 6px rgb(0,0,0,0.1);'>
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div style='font-size:13px;color:#333333;'>{{x.carplate}}</div>
+          <div *ngIf="x.status == 'In House'"
+            style='height:10px;width:10px;border-radius:100px; background-color: rgb(250, 31, 31);'></div>
+          <div *ngIf="x.status == 'Process'"
+            style='height:10px;width:10px;border-radius:100px; background-color: rgb(255, 251, 0);'></div>
+          <div *ngIf="x.status == 'Complete'"
+            style='height:10px;width:10px;border-radius:100px; background-color: rgb(47, 192, 47);'></div>
+        </div>
+
+        <div style='font-size:11px;color:#888888; margin-top: 3px;'>{{x.status}}</div>
+        <div style='margin-top:10px;font-size:11px;color:#888888;'>{{x.date | date: 'dd MMM yyyy hh:mma'}}</div>
+      </div> -->
+
+      <!-- <div *ngFor="let x of car" (click)="detail(x)" style=" 
+      margin-right: 10px; margin-bottom: 10px; font-size: 12px; font-weight: 400; letter-spacing: .7px; 
+      display: flex; align-items: center; ">
+
+        <div style="height: 34px; width: 5px; background-color: rgb(40, 243, 40);"></div>
+        <div
+          style="padding: 10px; margin-left: 2px; background-color: rgb(229, 255, 221);  border-radius: 0px 5px 5px 0px; font-weight: 500;">
+          {{x.name}}
+          ({{x.plate}})</div>
+      </div> -->
+
+      <div (click)="checkcreate()" style="padding: 10px; margin-right: 10px; margin-bottom: 10px; font-size: 15px; 
+        letter-spacing: .7px; border-radius: 10px; color: #0052c8; border-radius: 10px; font-weight: bold;">
+        + {{language['Add Car'][lang]}}
+        
+      </div>
+
+
+    </div>
+  </div>
+
+  <div style="background-color: white; padding: 10px 0px;">
+    <div style="padding: 0px 10px;  display: flex; align-items: center; 
+    justify-content: space-between;">
+      <div style=" font-size: 16px; font-weight: bold;">{{language['Quotations'][lang]}}
+        </div>
+
+    </div>
+    <div style="display: flex; align-items: center; flex-wrap: wrap; padding: 15px;">
+  
+      <div *ngFor="let x of quotations" (click)="goquodetail(x)"
+      style='width:100%;display:flex;align-items: center;border:1px solid #eeeeee; background: white; border-radius:10px;padding:10px;margin-bottom:10px;'>
+      <div style='width:calc( 100% - 150px );'>
+        <div style='font-size:12px;color:#999999;'>{{x.car_plate}}</div>
+        <div style='font-size:14px;color:#333333;font-weight: bold;margin-top:7px;'>{{x.vendor_user}}</div>
+        <div style='font-size:12px;color:#999999;margin-top:1px; margin-top: 10px;'>{{language['Optional'][lang]}}
+          Quotation request on {{x.date | date
+          : "dd MMM yyyy"}}</div>
+
+      </div>
+
+      <div style='width:150px;padding:15px;background-color: #f7f9fd;border-radius:10px;'>
+
+        <div style='font-size:14px;color:green; font-weight: bold; text-align: right; margin-top: 5px;'> {{x.price |
+          currency: 'RM '}}</div>
+
+      </div>
+
+    </div>
+
+    </div>
+  </div>
+
+  <div style="background-color: white; padding: 10px 0px;">
+    <div style="padding: 0px 10px;  display: flex; align-items: center; 
+    justify-content: space-between;">
+      <div style=" font-size: 16px; font-weight: bold;">{{language['Invoice'][lang]}}
+        </div>
+
+      <!-- <div style="display: flex; align-items: center; background-color: #f7f9fd;">
+        <div
+          [ngStyle]="{'color': invselect == 0 ? '#0052c8' : '#999999', 'font-weight': invselect == 0 ? 'bold' : '400' }"
+          (click)=" invselect = 0"
+          style="padding: 10px; border-right: 1px solid white; font-size: 13px; width: 70px; text-align: center;">
+          Pending</div>
+        <div
+          [ngStyle]="{'color': invselect == 1 ? '#0052c8' : '#999999', 'font-weight': invselect == 1 ? 'bold' : '400' }"
+          (click)="invselect = 1" style="padding: 10px;  font-size: 13px; width: 70px; text-align: center;">Paid
+        </div>
+      </div> -->
+
+    </div>
+
+    <div style="display: flex; align-items: center; flex-wrap: wrap; padding: 15px;">
+
+      <div *ngFor="let x of orderlist" (click)="goionvoicedetail(x)"
+        style='width:100%;display:flex;align-items: center;border-radius:10px;padding:10px;margin-bottom:10px; box-shadow: 0px 3px 6px rgb(0,0,0,0.1);'>
+        <div style='width:calc( 100% - 150px );'>
+          <div style='font-size:12px;color:#999999;'>{{x.car_plate}}</div>
+          <div style='font-size:14px;color:#333333;font-weight: bold;margin-top:7px;'>{{x.vendor_user}}</div>
+          <div style='font-size:12px;color:#999999;margin-top:7px;'>Tel: {{x.user_phone}}</div>
+          <div style='font-size:12px;color:#999999;margin-top:1px;'>{{lengthof(x.products)}} Services at {{x.date | date
+            : "dd MMM yyyy"}}</div>
+
+        </div>
+        <div style='width:150px;padding:15px;background-color: #f7f9fd;border-radius:10px;'>
+          <div style='font-size:12px;color:#999999;text-align: right;'>{{language['AMOUNT DUE'][lang]}}
+            </div>
+          <div style='font-size:18px;color:#333333;font-weight: bold;margin-top:7px;text-align: right;'>{{ x.price -
+            (x.total_recieve || 0) | currency:"RM"}}</div>
+          <div style='margin-top:5px;display:flex;align-items: center;justify-content: flex-end;'>
+         
+            <div [ngStyle]="{'background-color': x.deal_date ? ((x.deal_date - date) /86400000 ) > 0 ? 'green' : 'red' : 'green'}"
+              style='height:8px;width:8px;border-radius:100px; margin-right:8px;;'></div>
+            <div style='font-size:12px;color:#666666;font-weight: bold;'>{{x.deal_date ? ((x.deal_date - date) /
+              86400000
+              ).toFixed(0) : ''}} {{ x.deal_date ? (((x.deal_date - date) /
+                86400000 ) > 0 ? 'Days Left' : 'Day Due') : 'No Due Date'}}</div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- <div *ngFor='let x of car;let i = index' (click)="invoice(x)" style='padding: 10px; margin-right:10px;margin-bottom: 0px;background-color:#f7f9fd; border-radius: 10px;
+        position: relative;' [ngStyle]='{"width" :   ((widtherget() - 10)/rounder(widtherget() / 180)) - 15 +"px" }'>
+        <div style="font-size: 14px; font-weight: bold;">ORDER_ID</div>
+        <div style="font-size: 13px; margin: 10px 0px; color: #0052c8; font-weight: bold;">RM 100 (PAID)</div>
+        <div style="font-size: 12px; color: #999999;">27/7/2021</div>
+      </div> -->
+
+      <div (click)="addinvoice()" style=' margin-right:10px;margin-bottom: 0px; border-radius: 10px;  display: flex; align-items: center;
+      position: relative;' [ngStyle]='{"width" :   ((widtherget() - 10)/rounder(widtherget() / 180)) - 15 +"px" }'>
+        <div style="font-size: 15px; margin: 10px 0px; color: #0052c8; font-weight: bold;">+ {{language['Add Invoice'][lang]}}</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div style="background-color: #f7f9fd; padding-top: 10px;">
+
+    <div style="padding: 0px 10px;  display: flex; align-items: center; 
+    justify-content: space-between;">
+      <div style=" font-size: 16px; font-weight: bold;">{{language['Appointments'][lang]}}
+        </div>
+      <!-- <div style="display: flex; align-items: center;">
+        <div (click)=" invselect2 = 0"
+          [ngStyle]="{'color': invselect2 == 0 ? '#0052c8' : '#999999', 'font-weight': invselect2 == 0 ? 'bold' : '400' }"
+          style="padding: 10px; border-right: 1px solid #eeeeee; font-size: 13px; width: 70px; text-align: center;">
+          Pending</div>
+        <div (click)=" invselect2 = 1"
+          [ngStyle]="{'color': invselect2 == 1 ? '#0052c8' : '#999999', 'font-weight': invselect2 == 1 ? 'bold' : '400' }"
+          style="padding: 10px;  font-size: 13px; width: 70px; text-align: center;">Paid</div>
+      </div> -->
+    </div>
+
+    <div style="padding: 15px;">
+
+      <div *ngFor="let x of appointmentlist" (click)='appointment(x)' style='display:flex;width:100%;margin-top:15px;'>
+        <div style='display:flex;align-items: center;justify-content: space-between;width:100%;border-radius:5px; 
+          box-shadow: 0px 3px 6px rgb(0,0,0,0.1); background-color: white;'>
+          <div style='display:flex;align-items: center;width:calc( 100% - 70px );'>
+            <div
+              style='border-radius: 5px 0px 0px 5px; font-size:12px;font-weight: bold;min-height:60px;min-width:60px;background-color: black;color:white;text-align: center;display:flex;align-items: center;justify-content: center;flex-direction: column;'>
+              <div style='font-size:18px;'>{{x.appointment_date | date : "dd"}}</div>
+              <div style='font-size:10px;'>{{x.appointment_date | date : "MMM"}}</div>
+            </div>
+            <div style='width:calc( 100% - 50px  );padding-left:10px;'>
+              <div style='font-size:14px;color:#333333;width:100%;white-space: nowrap; padding: 5px;
+              overflow: hidden;
+              text-overflow: ellipsis;'>{{x.car_plate}} ({{x.vendor_user}})</div>
+              <div style='margin-top: 5px; font-size:11px;color:#999999;width:100%;white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;'>
+                <div style="display: flex;">
+                  <div *ngFor="let y of x.products">
+                    <div>{{y.name}} , </div>
+                  </div>
+                </div>
+              </div>
+              <div style='margin-top: 3px;font-size:11px;color:#999999;width:100%;white-space: nowrap;
+              overflow: hidden;text-overflow: ellipsis;'>{{x.date | date: 'dd MMM yyyy hh:mm a'}}</div>
+            </div>
+          </div>
+          <div style='width:70px;display:flex;align-items: center;justify-content: flex-end;'></div>
+        </div>
+      </div>
+
+      <!-- <div *ngFor='let x of car;let i = index' style='margin-right:10px;margin-bottom: 0px;
+      background-color:white; position: relative; width: 100%; display: flex; align-items: center;'>
+        <div style="height: 68px; width: 5px; background-color: rgb(40, 243, 40);"></div>
+        <div style="padding: 10px;">
+          <div style="font-size: 14px; font-weight: bold;">Car Service</div>
+          <div style="margin-top: 10px; font-size: 13px; color: #999999;">24 / 7 / 21 @ 8:30 pm</div>
+        </div>
+      </div> -->
+
+      <div (click)="apptcreate()" style='margin-right:10px;margin-top:15px; font-weight: bold; 
+        position: relative; width: 100%; padding: 10px; color: #0052c8; border-radius: 10px; text-align: center;'>
+        + {{language['Add Appointment'][lang]}}
+       
+      </div>
+
+    </div>
+
+  </div>
+
+  <div style="background-color: white; padding: 10px 0px; padding-bottom: 40px;">
+    <div style="padding: 0px 10px; display: flex; align-items: center; 
+    justify-content: space-between;">
+      <div style=" font-size: 16px; font-weight: bold;">{{language['Activities'][lang]}}
+        </div>
+    </div>
+
+    <div style="padding: 10px;">
+
+      <div *ngFor='let x of chekin;let i = index' style='padding: 15px 0px; border-bottom: 1px solid #eeeeee;
+      background-color:white; width: 100%;'>
+        <div style="font-size: 14px; font-weight: bold;">{{language['Car Check In'][lang]}}
+          - {{x.carplate}}</div>
+
+        <div style="margin-top: 10px; font-size: 13px; color: #999999;">{{x.date | date: 'dd / MMM / yyyy @ hh : mm a'}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ion-content>

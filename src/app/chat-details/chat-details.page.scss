@@ -1,0 +1,75 @@
+.triangle {
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-right:5px solid white;
+    }
+
+.triangle-right {
+        width: 0; 
+        height: 0; 
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 5px solid #ffcca2;
+      }
+
+.zoomIn {
+        animation: zoomIn .2s both;
+        z-index: 1000;
+        }
+
+        @keyframes zoomIn {
+        0% {
+        opacity: 0;
+        z-index: -1;
+        transform: scale3d(.3, .3, .3);
+        }
+        50% {
+        opacity: 1;
+        z-index: 1;
+        }
+        99%{
+        z-index: 1000;
+        }
+        } 
+
+
+.zoomOut {
+  animation: zoomOut .2s both;
+  }
+
+  @keyframes zoomOut {
+  0% {
+  opacity: 1;
+  z-index: 1000;
+  }
+  50% {
+  z-index: 1;
+  opacity: 0;
+  transform: scale3d(.3, .3, .3);
+  }
+  100% {
+  opacity: 0;
+  z-index: -1;
+  }
+  } 
+
+  .fadeIn{
+    animation: fadeIn .2s both;
+    z-index: 1000;
+  }
+
+  .fadeOut{
+    animation: fadeOut .2s both;
+    opacity: 0;
+  }
+    @keyframes fadeIn {
+    0% {opacity: 0; z-index: -1}
+    100% {opacity: 1; z-index: 100}
+    } 
+
+    @keyframes fadeOut {
+      100% {opacity: 1;}
+      0% {opacity: 0;}
+      } 

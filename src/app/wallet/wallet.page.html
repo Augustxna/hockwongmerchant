@@ -1,0 +1,73 @@
+<ion-content>
+
+  <div (click)='back()'
+    style='height:30px;width:30px;display:flex;justify-content: center;align-items: center;background-color: rgba(0,0,0,0.5);position: fixed;top:15px;left:15px;border-radius:100%;z-index:9999;'>
+    <ion-icon style='font-size:20px;color:white;' name="chevron-back-outline"></ion-icon>
+  </div>
+
+  <div style='width:100%;height: 200px;background-image: url("https://img95.lovepik.com/photo/40110/2065.gif_wh300.gif");
+    background-size: cover;display:flex;justify-content: space-between;align-items: flex-end;'>
+
+    <div style='padding:20px;'>
+      <div style='font-size:25px;font-weight: bold;color:white;'>{{language['Balance'][lang]}}</div>
+      <div style='display:flex;align-items: flex-start;margin-top:10px;'>
+        <div style='font-size:14px;color:white;opacity: 0.7;margin-top:2px;margin-right:10px;;'>RM</div>
+        <div style='font-size:28px;color:white;font-weight: bold;'>{{(vendor.earn || 0).toFixed(2)}}</div>
+      </div>
+    </div>
+
+    <div (click)='withdraw()'
+      style='border:3px solid white;height:70px;width:70px;border-radius:100%;display:flex;justify-content: center;align-items: center;margin:20px;background-color: rgba(255,255,255,0.1);'>
+      <div style='font-size:12px;color:white;font-weight: bold;'>{{language['Withdraw'][lang]}}</div>
+    </div>
+
+  </div>
+
+  <div style='width:100%; min-height: 100%; '>
+    <div *ngFor='let eve of allmerger; let i = index' style='width:100%;'>
+
+      <div style="padding: 7.5px; background: #f6f7fd;"
+        *ngIf=' (i>0 && dater(eve?.date) != dater(allmerger[i-1].date) )'></div>
+
+      <div *ngIf='i==0 || (i>0 && dater(eve?.date) != dater(allmerger[i-1].date) )'
+        style='padding:5px 15px;background-color:#eeeeee;color:#999999;font-size:12px;font-weight: bold;'>
+        {{eve?.date
+        | date:"dd MMM yyyy"}}</div>
+
+      <div *ngIf="eve?.inv ? i==0 || ( i>0 && allmerger[i].inv != allmerger[i-1].inv ) : true  "
+        style='background-color: white; width:100%;display:flex;justify-content: space-between;align-items: center;border-bottom:1px solid #eeeeee;padding:15px 15px;'>
+        <div style='width:calc( 100% - 100px ); '>
+          <div style='font-size:14px;color:#333333;font-weight: bold;'>{{!eve?.payout_id ? 
+            (eve?.to_who ? language['Other Transaction'][lang]
+            : ( eve?.type == 'experience' ? language['Special Order'][lang] : language['Sales Order'][lang] + ' - ' + returnnumber(eve?.inv || 0) )
+             ) 
+             : language['Withdraw'][lang]}}</div>
+          <!-- <div style='font-size:12px;color:#666666;margin-top:5px;'>{{!eve?.payout_id ? (eve?.to_who ? eve?.remark : (
+            ( eve?.type != 'food' ? (  language['Purchase'][lang] + eve?.qty + language['Unit'][lang] +  eve?.name) :
+            (eve?.buyer_name + language['In
+            Shop Purchase'][lang] )) ) ) : (eve?.status == true
+            ? language['Withdraw Success On'][lang] +
+            (dater2(eve?.paid) | date: 'dd MMM yyyy') : language['Withdraw Pending'][lang]) }}</div> -->
+            <div style='font-size:12px;color:#666666;margin-top:5px;'>{{!eve?.payout_id ? (eve?.to_who ? eve?.remark : (
+              ( eve?.type != 'food' ? (  language['Purchase'][lang] + eve?.qty + language['Unit'][lang] +  eve?.name) :
+              (eve?.buyer_name + language['In
+              Shop Purchase'][lang] )) ) ) : (eve?.status == true
+              ? language['Withdraw Success On'][lang] +
+              (eve?.paid | date: 'dd MMM yyyy') : language['Withdraw Pending'][lang]) }}</div>
+        </div>
+        <div style='display:flex;align-items: center;justify-content: flex-end;'>
+          <div [ngStyle]="{
+            'color': (!eve?.rate ? (eve?.to_who ? eve?.amount : proper2( (eve?.price_now - eve?.price_comm  - (eve?.price_vsnap||0) - (eve?.price_vsnap2||0) ) *  (eve?.type != 'food' ? toint(eve?.qty) : 1) )*(1) ) : -1*eve?.amount_actual)>0 ? '#00b871' : '#f53c3c' 
+          }" style='font-size:14px;font-weight: bold; width: max-content;'>{{ (!eve?.payout_id ? (eve?.to_who ?
+            eve?.amount
+            : ( returnsaletotal(eve?.inv) )
+            )
+            : -1 * eve?.amount_actual) | currency:"RM"}}</div>
+          <ion-icon style="margin-left: 10px;color:#666666;" name="chevron-forward-outline"></ion-icon>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</ion-content>

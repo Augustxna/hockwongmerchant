@@ -1,0 +1,102 @@
+<ion-content>
+
+  <div
+    style="position:fixed;top:0;left:0;height:50px;display:flex;align-items:center;z-index: 1002;width: 100vw;background:transparent;justify-content: space-between; padding-right: 15px;">
+    <div
+      style='margin-left:15px;height:25px;width:25px;display:flex;justify-content: center;align-items: center;border-radius:100%;background-color: rgba(0,0,0,0.3);'>
+      <ion-icon (click)='back()' style='color:white;font-size:20px;margin-right:3px;' name="chevron-back-outline">
+      </ion-icon>
+    </div>
+
+    <ion-icon (click)="delete()" *ngIf="nowid != id" style="font-size: 20px; " name="trash-outline"></ion-icon>
+  </div>
+
+  <div style='width:100%;padding:15px;padding-top:60px;padding-bottom:60px;'>
+
+    <div
+      style='font-size:16px;color:#333333;font-weight: bold;padding-left:5px;padding-bottom:10px;margin-bottom: 0px;'>
+      {{language['Staff Details'][lang]}}</div>
+
+    <div style="border-radius: 5px; margin-bottom: 10px; width: 100px ; 
+        height: 100px; background-color: white; margin-left: 10px;">
+      <div style='width:100%;cursor: pointer;'> 
+        <div style='width:100%;padding-bottom:100%;position: relative;'>
+          <label for="{{'filessquare_edit'+i}}" class="btn">
+            <div
+              style='border-radius:5px; width:100%; height:100%; border: 1px dotted #999999;display:flex;
+              align-items: center;justify-content: center;position: absolute;top:0;top:0;left:0;right:0;bottom:0;z-index:10;'>
+              <img style='width: 100px ; max-height: 100px ; height: 100px ;  object-fit: cover ; border-radius: 5px'
+                src="{{staff.photo || 'assets/camera.png'}}" alt="">
+            </div>
+          </label>
+          <input style="display: none" id="{{'filessquare_edit'+i}}" class="inputclass" accept="image/*" type="file"
+            (change)="fileChange($event,500)">
+        </div>
+
+      </div>
+
+    </div>
+
+    <div style='border-bottom:1px solid #eeeeee;padding:0px 15px;margin-bottom: 0px;'>
+      <div style='width:100%;display:flex;align-items: center;justify-content: space-between;'>
+        <ion-input [(ngModel)]="staff.name"
+          style='--padding-start:0px;--padding-end:0px;--background:transparent;font-size:14px;color:#333333;width:calc( 100% - 100px )'
+          placeholder="Name"></ion-input>
+      </div>
+    </div>
+    <div *ngIf="nowid != id" style='border-bottom:1px solid #eeeeee;padding:0px 15px;margin-bottom: 0px;'>
+      <div style='width:100%;display:flex;align-items: center;justify-content: space-between;'>
+
+        <ion-select [(ngModel)]="staff.position" class="ion-no-padding"
+          style='padding: 10px 10px 10px 0px; --background:transparent;font-size:14px;color:#333333;width:calc( 100% )'
+          placeholder="Position">
+          <ion-select-option value="Admin">{{language['Admin'][lang]}}</ion-select-option>
+          <ion-select-option value="Member">{{language['Member'][lang]}}</ion-select-option>
+        </ion-select>
+      </div>
+    </div>
+    <div style='border-bottom:1px solid #eeeeee;padding:0px 15px;margin-bottom: 0px;'>
+      <div style='width:100%;display:flex;align-items: center;justify-content: space-between;'>
+        <ion-input [(ngModel)]="staff.phone"
+          style='--padding-start:0px;--padding-end:0px;--background:transparent;font-size:14px;color:#333333;width:calc( 100% - 100px )'
+          type='tel' placeholder="Phone Number"></ion-input>
+      </div>
+    </div>
+    <div style='border-bottom:1px solid #eeeeee;padding:0px 15px;margin-bottom: 0px;'>
+      <div style='width:100%;display:flex;align-items: center;justify-content: space-between;'>
+        <ion-input disabled [(ngModel)]="staff.email"
+          style='--padding-start:0px;--padding-end:0px;--background:transparent;font-size:14px;color:#333333;width:calc( 100% - 100px )'
+          type='email' placeholder="Email Address"></ion-input>
+      </div>
+    </div>
+
+
+    <div (click)="update()"
+      style="padding: 10px; width: 100%; display: flex; align-items: center; justify-content: center; color: white;
+border-radius: 10px; box-shadow: 0px 3px 6px rgb(0,0,0,0.1); background-image: linear-gradient(to top right, rgb(0,93,200), rgb(0,173,200));">
+      <div style="margin-left: 10px; font-size: 14px; font-weight: 400;">{{language['Update Changes'][lang]}} </div>
+    </div>
+
+    <div style='font-size:16px;color:#333333;font-weight: bold;padding-left:15px;padding-bottom:10px;padding-top:30px;'>
+      {{language['Activity'][lang]}}</div>
+
+    <div style='width:100%;'>
+      <div *ngFor="let x of activity" style='border-bottom:1px solid #eeeeee;padding:10px 15px;'>
+        <div style='font-size:14px;color:#333333;letter-spacing: .5px;'>{{language['Created an invoice'][lang]}} #{{x.invoice_id}} {{language['for'][lang]}} {{x.vendoruser}}</div>
+        <div style='font-size:12px;color:#999999;letter-spacing: .5px;margin-top:3px;'>{{language['on'][lang]}} {{x.now_date | date : 'hh:mm a, dd MMM YYYY'}}</div>
+      </div>
+      <!-- <div style='border-bottom:1px solid #eeeeee;padding:10px 15px;'>
+        <div style='font-size:14px;color:#333333;letter-spacing: .5px;'>Created an invoice #1023053 for Ivan Le</div>
+        <div style='font-size:12px;color:#999999;letter-spacing: .5px;margin-top:3px;'>on 3:50PM, 24 Jun 2021</div>
+      </div> -->
+    </div>
+
+  </div>
+
+</ion-content>
+
+<div (click)="dl_user()" style="width: 55px; height: 55px; display: flex; 
+align-items: center; justify-content: center; position: fixed; bottom: 85px;
+background-color: #eeeeee; right: 20px; border-radius: 100px;">
+  <ion-icon style="color: black; font-size: 25px;" name="archive-outline"></ion-icon>
+</div>

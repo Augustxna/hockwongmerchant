@@ -1,0 +1,58 @@
+ion-input {
+    --padding-start: 10px;
+    --padding-end: 10px;
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+}
+
+::-webkit-scrollbar {
+    width: 10px !important;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #ffffff !important;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #c4c4c4 !important;
+    border-radius: 10px !important;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #bfbfbf !important;
+    border-radius: 10px !important;
+}
+
+.hide {
+    display: none;
+    transition: 0.2s ease-in-out;
+    position: absolute;
+}
+
+.stepdiv:hover + .hide {
+    background: #eeeeee;
+    padding: 5px 10px;
+    border-radius: 4px;
+    z-index: 1000;
+    display: block;
+    position: absolute;
+    top:28px;
+    left:5px;
+    color: #666666;
+    font-weight: 400;
+    font-size: 12px;
+    border: 1px solid #dddddd;
+}
+
+.selectedx {
+    color: #37516f;
+    background-color: white;
+}
+
+.selected {
+    color: white;
+    background-color: #37516f;
+}

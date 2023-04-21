@@ -1,0 +1,52 @@
+<ion-content style="--background:#f7f9fd">
+
+  <div style=" padding: 15px; position: sticky; top: 0;  z-index: 100;
+  background-color: white; border-bottom: 1px solid #f4f4f4;">
+    <div style=" display: flex; align-items: center; justify-content: space-between;">
+      <ion-icon (click)="back()" style="font-size: 18px; color:#ef4748;" name="chevron-back-outline"></ion-icon>
+      <div style="font-size: 16px; font-weight: 450;">
+        {{ language["Delivery Settings"][lang]}}</div>
+      <ion-icon style="font-size: 18px; opacity: 0;" name="ellipsis-horizontal"></ion-icon>
+    </div>
+  </div>
+
+  <div style="width: 100%;padding: 20px 15px; ">
+    <div (click)="edit(i)" *ngFor="let x of sets, let i = index" style="border-radius: 5px;background-color: #ffffff;
+      border:1px dashed #dddddd; box-shadow: 0px 2px 3px rgba(175, 175, 175, 0.1); margin-bottom: 15px;padding: 10px;">
+
+      <div style="color:#333333; font-size: 14px;margin-bottom: 8px;font-weight: 600;">{{x.name || 'Undefined'}}</div>
+
+      <div style="display: flex;flex-wrap: wrap;width: 100%;">
+        <div *ngFor="let z of x['state']" style="display: flex;align-items: center;padding: 0 15px 5px 0;">
+          <div style="background:#ef4748; width: 6px;height:6px;border-radius: 50%;margin-right: 5px;"></div>
+          <div style="color:#666666; font-size: 12px;">{{z}}</div>
+        </div>
+      </div>
+
+      <!-- <div style="border-bottom: 1px solid #eeeeee;padding-top: 5px;margin-bottom: 5px;"></div>
+
+      <div style="padding: 3px 0;">
+        <div style="display: flex;align-items: center;margin-bottom: 3px;">
+          <div style="font-size: 12px; color:#999999;">{{ language["Minimum Custom Delivery"][lang]}} :</div>
+          <div style="font-size: 12px;color:#333333;margin-left: 5px;"><span
+              style="font-size: 11px;">RM</span>&nbsp;{{x.free_delivery}}</div>
+        </div>
+        <div style="display: flex;align-items: center;">
+          <div style="font-size: 12px; color:#999999;">{{ language["Custom Delivery Fee"][lang]}} :</div>
+          <div style="font-size: 12px;color:#333333;margin-left: 5px;"><span
+              style="font-size: 11px;">RM</span>&nbsp;{{x.free_price}}</div>
+        </div>
+      </div> -->
+
+    </div>
+
+    <div (click)="create()" style="height: 50px; border-radius: 5px; border: 1px solid #f7f7f7;  box-shadow: 0px 3px 6px rgba(175, 175, 175, 0.1);
+      display: flex;align-items: center; justify-content: center;background-color: #ffffff;">
+      <div style="color:#333333; font-size: 13px;margin-right: 10px;"> {{language["Create New Entry"][lang]}}
+      </div>
+      <ion-icon slot="start" name="add-circle-outline" style="color:#ef4748;font-size: 20px;"></ion-icon>
+    </div>
+
+  </div>
+
+</ion-content>

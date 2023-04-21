@@ -1,0 +1,46 @@
+
+
+<ion-content style="--background:#1a1132f0">
+
+  <div style="display: flex;flex-direction: column;max-width: 500px;width: 100vw;padding:0 25px;" [ngStyle]="{'margin-left' : widther(500) ? 'calc((100vw - 500px) / 2)' : '0'}">
+    <div style="height: 40vw;max-height: 300px;width: 100%;display: flex;align-items: center;justify-content: center;padding: 15px">
+        <img src="assets/icon/hwologo.gif" alt="" style="width: 80px;">
+   
+    </div>
+
+    <div style="color:white;font-size: 16px;letter-spacing: 0.6px;font-weight: 600;margin-top: 10px; text-align: center;">HWO Merchant</div>
+
+    <div style="color:white;font-size: 25px;letter-spacing: 0.6px;font-weight: 600;margin-top: 30px;">Welcome back</div>
+    <div style="color:rgba(255,255,255,0.8); font-size: 11px;margin-top: 5px;margin-bottom: 50px;">Please login to continue</div>
+
+    <div style="background:#39304d;padding: 6px 15px;border-radius: 10px;">
+        <div style="display: flex;align-items: center;">
+          <ion-icon slot="start" name="mail-outline" style="margin-right: 15px;color:rgba(255,255,255,0.8);"></ion-icon>
+          <ion-input style="width: calc(100% - 10px - 16px);color:white;font-size: 13px;min-height: 20px;height: 28px;--padding-start:0;" type="email" [(ngModel)]="email" placeholder = "Enter your email.."></ion-input>
+        </div>
+    </div>
+    <div style="background:#39304d;padding: 6px 15px;border-radius: 10px;margin-top: 20px;">
+        <div style="display: flex;align-items: center;">
+          <ion-icon slot="start" name="lock-closed-outline" style="margin-right: 15px;color:rgba(255,255,255,0.8);"></ion-icon>
+          <ion-input style="width: calc(100% - 10px - 16px);color:white;font-size: 13px;min-height: 20px;height: 28px;--padding-start:0;" type="password" [(ngModel)]="password" placeholder = "Enter your password.."></ion-input>
+        </div>
+    </div>
+
+
+    <div (click) = "login()" style="display: flex;width: 100%; background:#7d3cf5; display: flex;align-items: center;justify-content: center;border-radius: 10px; height: 40px;margin-top: 50px;color:white;font-size:15px;font-weight: 600;letter-spacing: 0.7px;">
+      CONTINUE
+    </div>
+
+
+
+    <div style="display: flex;align-items: center;justify-content: center;width: 100%;margin-top: 60px;">
+      <div style="color:silver;font-size: 12px;">Don't have an account?</div>
+      <div (click) = "signup()" style="color:white!important; font-weight: 500;letter-spacing: 0.5px;font-size: 12px;;">&nbsp;&nbsp;Request For One</div>
+    </div>
+  
+  </div>
+
+
+
+</ion-content>
+

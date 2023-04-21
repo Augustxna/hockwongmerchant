@@ -1,0 +1,268 @@
+<ion-header class="ion-no-border">
+  <div style='background-color:white;position: sticky;top:0;left:0;z-index: 9999;border-bottom:1px solid #eeeeee;'>
+    <div
+      style="font-size: 15px;  text-align: center; padding-bottom: 15px; letter-spacing: .6px; padding: 15px 15px 10px 15px;">
+      {{language["MY SALES"][lang]}}</div>
+
+    <div style="padding:0px 15px">
+
+      <div style='display:flex;justify-content: space-evenly;align-items: center; '>
+        <div (click)='type=0 ;pager=1' [ngStyle]='{"color": type==0 ? "#f53c3c" : "#333333"}'
+          style='width:calc( 100vw / 2 );padding:10px 0px;font-size:13px;text-align: center; height: 41px;'>{{
+          language["Online Sales"][lang]}}</div>
+        <div style='height:20px;border-left:1px solid #eeeeee;'></div>
+        <!-- <div (click)='type=2 ;pager=1' [ngStyle]='{"color": type==2 ? "#f53c3c" : "#333333"}'
+          style='width:calc( 100vw / 3 );padding:10px 0px;font-size:13px;text-align: center; height: 41px;'>{{
+          language["In-App Order"][lang]}}</div>
+        <div style='height:20px;border-left:1px solid #eeeeee;'></div> -->
+        <div (click)='type=1;pager=1' [ngStyle]='{"color": type==1 ? "#f53c3c" : "#333333"}'
+          style='width:calc( 100vw / 2 );padding:10px 0px;font-size:13px;text-align: center; height: 41px;'>{{
+          language["Eat & Travel"][lang]}}</div>
+      </div>
+
+      <div
+        style='display:flex;align-items: center;padding-left:10px;border:1px solid #ffaba5;border-radius:100px;width:calc( 100% ); margin-bottom: 10px ;'>
+        <ion-icon style='font-size:14px;color:#aaaaaa;margin-right:10px;' name="search-outline"></ion-icon>
+        <ion-input [(ngModel)]='keyword' placeholder='Search your product' style='min-width:calc( 100% - 14px - 10px - 67.2px - 3px );font-size:14px;letter-spacing: 1px;
+          color:#444444;border: none !important;--padding-top:7px;--padding-bottom:7px;' type="text"></ion-input>
+        <div
+          style='padding:5px 10px;;border-radius:100px;color:white;background-color: #ff382a;font-size:13px;letter-spacing: 1px;margin-right:3px;'>
+          {{ language["Search"][lang]}}</div>
+      </div>
+
+      <div style='width:100%;overflow-x: auto; display: flex; align-items: center; justify-content: center;'>
+        <div style='display:flex; align-items: center;'>
+          <div (click)='selected==0 ? selected=-1 : selected=0;selected_last=0'
+            [ngClass]='selected==0 || lengthof(select[0])>0  ? "high" : "highx"'
+            style='border-radius:100px;;padding:7px 15px;display:flex;align-items: center;margin-right:10px;'>
+            <ion-icon style='font-size:12px;margin-right:5px;' name="calendar-outline"></ion-icon>
+            <div style='font-size:12px;letter-spacing: .5px;margin-right:5px; color: black;'>{{date_start | date:"dd MMM yyyy"}}
+            </div>
+            <ion-icon style='font-size:12px;' name="caret-down-outline"></ion-icon>
+          </div>
+          <ion-icon style='margin-right:10px;font-size:16px;color:#aaaaaa;' name="arrow-forward-outline"></ion-icon>
+          <div (click)='selected==1 ? selected=-1 : selected=1;selected_last=1'
+            [ngClass]='selected==1 || lengthof(select[1])>0  ? "high" : "highx"'
+            style='border-radius:100px;;padding:7px 15px;display:flex;align-items: center;'>
+            <ion-icon style='font-size:12px;margin-right:5px;' name="calendar-outline"></ion-icon>
+
+            <div style='font-size:12px;letter-spacing: .5px;margin-right:5px; color: black;'>{{date_end | date:"dd MMM yyyy"}}</div>
+            <ion-icon style='font-size:12px;' name="caret-down-outline"></ion-icon>
+          </div>
+          <div style='opacity: 0;'>.</div>
+        </div>
+      </div>
+
+      <div [ngClass]='selected >= 0 ? "open3" : "open3x"'
+        style='background-color: white;width:100%;overflow-y: auto;position: relative;'>
+
+        <div style='width:100%;padding:15px;padding-top:0px;'>
+          <ion-datetime [hidden]='selected_last!=0' [(ngModel)]='date_start_temp' mode='ios' presentation="date">
+          </ion-datetime>
+          <ion-datetime [hidden]='selected_last!=1' [(ngModel)]='date_end_temp' mode='ios' presentation="date">
+          </ion-datetime>
+        </div>
+
+        <div
+          style='display:flex;align-items: center;width:100%;background-color: white;position: sticky;bottom:0;padding:10px 15px;'>
+          <div (click)='reseter(selected)'
+            style='padding:7px 15px;border-radius:100px;font-size:14px;letter-spacing: .5px;color:#ff1717;border:1px solid #ff1717;margin-right:15px;width:calc( ( 100% - 15px ) / 2 );text-align: center;'>
+            {{ language["Reset"][lang]}}</div>
+          <div (click)='choose(selected)'
+            style='padding:7px 15px;border-radius:100px;font-size:14px;letter-spacing: .5px;color:white;background-color:  #ff1717;width:calc( ( 100% - 15px ) / 2 );text-align: center;'>
+            {{ language["Done"][lang]}}</div>
+
+        </div>
+      </div>
+
+      <div *ngIf="type != 1" style='display:flex;justify-content: space-evenly;align-items: center;'>
+        <div (click)='tab="processing";pager=1' [ngStyle]='{"color": tab=="processing" ? "#f53c3c" : "#333333"  }'
+          style='width:calc( 100vw / 3 );padding:10px 0px;font-size:13px;text-align: center;'>{{
+          language["Pending"][lang]}}<br>({{lengthof(filterorder(orders, 'processing'))}})</div>
+        <div style='height:20px;border-left:1px solid #eeeeee;'></div>
+        <div (click)='tab="track";pager=1' [ngStyle]='{"color": tab=="track" ? "#f53c3c" : "#333333"  }'
+          style='width:calc( 100vw / 3 );padding:10px 0px;font-size:13px;text-align: center;'>{{
+          language["Delivering"][lang]}}<br>({{lengthof(filterorder(orders, 'track'))}})</div>
+        <div style='height:20px;border-left:1px solid #eeeeee;'></div>
+        <div (click)='tab="completed";pager=1' [ngStyle]='{"color": tab=="completed" ? "#f53c3c" : "#333333"  }'
+          style='width:calc( 100vw / 3 );padding:10px 0px;font-size:13px;text-align: center;'>{{
+          language["Complete"][lang]}}<br>({{lengthof(filterorder(orders, 'complete'))}})</div>
+      </div>
+
+    </div>
+
+  </div>
+</ion-header>
+
+<ion-content style="--background: #f7f9fd;">
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div *ngIf="type != 1">
+    <div (click)="godetail(he)" *ngFor='let he of filterorder(orders, tab)'
+      style='width:100%;padding:10px 15px; box-shadow: 0px 1px 2px rgba(0,0,0,0.1); background-color: white; margin-bottom: 10px;'>
+      <div
+        style='width:100%;display:flex;align-items: center;justify-content: space-between;border-bottom:1px solid #eeeeee;padding-bottom:10px;'>
+        <div style='font-size:12px;color:#aaaaaa;letter-spacing: .5px;'>{{he.lists[0].date | date:"dd MMM yyyy"}}
+        </div>
+        <div style='font-size:12px;color: #444444;letter-spacing: .5px;'> {{ returnnumber(he.lists[0].inv)}} </div>
+      </div>
+
+      <div
+        style='margin-top:10px;;font-size:15px;font-weight: bold;letter-spacing: .5px;color:#444444;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;margin-bottom:5px;;'>
+        {{he.lists[0].buyer_name}}<span
+          style='font-size:12px;letter-spacing: .5px;color:#aaaaaa;margin-left:10px;'>{{he.lists[0].buyer_contact}}</span>
+      </div>
+      <div style='width:100%;display:flex;flex-wrap: wrap;margin-top:15px;'>
+        <div *ngFor='let eve of he.lists'
+          style='display:flex;align-items: center;justify-content: center;flex-direction: column;margin-right:15px;margin-bottom:15px;'>
+          <div
+            style='display:flex;align-items: center;justify-content: center;height:80px;width:80px;position: relative;'>
+            <div
+              style='font-size:12px;padding:5px;background-color: rgba(0,0,0,0.5);letter-spacing: .5px;color:white;position: absolute;z-index: 10;bottom:0;right:0;;'>
+              x {{eve.qty || 1}}</div>
+            <img style='height:100%;width:100%;object-fit: cover;border-radius:3px;' src="{{eve.thumbnail}}" alt="">
+          </div>
+          <div style='display:flex;align-items: center;margin-top:7px;'>
+
+
+          </div>
+        </div>
+
+      </div>
+
+      <div style='width:100%;border:1px solid #eeeeee;border-radius:10px;padding:10px;margin-bottom:15px;'>
+
+        <div style='display:flex;width:100%;'>
+          <img style='width:30px;margin-right:10px;height:30px'
+            src="https://static.vecteezy.com/system/resources/previews/000/349/634/non_2x/vector-truck-icon.jpg" alt="">
+
+          <div style='width:calc( 100% - 20px - 10px );'>
+            <div style='width:100%;display:flex;align-items: center;justify-content: space-between;margin-bottom:10px;'>
+              <div style='font-size:13px;letter-spacing: 1px;color:#444444;font-weight: bold;'>
+                {{he.lists[0].collect_type == 'delivery' ? language["Delivery"][lang] : language["Self Collect"][lang]}}
+              </div>
+              <div
+                *ngIf="he.lists[0].collect_type == 'delivery' && he.lists[0].tracking_company && lengthof(he.lists[0].used) == 0"
+                style='font-size:12px;letter-spacing: .5px;color:#ff5252'>{{he.lists[0].tracking_company}} -
+                {{he.lists[0].tracking_account}}</div>
+              <div
+                *ngIf="he.lists[0].collect_type == 'delivery' && !he.lists[0].tracking_company && lengthof(he.lists[0].used) == 0"
+                style='font-size:12px;letter-spacing: .5px;color:#aaaaaa'>( {{ language["No Tracking
+                Information"][lang]}})
+              </div>
+              <div *ngIf="lengthof(he.lists[0].used) > 0" style='font-size:12px;letter-spacing: .5px;color:green'>(
+                {{ language["Collected"][lang]}} )</div>
+            </div>
+
+            <div style='width:100%;display:flex;align-items: center;'>
+              <div style='width:calc( 100%  );'>
+                <div
+                  style='font-size:14px;font-weight: bold;letter-spacing: .5px;color:#444444;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;margin-bottom:5px;;'>
+                  {{he.lists[0].buyer_name}}<span
+                    style='font-size:11px;letter-spacing: .5px;color:#aaaaaa;margin-left:10px;'>{{he.lists[0].buyer_contact}}</span>
+                </div>
+                <div *ngIf="he.lists[0].collect_type == 'delivery'"
+                  style='font-size:11px;letter-spacing: .5px;color:#666666;width:100%;white-space: pre-line;line-height: 14px;;'>
+                  {{he.lists[0].buyer_address}}</div>
+                <div *ngIf="he.lists[0].collect_type != 'delivery'"
+                  style='font-size:11px;letter-spacing: .5px;color:#666666;width:100%;white-space: pre-line;line-height: 14px;'>
+                  {{ language["Welcome to the selected shop to collect your order"][lang]}}</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div style='width:100%;display:flex;align-items: center;justify-content: flex-end;'>
+        <div style='font-size:12px;margin-right:5px;;color:#aaaaaa;letter-spacing: .5px;'>{{
+          language["Total"][lang]}} (
+          {{lengthof(he.lists)}} {{ language["Products"][lang]}} , {{ language["Include Delivery"][lang]}} {{(he.price_delivery).toFixed(2)}} ): </div>
+        <div style='font-size:16px;color:#444444;font-weight: bold;letter-spacing: .5px;'>{{ returnt(he.lists) + he.price_delivery |
+          currency:"RM"}}</div>
+      </div>
+
+    </div>
+
+    <div *ngIf='!lengthof(filterorder(orders, tab))' style='width:calc( 100% - 40px );
+  padding:20px;display:flex;justify-content: center; margin: 20px; border-radius: 10px;
+    align-items: center;background-color: white;flex-direction: column;'>
+      <img style='width:200px;' src="https://i.pinimg.com/originals/5d/35/e3/5d35e39988e3a183bdc3a9d2570d20a9.gif"
+        alt="">
+      <div style='font-size:16px;font-weight: bold;color:#666666;text-align: center;'>{{
+        language["No Content"][lang]}}</div>
+      <div style='padding-top:5px;font-size:14px;font-weight: normal;color:#666666;text-align: center;'>{{
+        language["Nothing in the list"][lang]}}</div>
+    </div>
+  </div>
+
+
+  <div *ngIf="type == 1">
+    <div *ngFor='let he of filtereat(fnb)'
+      style='width:100%;padding:10px 15px; box-shadow: 0px 1px 2px rgba(0,0,0,0.1); background-color: white; margin-bottom: 10px;'>
+      <div
+        style='width:100%;display:flex;align-items: center;justify-content: space-between;border-bottom:1px solid #eeeeee;padding-bottom:10px;'>
+        <div style='font-size:12px;color:#aaaaaa;letter-spacing: .5px;'>{{he.date | date:"dd MMM yyyy, hh:mm a"}}
+        </div>
+      </div>
+
+      <div style='width:100%;display:flex;flex-wrap: wrap;margin-top:15px;'>
+        <div style='display:flex;align-items: center; margin-right:15px;margin-bottom:15px;'>
+          <div style='height:80px;width:80px;position: relative;'>
+            <img style='height:100%;width:100%;object-fit: cover;border-radius:3px;' src="{{he.user_photo[0]}}" alt="">
+          </div>
+
+          <div style="margin-left: 10px">
+
+            <div style='font-size:13px;letter-spacing: 1px;color:#444444;font-weight: bold;'>
+              吃喝玩乐
+            </div>
+
+            <div style='width:100%;display:flex;align-items: center; margin-top: 10px;'>
+              <div style='width:calc( 100%  );'>
+                <div
+                  style='font-size:14px;font-weight: bold;letter-spacing: .5px;color:#444444;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;margin-bottom:5px;;'>
+                  {{he.user_name}}<span
+                    style='font-size:11px;letter-spacing: .5px;color:#aaaaaa;margin-left:10px;'>{{he.user_contact}}</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div style='width:100%;display:flex;align-items: center;justify-content: flex-end;'>
+        <div style='font-size:12px;margin-right:5px;;color:#aaaaaa;letter-spacing: .5px;'>{{
+          language["Total"][lang]}}: </div>
+        <div style='font-size:16px;color:#444444;font-weight: bold;letter-spacing: .5px;'>{{ (he.price_buy) |
+          currency:"RM"}}</div>
+      </div>
+
+    </div>
+
+    <div *ngIf='!lengthof(filtereat(fnb))' style='width:calc( 100% - 40px );
+    padding:20px;display:flex;justify-content: center; margin: 20px; border-radius: 10px;
+      align-items: center;background-color: white;flex-direction: column;'>
+      <img style='width:200px;' src="https://i.pinimg.com/originals/5d/35/e3/5d35e39988e3a183bdc3a9d2570d20a9.gif"
+        alt="">
+      <div style='font-size:16px;font-weight: bold;color:#666666;text-align: center;'>{{
+        language["No Content"][lang]}}</div>
+      <div style='padding-top:5px;font-size:14px;font-weight: normal;color:#666666;text-align: center;'>{{
+        language["Nothing in the list"][lang]}}</div>
+    </div>
+
+  </div>
+
+
+</ion-content>
+
+<div (click)='back()'
+  style='height:30px;width:30px;display:flex;justify-content: center;align-items: center;
+  background-color: rgba(255,255,255,0.5);position: fixed;top:15px;left:15px;border-radius:100%;z-index:9999;'>
+  <ion-icon style='font-size:20px;color:black;' name="arrow-back-outline"></ion-icon>
+</div>

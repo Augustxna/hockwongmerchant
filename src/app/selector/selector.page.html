@@ -1,0 +1,23 @@
+<ion-content>
+  <div style='background-color:white;position: sticky;top:0;left:0;z-index: 9999;border-bottom:1px solid #eeeeee;'>
+
+    <div style="padding: 10px;">
+      <ion-icon (click)='back()' style='color:#f53c3c;font-size:20px; ' name="arrow-back"></ion-icon>
+
+      <ion-input [(ngModel)]="keyword" style="--padding-start: 10px; background-color: #f7f9fd; margin-top: 10px;
+      border-radius: 10px;" placeholder="{{language['Search'][lang]}}"></ion-input>
+    </div>
+
+  </div>
+
+  <div style='width:100vw;'>
+    <div (click)='done(x)' *ngFor='let x of filterer(array); let i = index'
+      style='padding:15px;border-bottom:1px solid #eeeeee;width:100%;display:flex;justify-content: space-between;align-items: center;'>
+      <div style='font-size:14px;color:#333333;'>{{x}}</div>
+      <!-- <ion-icon *ngIf='checkinclude(x)' style='font-size:16px;color:#00b871' name="checkmark"></ion-icon> -->
+    </div>
+  </div>
+
+  <div style="height: 70px; width: 100vw;"></div>
+
+</ion-content>

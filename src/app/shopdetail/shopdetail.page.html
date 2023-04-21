@@ -1,0 +1,124 @@
+<ion-content>
+
+  <div
+    style="height: 40px; width: 40px;  z-index: 100; padding: 10px; color: #333333; background-color: #f1f1f1; border-radius: 100px; position: fixed; top: 10px; left: 10px;">
+    <ion-icon (click)="back()" style="font-size: 20px;" name="chevron-back-outline"></ion-icon>
+  </div>
+
+
+  <ion-slides style="height: 70vw; width: 100vw; z-index: -1; background: black;
+  background-repeat: no-repeat; background-size:cover;  background-position:center" pager="true" [options]="slideOpts">
+    <ion-slide *ngFor="let x of data.photo">
+      <img src="{{x}}" style="object-fit: cover;width:100%;" alt="">
+    </ion-slide>
+
+  </ion-slides>
+
+  <div style="display: flex; align-items: center; flex-direction: column; margin-top: -20px;background-color: white;
+     border-radius: 20px 20px 0px 0px; height: 100px; width: 100%; padding: 10px; z-index: 1000  ">
+
+    <div
+      style="position: relative; width: 85vw; padding: 10px;  background-color: white; margin-top: -30px; border-radius: 10px; box-shadow: 0px 3px 6px rgb(0,0,0,0.1);  z-index: 10000;">
+
+      <!-- <ion-icon style="font-size: 25px; position: absolute; right: 10px; top: 10px; color: red;" name="heart">
+      </ion-icon> -->
+
+      <div style="font-size: 16px; font-weight: 600; width: calc( 100% - 30px);">
+        {{data.name}}
+      </div>
+
+      <div style='font-size:14px;font-weight: bold;color:#25d366;margin-top:5px;'>{{data.price | currency : 'RM '}}
+      </div>
+
+      <div style="font-size: 14px; color: #666666; margin-top:5px;;margin-bottom: 0px;">{{vendor.Merchant_name}} <span
+          style='margin-left:5px;font-size:12px;color:#999999;'>{{distance || 'No Set'}}</span> </div>
+
+
+      <div style="display: flex; align-items: center;">
+
+        <div (click)="whatsapp()" style="padding: 10px; width: 100%; display: flex; align-items: center; justify-content: center; color: white;
+    border-radius: 10px; box-shadow: 0px 3px 6px rgb(0,0,0,0.1); background-color: #25d366;">
+          <ion-icon style="font-size: 20px;" name="logo-whatsapp"></ion-icon>
+          <div style="margin-left: 10px; font-size: 14px; font-weight: 400;">{{language['WhatsApp Merchant
+            Now'][lang]}}!</div>
+        </div>
+
+        <!-- <div
+          style="display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 15px; width: calc(33% - 6.7px);
+     margin-right: 10px; border-radius: 7px; box-shadow: 0px 3px 6px rgb(0,0,0,0.1); background-image: linear-gradient(to top right, rgb(0,82,200), rgb(1,234,200));">
+          <img src='assets/carplate.png'>
+        </div>
+
+        <div
+          style="display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 15px; width: calc(33% - 6.7px);
+   border-radius: 7px; box-shadow: 0px 3px 6px rgb(0,0,0,0.1); background-image: linear-gradient(to top right, rgb(0,82,200), rgb(1,234,200));">
+          <img src='assets/carplate.png'>
+        </div> -->
+      </div>
+
+    </div>
+
+    <!-- <div style="font-size: 14px;  margin-top: 20px;">Details</div> -->
+
+    <!-- <div style="display: flex; align-items: center; margin-top: 30px; width: 100%;">
+
+      <div (click)="now = 0"
+        style="width: 50%; display: flex; align-items: center; justify-content: space-between; flex-direction: column;">
+        <div [ngClass]="now == 0 ? 'selected' : 'selectedx'" style="font-size: 14px; ">Details</div>
+        <div [ngClass]="now == 0 ? 'selected2' : 'selectedx2'"
+          style="width: 35%; height: 3px; border-radius: 100px; background-color: rgb(0,82,200); margin-top: 10px;">
+        </div>
+      </div>
+
+      <div (click)="now = 1"
+        style="width: 50%; display: flex; align-items: center; justify-content: space-between; flex-direction: column;">
+        <div [ngClass]="now == 1 ? 'selected' : 'selectedx'" style="font-size: 14px; ">Products</div>
+        <div [ngClass]="now == 1 ? 'selected2' : 'selectedx2'"
+          style="width: 35%; height: 3px; border-radius: 100px; background-color: rgb(0,82,200); margin-top: 10px;">
+        </div>
+      </div>
+
+    </div> -->
+
+    <div *ngIf="now == 0" style="margin-top: 20px; width: 100%;">
+      <div style="display: flex; align-items: center; color: rgb(0,82,200);">
+        <img style="width: 20px;" src="assets/carpenter.png">
+        <div style="font-size: 14px; margin-left: 10px; font-weight: bold;">{{language['Address'][lang]}}</div>
+      </div>
+
+      <div style="padding-left: 30px; font-size: 14px; margin-top: 5px;">
+        {{vendor.address + ', ' + vendor.postcode + ', ' + vendor.state }}
+      </div>
+
+      <div style="display: flex; align-items: center; color: rgb(0,82,200); margin-top: 20px; ">
+        <img style=" width: 20px;" src="assets/carpenter.png">
+        <div style="font-size: 14px; margin-left: 10px; font-weight: bold;">{{language['Merchant'][lang]}}</div>
+      </div>
+
+      <div style="padding-left: 30px; font-size: 14px; margin-top: 5px;">
+        {{vendor.name}} - {{ vendor.email}}
+      </div>
+
+      <div style="display: flex; align-items: center; color: rgb(0,82,200); margin-top: 20px; ">
+        <img style=" width: 20px;" src="assets/carpenter.png">
+        <div style="font-size: 14px; margin-left: 10px; font-weight: bold;">{{language['Description'][lang]}}</div>
+      </div>
+
+      <div style="padding-left: 30px; font-size: 14px; margin-top: 5px;">
+        {{data.description || 'No Description here'}}
+      </div>
+
+      <div style="display: flex; align-items: center; color: rgb(0,82,200); margin-top: 20px; ">
+        <img style=" width: 20px;" src="assets/carpenter.png">
+        <div style="font-size: 14px; margin-left: 10px; font-weight: bold;">{{language['Contact Number'][lang]}} </div>
+      </div>
+
+      <div style="padding-left: 30px; font-size: 14px; margin-top: 5px;">
+        {{vendor.phone}}
+      </div>
+
+    </div>
+
+  </div>
+
+</ion-content>

@@ -1,0 +1,25 @@
+<ion-content>
+  <div style='background-color:white;position: sticky;top:0;left:0;z-index: 9999;border-bottom:1px solid #eeeeee;'>
+    <div style='display:flex;justify-content: space-between;align-items: center;width:100%; padding: 10px;'>
+      <ion-icon (click)='back()' style='color:#f53c3c;font-size:20px;' name="arrow-back"></ion-icon>
+      <!-- <div style='font-size:16px;color:#333333;'>Select user</div> -->
+
+      <div (click)='done()' style="background-color: #ef4748; color: white; text-align: center; padding: 7.5px 10px; 
+         border-radius: 10px; font-weight: 500; font-size: 14px;">
+        {{ language["UPDATE"][lang]}}
+      </div>
+
+    </div>
+  </div>
+
+  <div style='width:100%;'>
+    <div (click)='save(x)' *ngFor='let x of array; let i = index'
+      style='padding:15px;border-bottom:1px solid #eeeeee;width:100%;display:flex;justify-content: space-between;align-items: center;'>
+      <div style='font-size:14px;color:#333333;'>{{x}}</div>
+      <ion-icon *ngIf='checkinclude(x)' style='font-size:16px;color:#00b871' name="checkmark"></ion-icon>
+    </div>
+  </div>
+
+  <div style="height: 70px; width: 100vw;"></div>
+
+</ion-content>

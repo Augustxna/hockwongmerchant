@@ -1,0 +1,98 @@
+<ion-content>
+
+
+  <div style='background-color:white;position: sticky;top:0;left:0;z-index: 9999;border-bottom:1px solid #eeeeee;'>
+    <div style='width:100vw;padding:15px 15px;display:flex;justify-content: space-between;align-items: center;'>
+      <div style='display:flex;justify-content: space-between;align-items: center;width:100%;'>
+        <ion-icon (click)='back()' style='color:#f53c3c;font-size:20px;' name="chevron-back"></ion-icon>
+        <div style='font-size:16px;color:#333333;'>{{ language['Create Product'][lang]}}</div>
+        <ion-icon (click)='delete()' style='color:#f53c3c;font-size:20px;opacity: 1;' name="trash-outline"></ion-icon>
+      </div>
+    </div>
+  </div>
+  <div style='width:100vw;'>
+    <div style='padding-left:15px;font-size:12px;color:#333333;padding-top:15px;'>{{ language['Product Photo'][lang]}}<span
+        style='color:#f53c3c;font-size:14px;'>&nbsp;*</span> </div>
+    <div style='overflow-x: scroll;min-width:100%;display:flex;align-items: center;padding:15px 0px;padding-left:15px;'>
+      <div *ngIf='(product.photo)'
+        style='min-height:100px;min-width:100px;position: relative;margin-right:15px;height:100px;width:100px;'>
+        <div (click)='delphoto()'
+          style='position: absolute;top:0px;right:0px;z-index:10;height:20px;width:20px;display:flex;justify-content: center;align-items: center;background-color: rgba(0,0,0,0.7);'>
+          <ion-icon style='color:white;font-size:14px;' name="close-outline"></ion-icon>
+        </div>
+        <img style='width:100%;height:100%;object-fit: cover;' src="{{product.photo}}" alt="">
+      </div>
+
+      <label *ngIf='(product.photo)==""' for="{{'filessquare_edit222'}}" class="btn">
+        <div
+          style='width:100px;height:100px;min-width: 100px;min-height: 100px;border:1px dashed #f53c3c;display:flex;justify-content: center;align-items: center;margin-right:15px;'>
+          <div style='font-size:10px;color:#f53c3c;text-align: center;'>+ {{ language['Add Photo'][lang]}}</div>
+        </div>
+      </label>
+      <input *ngIf='(product.photo)==""' style="display: none" id="{{'filessquare_edit222'}}" class="inputclass"
+        accept="image/" type="file" (change)="fileChange($event,600)">
+      <div style='padding:1px;'></div>
+    </div>
+  </div>
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+
+  <div style='padding:15px;width:100vw;padding-bottom:5px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{ language['Product Name'][lang]}}<span style='color:#f53c3c;font-size:14px;'>&nbsp;*</span>
+      </div>
+      <ion-icon style='font-size:14px;color:#f53c3c' name="help-circle-outline"></ion-icon>
+    </div>
+
+    <ion-input style='font-size:12px;color:#333333;--padding-end:0px;' [(ngModel)]="product.name"
+      placeholder="输入商品名字"></ion-input>
+
+  </div>
+
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+
+  <div style='padding:15px;width:100vw;padding-bottom:5px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{ language['Product Price'][lang]}}<span style='color:#f53c3c;font-size:14px;'>&nbsp;*</span>
+      </div>
+      <ion-icon style='font-size:14px;color:#f53c3c' name="help-circle-outline"></ion-icon>
+    </div>
+
+    <ion-input style='font-size:12px;color:#333333;--padding-end:0px;' type='number' [(ngModel)]="product.price"
+      placeholder="eg. 30"></ion-input>
+
+  </div>
+
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+
+  <div style='padding:15px;width:100vw;padding-bottom:5px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{ language['Product Category'][lang]}}<span
+          style='color:#f53c3c;font-size:14px;'>&nbsp;*</span>
+      </div>
+      <ion-icon style='font-size:14px;color:#f53c3c' name="help-circle-outline"></ion-icon>
+    </div>
+
+    <ion-input style='font-size:12px;color:#333333;--padding-end:0px;' disabled [(ngModel)]="product.category"
+      placeholder="eg. 30"></ion-input>
+
+  </div>
+
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+
+  <div style='padding:15px;width:100vw;padding-bottom:5px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{ language['Description'][lang]}}<span style='color:#f53c3c;font-size:14px;'>&nbsp;*</span>
+      </div>
+      <ion-icon style='font-size:14px;color:#f53c3c' name="help-circle-outline"></ion-icon>
+    </div>
+
+    <ion-textarea style='font-size:12px;color:#333333;--padding-end:0px;' rows="5" [(ngModel)]="product.description"
+      placeholder="eg. Description"></ion-textarea>
+
+  </div>
+
+  <div (click)='submit()'
+    style='margin:15px 25px;width:calc( 100% - 50px );padding:10px 20px;background-color: #f53c3c;font-size:14px;color:white;text-align: center;border-radius:5px;'>
+    {{ language['Add Product'][lang]}}</div>
+
+</ion-content>

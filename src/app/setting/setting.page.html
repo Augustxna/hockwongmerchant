@@ -1,0 +1,37 @@
+<ion-header>
+  <!-- <div
+    style="display: flex; align-items: center; padding: 15px; padding-bottom: 10px; position: sticky; top: 0px; background: white; z-index: 1000;">
+    <ion-icon (click)="back()" style="font-size: 20px;" name="chevron-back-outline"></ion-icon>
+    <div style="margin-left: 10px; font-weight: 600; font-size: 14px;">{{language == 'en' ? 'Settings' : '语言设置'}}</div>
+  </div> -->
+
+  <div style=" padding: 15px; position: sticky; top: 0;  z-index: 100;
+  background-color: white; border-bottom: 1px solid #f4f4f4;">
+    <div style=" display: flex; align-items: center; justify-content: space-between;">
+      <ion-icon (click)="back()" style="font-size: 18px; color:#ef4748;" name="chevron-back-outline"></ion-icon>
+      <div style="font-size: 16px; font-weight: 450;">{{language == 'en' ? 'Language' : '语言设置'}}</div>
+      <ion-icon style="font-size: 18px; opacity: 0;" name="ellipsis-horizontal"></ion-icon>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content>
+
+  <div style="padding: 10px;">
+    <!-- <div style="font-size: 14px; font-weight: 600">{{language == 'en' ? 'Language' : '语言'}}</div> -->
+    <ion-radio-group (click)='action()' [(ngModel)]="language">
+      <ion-item style="--padding-start: 5px">
+        <ion-label style="font-size: 14px; font-weight: 500">English</ion-label>
+        <!-- <ion-label style="font-size: 14px; font-weight: 500">英文</ion-label> -->
+        <ion-radio mode='md' slot="end" value="en"></ion-radio>
+      </ion-item>
+
+      <ion-item style="--padding-start: 5px">
+        <ion-label style="font-size: 14px; font-weight: 500">中文</ion-label>
+        <!-- <ion-label style="font-size: 14px; font-weight: 500">Chinese</ion-label> -->
+        <ion-radio mode='md' slot="end" value="zh"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </div>
+
+</ion-content>

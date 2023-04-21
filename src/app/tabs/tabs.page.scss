@@ -1,0 +1,25 @@
+.show {
+    z-index: 1000;
+    top: 0px;
+    opacity: 1;
+}
+
+.show1 {
+    z-index: 1000;
+    top: 0px;
+    opacity: 1;
+}
+
+.showx {
+    z-index: -1000;
+    top: 100vh;
+    opacity: 1;
+}
+
+.selected {
+    background-color: rgb(129, 76, 208);
+}
+
+.selectedx {
+    background-color: rgb(75, 75, 75);
+}

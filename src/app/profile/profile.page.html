@@ -1,0 +1,365 @@
+<ion-content>
+
+  <div style='background-color:white;position: sticky;top:0;left:0;z-index: 9999;border-bottom:1px solid #eeeeee;'>
+    <div style="padding: 10px; display: flex; align-items: center; justify-content: space-between;">
+      <!-- <ion-icon (click)='edit ? cancel() : back()' style='color:#f53c3c;font-size:20px; '
+        [name]="edit ? 'close-outline' : 'chevron-back-outline'"> </ion-icon> -->
+        <ion-icon (click)='back()' style='color:#f53c3c;font-size:20px; '
+        [name]="'chevron-back-outline'"> </ion-icon>
+      <div style="font-size: 16px; font-weight: 450;">{{language["Profile"][lang]}}</div>
+      <!-- <ion-icon (click)='!edit ? (edit = !edit) : update()' style='color:#f53c3c;font-size:20px; '
+        [name]="!edit ? 'create-outline' : 'checkmark-outline'"> </ion-icon> -->
+        <ion-icon *ngIf="!edit" (click)='(edit = !edit)' style='color:#f53c3c;font-size:20px; '
+        [name]="'create-outline'"> </ion-icon>
+        <div *ngIf="edit" style="width: 20px;"></div>
+    </div>
+  </div>
+
+  <div style="padding: 15px;">
+
+    <div style="display: flex; align-items: center;">
+      <div style=" width: 80px; height: 80px; position: relative;">
+        <img style="border-radius: 100px; width: 100%; height: 100%; object-fit: cover;
+           box-shadow: 0px 3px 6px rgb(0,0,0,0.1); border: 1px solid rgba(255, 255, 255, 0.1);"
+          src="{{vendor.photo || 'assets/logo.png'}}">
+        <div *ngIf="edit" style="position: absolute;  bottom: 2px; right: 2px; z-index: 100; border-radius: 100px;
+           background-color: white; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0px 3px 6px rgb(0,0,0,0.1);">
+
+          <label for="files" class="btn" style="position: relative;">
+            <ion-icon name="camera-outline"></ion-icon>
+          </label>
+
+          <input #uploadEl style="display: none" id="files" class="inputclass" accept="image/*" type="file"
+            (change)="fileChange($event,'this.vendor.photo', 600)">
+        </div>
+      </div>
+
+      <div style="margin-left: 10px;">
+        <div *ngIf="!edit"
+          style="color: #ff382a; font-weight: 600; letter-spacing: .8px;  font-size: 13px; margin-bottom: 10px;">
+          {{vendor.name}}</div>
+
+        <ion-input *ngIf="edit" [(ngModel)]="vendor.name" placeholder="Enter your name" class="ion-no-padding" style="color: #ff382a; font-weight: 600;  
+          letter-spacing: .8px; border-radius: 5px; font-size: 13px; ">
+          <!-- <ion-icon style='font-size:14px;color:#f53c3c; margin-right: 10px;' name="pencil-outline"></ion-icon> -->
+        </ion-input>
+
+        <div style="font-size: 12px; font-weight: 500; letter-spacing: .5px; margin-top: 10px; color: #666666;">
+          {{vendor.email}}</div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div style="height: 10px; width: 100%; background-color: #f7f9fd;"></div>
+
+  <div style='padding:15px;padding-bottom:5px; font-size:12px;'>
+
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{language["Branch Name"][lang]}}<span
+          style='color:#f53c3c;font-size:14px;'>&nbsp;*</span>
+      </div>
+      <!-- <ion-icon *ngIf='edit' style='font-size:14px;color:#f53c3c' name="pencil-outline"></ion-icon> -->
+    </div>
+
+    <ion-input [readonly]="!edit" style='color:#333333;' [(ngModel)]="vendor.brand_name" placeholder="{{language['Enter Branch name'][lang]}}">
+    </ion-input>
+  </div>
+
+  <div style="height: 10px; width: 100%; background-color: #f7f9fd;"></div>
+
+  <div style='padding:15px;padding-bottom:5px; font-size:12px;'>
+
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{language["PIC name"][lang]}}<span
+          style='color:#f53c3c;font-size:14px;'>&nbsp;*</span>
+      </div>
+      <!-- <ion-icon *ngIf='edit' style='font-size:14px;color:#f53c3c' name="pencil-outline"></ion-icon> -->
+    </div>
+
+    <ion-input [readonly]="!edit" style='color:#333333;' [(ngModel)]="vendor.pic_name" placeholder="{{language['Enter PIC name'][lang]}}">
+    </ion-input>
+  </div>
+
+  <div style="height: 10px; width: 100%; background-color: #f7f9fd;"></div>
+
+  <div style='padding:15px;padding-bottom:5px; font-size:12px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{language["Store Number"][lang]}}<span
+          style='color:#f53c3c;font-size:14px;'>&nbsp;*</span>
+      </div>
+      <!-- <ion-icon *ngIf='edit' style='font-size:14px;color:#f53c3c' name="pencil-outline"></ion-icon> -->
+    </div>
+
+    <ion-input [readonly]="!edit" style='color:#333333;' [(ngModel)]="vendor.contact" placeholder="{{language['Enter Store Number'][lang]}}">
+    </ion-input>
+  </div>
+
+  <div style="height: 10px; width: 100%; background-color: #f7f9fd;"></div>
+
+  <div style='padding:15px;padding-bottom:5px; font-size:12px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{language["Store SSM"][lang]}}<span
+          style='color:#f53c3c;font-size:14px;'>&nbsp;*</span>
+      </div>
+      <!-- <ion-icon *ngIf='edit' style='font-size:14px;color:#f53c3c' name="pencil-outline"></ion-icon> -->
+    </div>
+
+    <ion-input [readonly]="!edit" style='color:#333333;' [(ngModel)]="vendor.ssm" placeholder="{{language['Enter Store SSM'][lang]}}">
+    </ion-input>
+  </div>
+
+  <div style=" height: 10px; width: 100%; background-color: #f7f9fd;">
+  </div>
+
+  <!-- <div style='padding:15px;padding-bottom:5px; font-size:12px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{language["Store Address"][lang]}}<span
+          style='color:#f53c3c;font-size:14px;'>&nbsp;*</span>
+      </div>
+      <ion-icon *ngIf='edit' style='font-size:14px;color:#f53c3c' name="pencil-outline"></ion-icon>
+    </div>
+    <ion-textarea [readonly]="!edit" rows="3" style='color:#333333;' [(ngModel)]="vendor.address" placeholder="{{language['Enter Store Address'][lang]}}">
+    </ion-textarea>
+  </div>
+
+  <div style="height: 10px; width: 100%; background-color: #f7f9fd;">
+  </div> -->
+
+  <div style='padding:15px;padding-bottom:5px; font-size:12px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{language["Store Description"][lang]}}<span
+          style='color:#f53c3c;font-size:14px;'>&nbsp;*</span>
+      </div>
+      <!-- <ion-icon *ngIf='edit' style='font-size:14px;color:#f53c3c' name="pencil-outline"></ion-icon> -->
+    </div>
+    <ion-textarea [readonly]="!edit" rows="5" style='color:#333333;' [(ngModel)]="vendor.description"
+      placeholder="{{language['Enter Store Description'][lang]}}">
+    </ion-textarea>
+  </div>
+
+  <div style="padding: 5px; background-color: #f7f9fd;"></div>
+
+
+
+  <!-- <div *ngIf="vendor.physical" style='padding:15px;padding-bottom:5px; font-size:12px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>商家类别<span style='color:#f53c3c;font-size:14px;'>&nbsp;*</span>
+      </div>
+      <ion-icon *ngIf='edit' style='font-size:14px;color:#f53c3c' name="pencil-outline"></ion-icon>
+    </div>
+
+    <ion-select *ngIf="lengthof(fnbcat)" [disabled]="!edit" class="ion-no-padding" style='margin: 10px 0px;
+     font-size:12px;color:#333333;--padding-end:0px;' [(ngModel)]="vendor.category" type="number"
+      placeholder="输入商家分利 eg(50)">
+      <ion-select-option *ngFor="let x of fnbcat" value="{{x.name}}">{{x.name}}</ion-select-option>
+    </ion-select>
+
+  </div> -->
+
+  <div *ngIf="vendor.physical" style="padding: 5px; background-color: #f7f9fd;"></div>
+
+  <div *ngIf="vendor.physical" style='padding:15px;padding-bottom:5px; font-size:12px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{language["Consumer Rebate"][lang]}} (%)<span
+          style='color:#f53c3c;font-size:14px;'>&nbsp;*</span>
+      </div>
+      <!-- <ion-icon *ngIf='edit' style='font-size:14px;color:#f53c3c' name="pencil-outline"></ion-icon> -->
+    </div>
+    <!-- <div style='color:#333333; padding: 10px 0px;'>{{vendor.physical_rate || 0}}</div> -->
+
+    <ion-input [readonly]="!edit" style='font-size:12px;color:#333333;--padding-end:0px;' [readonly]="!edit"
+      [(ngModel)]="vendor.physical_rate" type="number" placeholder="{{language['Enter Consumer Rebate'][lang]}} eg(50)">
+    </ion-input>
+
+  </div>
+
+  <div *ngIf="vendor.physical" style="padding: 5px; background-color: #f7f9fd;"></div>
+
+  <div *ngIf="vendor.physical" style='padding:15px;width:100vw;padding-bottom:5px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{language["Marketing Introduction (food and travel)"][lang]}}）</div>
+      <ion-icon style='font-size:14px;color:#f53c3c' name="help-circle-outline"></ion-icon>
+    </div>
+
+    <ion-textarea [disabled]='vendor_acc["vendor_id"]!=vendor_acc["id"]' [readonly]="!edit"
+      style='font-size:12px;color:#333333;--padding-end:0px;' rows="12" [(ngModel)]="vendor.promote_text"
+      placeholder="{{language['Enter Marketing Introduction'][lang]}}"></ion-textarea>
+  </div>
+
+  <div *ngIf="vendor.physical" style="padding: 5px; background-color: #f7f9fd;"></div>
+
+  <div *ngIf="vendor.physical" style='padding:15px;width:100vw;padding-bottom:5px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{language["TNC (food and travel)"][lang]}}<span
+          style='color:#f53c3c;font-size:14px;'>&nbsp;*</span>
+      </div>
+      <ion-icon style='font-size:14px;color:#f53c3c' name="help-circle-outline"></ion-icon>
+    </div>
+
+    <ion-textarea style='font-size:12px;color:#333333;--padding-end:0px;' [readonly]="!edit" [(ngModel)]="vendor.tnc_text" rows="5"
+      placeholder="{{language['Enter Terms and Conditions'][lang]}}"></ion-textarea>
+
+  </div>
+
+  <div *ngIf="vendor.physical" style="padding: 5px; background-color: #f7f9fd;"></div>
+
+  <!-- <div (click)='gofeature()'
+    style=" padding: 15px 15px; display: flex; align-items: center; justify-content: space-between;border-bottom:1px solid #eeeeee;">
+    <div style="display: flex; align-items: center;">
+      <ion-icon style='font-size:14px;color:#333333;' name="link-outline"></ion-icon>
+      <div style="font-size: 12px; margin-left: 10px;color:#333333;">{{language["Featured URL"][lang]}}</div>
+    </div>
+    <div style='display:flex;justify-content: flex-end;align-items: center;'>
+      <div style='font-size:12px;color:#333333;'>{{lengthof(vendor.link)>0 ? (lengthof(vendor.link)==1 ?
+        vendor.link[0].name : lengthof(vendor.link)+" URLs" ) : "Not Set"}}</div>
+      <ion-icon style="margin-left: 10px;color:#666666;font-size:14px;" name="chevron-forward-outline"></ion-icon>
+    </div>
+  </div> -->
+  <!-- *ngIf="vendor.bank_type" -->
+
+  <div style='padding:15px;padding-bottom:5px; font-size:12px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{language["Bank Name"][lang]}}<span
+          style='color:#f53c3c;font-size:14px;'>&nbsp;*</span>
+      </div>
+      <!-- <ion-icon *ngIf='edit' style='font-size:14px;color:#f53c3c' name="pencil-outline"></ion-icon> -->
+    </div>
+
+    <ion-input [readonly]="!edit" style='color:#333333;' [(ngModel)]="vendor.bank_type" placeholder="{{language['Enter Bank Name'][lang]}}">
+    </ion-input>
+  </div>
+  <!-- <div
+    style=" padding: 15px 15px; display: flex; align-items: center; justify-content: space-between;border-bottom:1px solid #eeeeee;">
+    <div style="display: flex; align-items: center;">
+      <ion-icon style='font-size:14px;color:#333333;' name="bag-handle-outline"></ion-icon>
+      <div style="font-size: 12px; margin-left: 10px;color:#333333;">{{language["Bank Name"][lang]}}</div>
+    </div>
+    <div style='display:flex;justify-content: flex-end;align-items: center;'>
+ 
+      <ion-input [readonly]="!edit" style='color:#333333; font-size:12px; text-align: right;'
+        [(ngModel)]="vendor.bank_type" placeholder="{{language['Enter Bank Name'][lang]}}" class="ion-no-padding">
+      </ion-input>
+      <ion-icon *ngIf='!edit' style="margin-left: 10px;color:#666666;font-size:14px;" name="chevron-forward-outline">
+      </ion-icon>
+      <ion-icon *ngIf='edit' style='margin-left: 10px;font-size:14px;color:#f53c3c' name="pencil-outline"></ion-icon>
+    </div>
+  </div> -->
+  <!-- *ngIf="vendor.bank_name" -->
+  <!-- <div 
+    style=" padding: 15px 15px; display: flex; align-items: center; justify-content: space-between;border-bottom:1px solid #eeeeee;">
+    <div style="display: flex; align-items: center;">
+      <ion-icon style='font-size:14px;color:#333333;' name="bag-handle-outline"></ion-icon>
+      <div style="font-size: 12px; margin-left: 10px;color:#333333;">{{language["Account Name"][lang]}}</div>
+    </div>
+    <div style='display:flex;justify-content: flex-end;align-items: center;'>
+      <ion-input [readonly]="!edit" style='color:#333333; font-size:12px; text-align: right;'
+        [(ngModel)]="vendor.bank_name" placeholder="{{language['Enter Account Name'][lang]}}" class="ion-no-padding">
+      </ion-input>
+      <ion-icon *ngIf='!edit' style="margin-left: 10px;color:#666666;font-size:14px;" name="chevron-forward-outline">
+      </ion-icon>
+      <ion-icon *ngIf='edit' style='margin-left: 10px;font-size:14px;color:#f53c3c' name="pencil-outline"></ion-icon>
+    </div>
+  </div> -->
+
+  <div style='padding:15px;padding-bottom:5px; font-size:12px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{language["Account Name"][lang]}}<span
+          style='color:#f53c3c;font-size:14px;'>&nbsp;*</span>
+      </div>
+      <!-- <ion-icon *ngIf='edit' style='font-size:14px;color:#f53c3c' name="pencil-outline"></ion-icon> -->
+    </div>
+
+    <ion-input [readonly]="!edit" style='color:#333333;' [(ngModel)]="vendor.bank_name" placeholder="{{language['Enter Account Name'][lang]}}">
+    </ion-input>
+  </div>
+
+  <!-- *ngIf="vendor.bank_account" -->
+
+  <div style='padding:15px;padding-bottom:5px; font-size:12px;'>
+    <div style='width:100%;display:flex;justify-content: space-between;align-items: center;padding-bottom:5px;'>
+      <div style='font-size:12px;color:#333333;'>{{language["Account Number"][lang]}}<span
+          style='color:#f53c3c;font-size:14px;'>&nbsp;*</span>
+      </div>
+      <!-- <ion-icon *ngIf='edit' style='font-size:14px;color:#f53c3c' name="pencil-outline"></ion-icon> -->
+    </div>
+
+    <ion-input [readonly]="!edit" style='color:#333333;' [(ngModel)]="vendor.bank_account" placeholder="{{language['Enter Account Number'][lang]}}">
+    </ion-input>
+  </div>
+
+  <!-- <div 
+    style=" padding: 15px 15px; display: flex; align-items: center; justify-content: space-between;border-bottom:1px solid #eeeeee;">
+    <div style="display: flex; align-items: center;">
+      <ion-icon style='font-size:14px;color:#333333;' name="bag-handle-outline"></ion-icon>
+      <div style="font-size: 12px; margin-left: 10px;color:#333333;text-align: right;">{{language["Account
+        Number"][lang]}}</div>
+    </div>
+    <div style='display:flex;justify-content: flex-end;align-items: center;'>
+      <ion-input [readonly]="!edit" style='color:#333333; font-size:12px; text-align: right;'
+        [(ngModel)]="vendor.bank_account" placeholder="{{language['Enter Account Number'][lang]}}" class="ion-no-padding">
+      </ion-input>
+      <ion-icon *ngIf='!edit' style="margin-left: 10px;color:#666666;font-size:14px;" name="chevron-forward-outline">
+      </ion-icon>
+      <ion-icon *ngIf='edit' style='margin-left: 10px;font-size:14px;color:#f53c3c' name="pencil-outline"></ion-icon>
+    </div>
+  </div> -->
+
+  <!-- <div
+    style=" padding: 15px 15px; display: flex; align-items: center; justify-content: space-between;border-bottom:1px solid #eeeeee;">
+    <div style="display: flex; align-items: center;">
+      <ion-icon style='font-size:14px;color:#333333;' name="bag-handle-outline"></ion-icon>
+      <div style="font-size: 12px; margin-left: 10px;color:#333333;">{{language["Merchant"][lang]}}<span
+          style='color:#f53c3c;font-size:12px;'>&nbsp;*</span></div>
+    </div>
+    <div style='display:flex;justify-content: flex-end;align-items: center;'>
+      <div [ngStyle]='{"color" : vendor.status == true ? "#00b871" : "#f53c3c"}' style='font-size:12px;'>
+        {{vendor.status ? language["Open"][lang] : language["Close"][lang]}}</div>
+    </div>
+  </div>
+
+  <div style="padding: 5px; background-color: #f7f9fd;"></div> -->
+
+  <!-- <div (click)='gofeature()'
+  style=" padding: 15px 15px; display: flex; align-items: center; justify-content: space-between;">
+  <div style="display: flex; align-items: center;">
+    <ion-icon style='font-size:14px;color:#333333;' name="link-outline"></ion-icon>
+    <div style="font-size: 12px; margin-left: 10px;color:#333333;">{{language["Featured URL"][lang]}}</div>
+  </div>
+  <div style='display:flex;justify-content: flex-end;align-items: center;'>
+    <div style='font-size:12px;color:#333333;'>{{lengthof(vendor.link)>0 ? (lengthof(vendor.link)==1 ?
+      vendor.link[0].name : lengthof(vendor.link)+" URLs" ) : "Not Set"}}</div>
+    <ion-icon style="margin-left: 10px;color:#666666;font-size:14px;" name="chevron-forward-outline"></ion-icon>
+  </div>
+</div>
+
+<div style="padding: 5px; background-color: #f7f9fd;"></div> -->
+<div style="padding: 5px; background-color: #f7f9fd;"></div>
+
+  <div (click)='change()'
+    style=" padding: 15px 15px; display: flex; align-items: center; justify-content: space-between;border-bottom:1px solid #eeeeee;">
+    <div style="display: flex; align-items: center;">
+      <ion-icon style='font-size:14px;color:#f53c3c;' name="trash-outline"></ion-icon>
+      <div style="font-size: 12px; margin-left: 10px;color:#f53c3c;">{{language["Reset Password"][lang]}}</div>
+    </div>
+    <div style='display:flex;justify-content: flex-end;align-items: center;'>
+      <!-- <div [ngStyle]='{"color" : vendor.status == true ? "#00b871" : "#f53c3c"}' style='font-size:12px;'>{{vendor.status==true ? "开启" : "关闭"}}</div> -->
+      <ion-icon style="margin-left: 10px;color:#f53c3c;font-size:14px;" name="chevron-forward-outline"></ion-icon>
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-footer>
+
+  <div style="width: 100%;  border-top: 1px solid #e0ebf3; background-color: #ffffff; padding: 10px;">
+
+    <div (click)='update()'
+      style="background-color: #ef4748; color: white; text-align: center; padding: 10px; border-radius: 10px; font-weight: 500; font-size: 14px;">
+      {{ language['UPDATE CHANGES'][lang]}}
+    </div>
+
+  </div>
+</ion-footer>

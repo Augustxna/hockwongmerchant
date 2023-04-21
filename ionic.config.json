@@ -1,0 +1,12 @@
+{
+  "name": "HockwongmerchantCapver",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "plugins": {
+    "FCM": {
+      "appId": "1:505187819341:web:178053794f10d0bc92a104"
+    }
+  }
+}

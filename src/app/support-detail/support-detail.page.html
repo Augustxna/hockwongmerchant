@@ -1,0 +1,103 @@
+<ion-content>
+
+  <div [ngClass]='close2==true ? "innerpop2" : "innerxpop2"'
+    style='position: fixed;left:0;background-color: rgba(0,0,0,0.85);display:flex;justify-content: center;align-items: center;width:100%;height:calc( 100% );z-index:10000;flex-direction: column;'>
+    <div style='width:100%;height:calc( 100%  );position: relative;'>
+      <div (click)='closeslide()'
+        style='font-size:10px;padding:5px 10px;border-radius:2px;color:white;background-color: #f53c3c;position: absolute;top:15px;right:15px;z-index:10;font-weight:bold;'>
+        {{language['CLOSE'][lang]}}</div>
+      <ion-slides (ionSlideDidChange)='checkslide($event)' #slides zoom="true" pager="true"
+        style='width:100%;height:100%;display:flex;justify-content: center;align-items: center;'>
+        <ion-slide style='display:flex;justify-content: center;align-items: center;width:100%;height:100%;'>
+          <img *ngFor='let eve of item.respond_photo ;let i = index' style='width:100%;object-fit: contain;height:100%;' src="{{eve.name}}" alt="">
+        </ion-slide>
+      </ion-slides>
+    </div>
+    <!-- <div style='width:100vw;display:flex;align-items: center;justify-content: center;padding:10px 15px;'>
+    <div
+      style='width:100%;padding:10px 20px;display:flex;align-items: center;justify-content: center;background-color: #f53c3c;border-radius:5px;box-shadow:1px 5px 10px rgba(0,0,0,0.1)'>
+      <div (click)='downloadimage()' style='font-size:14px;color:white;font-weight: bold;letter-spacing: .5px;'>
+        Download Image</div>
+    </div>
+  </div> -->
+  </div>
+
+  <div
+    style="position:fixed;top:0;left:0;height:50px;display:flex;align-items:center;z-index: 1002;width: 100vw;background:transparent;justify-content: space-between;">
+    <div
+      style='margin-left:15px;height:25px;width:25px;display:flex;justify-content: center;align-items: center;border-radius:100%;background-color: rgba(255,255,255,0.5);'>
+      <ion-icon (click)='back()' style='color:black;font-size:20px;margin-right:3px;' name="chevron-back-outline">
+      </ion-icon>
+    </div>
+  </div>
+
+  <img style='width:100vw;height:calc( 100vw / 2 );object-fit: cover;vertical-align: bottom;'
+    src="https://www.helpscout.com/images/blog/2018/oct/contextual-support.jpg" alt="">
+
+  <div style="padding:20px 15px; ">
+    <div style="border-bottom: 1px solid #999999; padding-bottom: 15px;">
+      <div style="font-size: 16px;font-weight: 500;color:#262626;letter-spacing: 1px;">{{item.title}}</div>
+
+      <div style="font-size: 12px;font-weight: 400;color:#262626;letter-spacing: 1px; margin: 15px 0px;">
+        {{item.description}}</div>
+
+      <div *ngIf="lengthof(item.photo)" style='width:100%;display:flex;flex-wrap: wrap; margin-bottom: 15px;'>
+        <div (click)='presser(eve)' *ngFor='let eve of item.photo ;let i = index'
+          style='margin-right:15px;margin-bottom: 0px;background-color:white;box-shadow:1px 5px 10px rgba(0,0,0,0.1);position: relative;border-radius:5px;'
+          [ngStyle]='{"width" : ((widtherget() - 15)/rounder(widtherget() / 100)) - 15 +"px"   }'>
+          <div style='width:100%;cursor: pointer;'>
+            <div style='width:100%;padding-bottom:100%;position: relative;'>
+              <img
+                style='width:100%;height:100%;top:0;left:0;right:0;bottom:0;position: absolute;z-index:10;object-fit: cover;border-radius:5px;'
+                src="{{eve}}" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="font-size: 12px; color: #999999; letter-spacing: 1px; ">{{language['Created on'][lang]}} {{item.date | date:'hh:mma, dd MMM
+        yyyy'}}</div>
+    </div>
+
+    <div style="padding: 15px 0px;">
+
+      <div style="font-size: 16px;font-weight: 500;color:#262626;letter-spacing: 1px;">{{language['Support Response'][lang]}}</div>
+
+      <div *ngIf="item.respond"
+        style="font-size: 12px;font-weight: 400;color:#262626;letter-spacing: 1px; margin: 15px 0px;">
+        {{item.respond ||'no respond'}}</div>
+
+      <div *ngIf="lengthof(item.respond_photo)" style='width:100%;display:flex;flex-wrap: wrap; margin-bottom: 15px;'>
+        <div (click)='presser(eve)' *ngFor='let eve of item.respond_photo ;let i = index'
+          style='margin-right:15px;margin-bottom: 0px;background-color:white;box-shadow:1px 5px 10px rgba(0,0,0,0.1);position: relative;border-radius:5px;'
+          [ngStyle]='{"width" : ((widtherget() - 15)/rounder(widtherget() / 100)) - 15 +"px"   }'>
+          <div style='width:100%;cursor: pointer;'>
+            <div style='width:100%;padding-bottom:100%;position: relative;'>
+              <img
+                style='width:100%;height:100%;top:0;left:0;right:0;bottom:0;position: absolute;z-index:10;object-fit: cover;border-radius:5px;'
+                src="{{eve.name}}" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="item.respond"
+        style="font-size: 12px; color: #999999; letter-spacing: 1px; margin-top: 10px; margin-top: 15px;">{{language['Responded on'][lang]}}
+        {{item.date |
+        date:'hh:mma, dd MMM yyyy'}}</div>
+
+      <div style='width:100%;' *ngIf="!item.respond">
+        <div style='width:calc( 100% - 40px );margin:20px;padding:20px;display:flex;justify-content: center;
+            align-items: center;background-color: white;flex-direction: column;'>
+          <img style='width:200px;' src="assets/nothing.gif" alt="">
+          <div style='font-size:16px;font-weight: bold;color:#666666;text-align: center;'>{{language['Nothing Here'][lang]}}</div>
+          <div style='padding-top:5px;font-size:14px;font-weight: normal;color:#666666;text-align: center;'>
+            {{language['Support havent respond this ticket'][lang]}}</div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+</ion-content>
